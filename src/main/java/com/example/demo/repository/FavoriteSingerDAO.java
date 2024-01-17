@@ -1,14 +1,10 @@
-// package com.datn.repository;
+package com.example.demo.repository;
 
-// import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.composite.FavoriteSingerId;
+import com.example.demo.entity.FavoriteSinger;
 
-// import com.datn.entity.Account;
-// import com.datn.entity.FavoriteAlbum;
-// import com.datn.entity.FavoriteSinger;
-// import com.datn.entity.Singer;
+public interface FavoriteSingerDAO extends JpaRepository<FavoriteSinger, FavoriteSingerId> {
 
-// public interface FavoriteSingerDAO extends JpaRepository<FavoriteSinger, Long> {
-
-// }
+}

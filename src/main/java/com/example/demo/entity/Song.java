@@ -48,4 +48,8 @@ public class Song {
 	@JsonIgnore
 	@OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
 	private List<SongGenre> songGenres;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
+	private List<FavoriteSong> favoriteSong;
 }

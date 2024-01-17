@@ -3,8 +3,11 @@ package com.example.demo.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.example.demo.composite.FavoriteGenresId;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -21,38 +24,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "FavoriteSongs")
+@Table(name = "FavoriteGenre")
 public class FavoriteGenre {
+
+	@EmbeddedId
+	private FavoriteGenresId id;
+
+	@ManyToOne
+	@JoinColumn(name = "accountId", insertable = false, updatable = false)
+	private Account user;
+
+	@ManyToOne
+	@JoinColumn(name = "genresId", nullable = false, insertable = false, updatable = false)
+	private Genre genre;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "Createdate")
 	private Date likeDate = new Date();
 
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "account_id")
-	private Account user;
-
-	@Id
-	@ManyToOne
-	@JoinColumn(name = "GenreID", nullable = false)
-	private Genre genre;
-
-	@Embeddable
-	public static class FavoriteGenreId implements Serializable {
-		private static final long serialVersionUID = 1L;
-
-		private Long user;
-		private Long genre;
-
-		public FavoriteGenreId() {
-		}
-
-		public FavoriteGenreId(Long user, Long genre) {
-			this.user = user;
-			this.genre = genre;
-		}
-
-		// getters, setters, and equals/hashCode methods
-	}
 }

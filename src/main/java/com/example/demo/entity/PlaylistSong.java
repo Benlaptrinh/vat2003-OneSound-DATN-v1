@@ -1,5 +1,8 @@
 package com.example.demo.entity;
 
+import com.example.demo.composite.PlaylistSongId;
+
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,15 +20,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "PlaylistSong")
 public class PlaylistSong {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	
+	@EmbeddedId
+	private PlaylistSongId id;
 
 	@ManyToOne
-	@JoinColumn(name = "song_id")
+	@JoinColumn(name = "songId", insertable = false, updatable = false)
 	private Song song;
 
 	@ManyToOne
-	@JoinColumn(name = "playlist_id")
+	@JoinColumn(name = "playlistId", insertable = false, updatable = false)
 	private Playlist playlist;
 }

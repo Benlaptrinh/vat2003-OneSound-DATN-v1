@@ -1,5 +1,8 @@
 package com.example.demo.entity;
 
+import com.example.demo.composite.FollowUserId;
+
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -16,15 +19,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "followUsers")
 public class FollowUser {
+	
+	@EmbeddedId
+	private FollowUserId id;
+	
 
-	@Id
 	@ManyToOne
-	@JoinColumn(name = "account_id")
+	@JoinColumn(name = "accountId", insertable = false, updatable = false)
 	private Account user;
 
-	@Id
 	@ManyToOne
-	@JoinColumn(name = "following_id")
+	@JoinColumn(name = "followingId", insertable = false, updatable = false)
 	private Account following;
 
 }

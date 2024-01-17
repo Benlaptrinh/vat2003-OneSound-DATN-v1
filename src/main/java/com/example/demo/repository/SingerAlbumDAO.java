@@ -1,16 +1,10 @@
-// package com.datn.repository;
+package com.example.demo.repository;
 
-// import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
-// import org.springframework.data.jpa.repository.Query;
-// import org.springframework.data.repository.query.Param;
-// import org.springframework.stereotype.Repository;
+import com.example.demo.composite.SingerAlbumId;
+import com.example.demo.entity.SingerAlbum;
 
-// import com.datn.entity.Singer;
-// import com.datn.entity.SingerAlbum;
+public interface SingerAlbumDAO extends JpaRepository<SingerAlbum, SingerAlbumId> {
 
-// @Repository
-// public interface SingerAlbumDAO extends JpaRepository<SingerAlbum, String> {
-
-// }
+}

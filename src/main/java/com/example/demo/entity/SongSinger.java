@@ -1,5 +1,9 @@
 package com.example.demo.entity;
 
+import com.example.demo.composite.SongGenreId;
+import com.example.demo.composite.SongSingerId;
+
+import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -15,13 +19,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "SongSinger")
 public class SongSinger {
-	@Id
+	
+	@EmbeddedId
+	private SongSingerId id;
+	
+	
 	@ManyToOne
-	@JoinColumn(name = "song_id")
+	@JoinColumn(name = "songId", insertable = false, updatable = false)
 	private Song song;
 
-	@Id
+	
 	@ManyToOne
-	@JoinColumn(name = "singer_id")
+	@JoinColumn(name = "singerId", insertable = false, updatable = false)
 	private Singer singer;
 }
