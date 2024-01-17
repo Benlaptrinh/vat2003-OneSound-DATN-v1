@@ -1,9 +1,12 @@
-// package com.datn.repository;
+package com.example.demo.repository;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// import com.datn.entity.Singer;
+import com.example.demo.entity.Singer;
 
-// public interface SingerDAO extends JpaRepository<Singer, Long> {
+/**
+ * SingerDAO
+ */
+public interface SingerDAO extends JpaRepository<Singer, Long> {
 
-// }
+}

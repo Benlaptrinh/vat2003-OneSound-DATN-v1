@@ -39,9 +39,9 @@ public class Singer {
     @JsonIgnore
     @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL)
     private List<SongSinger> songSinger;
-    
+
     @JsonIgnore
     @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL)
     private List<FavoriteSinger> favoriteSinger;
-    
+
 }
