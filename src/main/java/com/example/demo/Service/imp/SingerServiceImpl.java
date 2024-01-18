@@ -34,11 +34,11 @@ public class SingerServiceImpl implements SingerService {
 
     @Override
     public Singer updateSinger(Long id, Singer singer) {
-        if (singerRepository.existsById(id)) {
-            singer.setId(id);
-            return singerRepository.save(singer);
-        }
-        return null; // Handle not found case
+        Singer employeeToUpdate = singerRepository.findById(id).orElse(null);
+        employeeToUpdate.setFullname(singer.getFullname());
+        employeeToUpdate.setDescription(singer.getDescription());
+        employeeToUpdate.setImage(singer.getImage());
+        return singerRepository.save(employeeToUpdate); // Handle not found case
     }
 
     @Override
