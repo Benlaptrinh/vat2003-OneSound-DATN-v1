@@ -19,4 +19,5 @@ public interface GenreService {
     void deleteGenre(Long id);
 
     Page<Genre> getAllGenre(Pageable pageable);
+
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -27,9 +28,16 @@ public class SingerServiceImpl implements SingerService {
         return singerRepository.findById(id).orElse(null);
     }
 
-    @Override
-    public Singer createSinger(Singer singer) {
-        return singerRepository.save(singer);
+    // @Override
+    // public Singer createSinger(Singer singer) {
+    // MultipartFile imageFile = singer.getImageFile();
+    // String imageUrl = saveImage(imageFile); // Implement saveImage method
+    // singer.setImage(imageUrl);
+    // return singerRepository.save(singer);
+    // }
+
+    private String saveImage(MultipartFile imageFile) {
+        return "https://example.com/uploads/" + imageFile.getOriginalFilename();
     }
 
     @Override
@@ -50,6 +58,19 @@ public class SingerServiceImpl implements SingerService {
     public Page<Singer> getAllSingers(org.springframework.data.domain.Pageable pageable) {
         return singerRepository.findAll(pageable);
 
+    }
+
+    @Override
+    public Singer createSinger(Singer singer, MultipartFile imageFile) {
+
+        String imageUrl = saveImage(imageFile);
+        singer.setImage(imageUrl);
+        return singerRepository.save(singer);
+    }
+
+    @Override
+    public Singer createSinger(Singer singer) {
+        return singerRepository.save(singer);
     }
 
 }

@@ -1,9 +1,14 @@
-// package com.datn.repository;
+package com.example.demo.repository;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// import com.datn.entity.Role;
+import com.example.demo.composite.SingerAlbumId;
+import com.example.demo.entity.Role;
+import com.example.demo.entity.SingerAlbum;
 
-// public interface RoleDAO extends JpaRepository<Role, Long> {
+/**
+ * RoleDAO
+ */
+public interface RoleDAO extends JpaRepository<Role, Long> {
 
-// }
+}

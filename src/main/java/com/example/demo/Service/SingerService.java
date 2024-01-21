@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface SingerService {
     List<Singer> getAllSingers();
@@ -20,5 +21,7 @@ public interface SingerService {
     void deleteSinger(Long id);
 
     Page<Singer> getAllSingers(Pageable pageable);
+
+    Singer createSinger(Singer singer, MultipartFile imageFile); // Chú thích thay đổi ở đây
 
 }

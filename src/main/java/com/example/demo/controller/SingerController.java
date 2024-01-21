@@ -9,10 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.example.demo.Service.SingerService;
+import com.example.demo.Service.UploadService;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +27,9 @@ public class SingerController {
 
     @Autowired
     private SingerService singerService;
+
+    @Autowired
+    UploadService uploadService;
 
     public SingerController(SingerService singerService) {
         this.singerService = singerService;
@@ -44,10 +51,31 @@ public class SingerController {
         return ResponseEntity.ok(employee);
     }
 
+    // @PostMapping("/Singer")
+    // public Singer createEmployee(@RequestBody Singer Singer) {
+    // System.out.println(Singer);
+    // return singerService.createSinger(Singer);
+    // }
+
+    // @PostMapping("/Singer")
+    // @ResponseStatus(HttpStatus.CREATED)
+    // public Singer createSinger(@RequestPart("imageFile") MultipartFile imageFile,
+    // @RequestPart("singer") Singer singer) {
+    // return singerService.createSinger(singer, imageFile);
+    // }
+
     @PostMapping("/Singer")
-    public Singer createEmployee(@RequestBody Singer Singer) {
-        System.out.println(Singer);
-        return singerService.createSinger(Singer);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Singer createSinger(@RequestPart("imageFile") MultipartFile imageFile,
+            @RequestPart("singer") Singer singer) {
+        // Lưu trữ file hình ảnh
+        File imagePath = uploadService.save(imageFile, "images");
+
+        // Gán đường dẫn file hình ảnh vào đối tượng Singer
+        singer.setImage(imagePath.toString());
+
+        // Tiếp tục xử lý đối tượng Singer và lưu vào cơ sở dữ liệu
+        return singerService.createSinger(singer);
     }
 
     @PutMapping("/Singer/{id}")
