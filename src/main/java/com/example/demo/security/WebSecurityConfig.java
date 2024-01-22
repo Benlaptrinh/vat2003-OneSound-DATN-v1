@@ -36,15 +36,17 @@ public class WebSecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(requests -> {
                     requests
-                            .requestMatchers(apiPrefix + "/users/register").permitAll()
+                            .requestMatchers(
+                                    String.format("%s/users/register", apiPrefix))
+                            .permitAll()
                             .requestMatchers(GET,
                                     String.format("%s/Role**", apiPrefix))
-                            .permitAll();
+                            .permitAll()
+                            .anyRequest().authenticated();
 
                 })
-                .cors()
-                .configurationSource(corsConfigurationSource());
 
+        ;
         return http.build();
     }
 
@@ -54,10 +56,8 @@ public class WebSecurityConfig {
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         configuration.setExposedHeaders(List.of("x-auth-token"));
-
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
-
         return source;
     }
 }
