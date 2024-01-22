@@ -35,9 +35,6 @@ public class Singer {
     private String description;
     private String image;
 
-    @Transient
-    private MultipartFile imageFile;
-
     @JsonIgnore
     @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL)
     private List<SingerAlbum> singerAlbums;

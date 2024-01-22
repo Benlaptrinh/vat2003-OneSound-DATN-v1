@@ -51,31 +51,10 @@ public class SingerController {
         return ResponseEntity.ok(employee);
     }
 
-    // @PostMapping("/Singer")
-    // public Singer createEmployee(@RequestBody Singer Singer) {
-    // System.out.println(Singer);
-    // return singerService.createSinger(Singer);
-    // }
-
-    // @PostMapping("/Singer")
-    // @ResponseStatus(HttpStatus.CREATED)
-    // public Singer createSinger(@RequestPart("imageFile") MultipartFile imageFile,
-    // @RequestPart("singer") Singer singer) {
-    // return singerService.createSinger(singer, imageFile);
-    // }
-
     @PostMapping("/Singer")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Singer createSinger(@RequestPart("imageFile") MultipartFile imageFile,
-            @RequestPart("singer") Singer singer) {
-        // Lưu trữ file hình ảnh
-        File imagePath = uploadService.save(imageFile, "images");
-
-        // Gán đường dẫn file hình ảnh vào đối tượng Singer
-        singer.setImage(imagePath.toString());
-
-        // Tiếp tục xử lý đối tượng Singer và lưu vào cơ sở dữ liệu
-        return singerService.createSinger(singer);
+    public Singer createEmployee(@RequestBody Singer Singer) {
+        System.out.println(Singer);
+        return singerService.createSinger(Singer);
     }
 
     @PutMapping("/Singer/{id}")

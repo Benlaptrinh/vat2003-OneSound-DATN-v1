@@ -61,15 +61,8 @@ public class SingerServiceImpl implements SingerService {
     }
 
     @Override
-    public Singer createSinger(Singer singer, MultipartFile imageFile) {
-
-        String imageUrl = saveImage(imageFile);
-        singer.setImage(imageUrl);
-        return singerRepository.save(singer);
-    }
-
-    @Override
     public Singer createSinger(Singer singer) {
+
         return singerRepository.save(singer);
     }
 

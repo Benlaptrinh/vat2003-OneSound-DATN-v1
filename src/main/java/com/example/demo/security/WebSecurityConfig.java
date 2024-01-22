@@ -44,6 +44,16 @@ public class WebSecurityConfig {
                                                         .requestMatchers(GET,
                                                                         String.format("%s/Role**", apiPrefix))
                                                         .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/Singer**", apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Genre**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Singer/**", apiPrefix))
+                                                        .permitAll()
                                                         .requestMatchers(GET,
                                                                         String.format("%s/Role/**", apiPrefix))
                                                         .permitAll()
@@ -60,7 +70,7 @@ public class WebSecurityConfig {
                                                         .requestMatchers(GET,
                                                                         String.format("%s/users**", apiPrefix))
                                                         .permitAll()
-                                                        .requestMatchers(GET,
+                                                        .requestMatchers(POST,
                                                                         String.format("%s/users**", apiPrefix))
                                                         .permitAll()
 

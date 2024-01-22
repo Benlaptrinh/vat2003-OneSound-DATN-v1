@@ -22,6 +22,4 @@ public interface SingerService {
 
     Page<Singer> getAllSingers(Pageable pageable);
 
-    Singer createSinger(Singer singer, MultipartFile imageFile); // Chú thích thay đổi ở đây
-
 }
