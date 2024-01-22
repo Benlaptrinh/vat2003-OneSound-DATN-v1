@@ -25,7 +25,7 @@ public class SecurityConfig {
         return mail -> AccountDAO
                 .findByEmail(mail)
                 .orElseThrow(() -> new UsernameNotFoundException(
-                        "Cannot find user with mail  = " + mail));
+                        "Cannot find user with mail = " + mail));
     }
 
     @Bean
