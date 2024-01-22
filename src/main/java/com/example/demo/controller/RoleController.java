@@ -23,7 +23,7 @@ import com.example.demo.entity.Role;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("${api.prefix}")
 public class RoleController {
     @Autowired
     private RoleService RoleService;

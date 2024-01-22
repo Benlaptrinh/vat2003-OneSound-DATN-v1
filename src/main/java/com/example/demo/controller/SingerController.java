@@ -22,7 +22,7 @@ import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("${api.prefix}")
 public class SingerController {
 
     @Autowired

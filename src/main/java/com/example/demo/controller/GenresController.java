@@ -27,7 +27,7 @@ import com.example.demo.entity.Singer;
  */
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("${api.prefix}")
 public class GenresController {
 
     @Autowired
