@@ -1,6 +1,8 @@
 package com.example.demo.security;
 
+import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,37 +29,50 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    @Value("${api.prefix}")
-    private String apiPrefix;
+        @Value("${api.prefix}")
+        private String apiPrefix;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(requests -> {
-                    requests
-                            .requestMatchers(
-                                    String.format("%s/users/register", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/Role**", apiPrefix))
-                            .permitAll()
-                            .anyRequest().authenticated();
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .authorizeHttpRequests(requests -> {
+                                        requests
+                                                        .requestMatchers(
+                                                                        String.format("%s/users/register", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Role**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Role/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/Role**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/Role/**", apiPrefix))
+                                                        .permitAll()
 
-                })
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/users/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/users**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/users**", apiPrefix))
+                                                        .permitAll()
 
-        ;
-        return http.build();
-    }
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/users/**", apiPrefix))
+                                                        .permitAll()
 
-    private UrlBasedCorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
-        configuration.setExposedHeaders(List.of("x-auth-token"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+                                                        .anyRequest().authenticated();
+                                })
+
+                ;
+                return http.build();
+        }
+
 }

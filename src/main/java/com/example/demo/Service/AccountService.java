@@ -1,8 +1,17 @@
 package com.example.demo.Service;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.example.demo.entity.Account;
+import com.example.demo.entity.Role;
 
 public interface AccountService {
+    List<Account> getAllAccount();
+
+    Page<Account> getAllAccount(Pageable pageable);
 
     Account createAccount(Account account);
 

@@ -16,4 +16,6 @@ import com.example.demo.entity.Account;
 public interface AccountDAO extends JpaRepository<Account, Long> {
     Optional<Account> findByEmail(String email);
 
+    boolean existsByEmail(String email);
+
 }
