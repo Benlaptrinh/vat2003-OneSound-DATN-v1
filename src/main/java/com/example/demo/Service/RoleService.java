@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.example.demo.entity.Role;
-import com.example.demo.entity.Singer;
 
 public interface RoleService {
     Role createRole(Role Role);
