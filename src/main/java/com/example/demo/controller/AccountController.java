@@ -6,6 +6,7 @@ import com.example.demo.Service.RoleService;
 import com.example.demo.entity.Account;
 import com.example.demo.entity.Genre;
 import com.example.demo.entity.Role;
+import com.example.demo.entity.UserLoginDTO;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,28 @@ public class AccountController {
             return ResponseEntity.ok("User registered successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@Valid @RequestBody UserLoginDTO userLoginDTO) {
+        try {
+            String token = accountService.login(userLoginDTO.getEmail(), userLoginDTO.getPassword());
+            return ResponseEntity.ok(token);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/details")
+    public ResponseEntity<Account> getUserDetails(
+            @RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            String extractedToken = authorizationHeader.substring(7);
+            Account user = accountService.getUserDetailsFromToken(extractedToken);
+            return (ResponseEntity<Account>) ResponseEntity.ok(user);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 

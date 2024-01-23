@@ -36,10 +36,6 @@ public class SingerServiceImpl implements SingerService {
     // return singerRepository.save(singer);
     // }
 
-    private String saveImage(MultipartFile imageFile) {
-        return "https://example.com/uploads/" + imageFile.getOriginalFilename();
-    }
-
     @Override
     public Singer updateSinger(Long id, Singer singer) {
         Singer employeeToUpdate = singerRepository.findById(id).orElse(null);

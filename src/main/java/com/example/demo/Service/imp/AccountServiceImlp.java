@@ -1,10 +1,14 @@
 package com.example.demo.Service.imp;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,7 @@ import com.example.demo.entity.Account;
 import com.example.demo.entity.Role;
 import com.example.demo.repository.AccountDAO;
 import com.example.demo.repository.RoleDAO;
+import com.example.demo.ultis.JwtTokenUtil;
 
 @Service
 public class AccountServiceImlp implements AccountService {
@@ -26,19 +31,24 @@ public class AccountServiceImlp implements AccountService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     @Override
     public Account createAccount(Account account) {
         if (AccountDAO.existsByEmail(account.getEmail())) {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
 
-        Role userRole = RoleDAO.findById(6L).orElseThrow();
+        Role userRole = RoleDAO.findById(2L).orElseThrow();
         String password = account.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         account.setPassword(encodedPassword);
         account.setAccountRole(userRole);
 
-        // Save the account only if the email doesn't exist
         Account savedAccount = AccountDAO.save(account);
         System.out.println(savedAccount);
         return savedAccount;
@@ -46,37 +56,71 @@ public class AccountServiceImlp implements AccountService {
 
     @Override
     public Account updateAccount(Account account) {
-        // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateAccount'");
     }
 
     @Override
     public void deleteAccount(Long accountId) {
-        // TODO Auto-generated method stub
         AccountDAO.deleteById(accountId);
     }
 
     @Override
     public Account getAccountById(Long accountId) {
-        // TODO Auto-generated method stub
         return AccountDAO.findById(accountId).orElse(null);
     }
 
     @Override
     public Account getAccountByEmail(String email) {
-        // TODO Auto-generated method stub
         return AccountDAO.findByEmail(email).orElseThrow();
     }
 
     @Override
     public List<Account> getAllAccount() {
-        // TODO Auto-generated method stub
         return AccountDAO.findAll();
     }
 
     @Override
     public Page<Account> getAllAccount(Pageable pageable) {
         return AccountDAO.findAll(pageable);
+    }
+
+    @Override
+    public String login(String mail, String password) throws Exception {
+        Optional<Account> optionalUser = AccountDAO.findByEmail(mail);
+
+        if (optionalUser.isEmpty()) {
+            throw new Exception("Invalid phone mail / password");
+        }
+
+        Account existingUser = optionalUser.get();
+        if (!passwordEncoder.matches(password, existingUser.getPassword())) {
+            throw new BadCredentialsException("Wrong phone number or password");
+        }
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                mail, password,
+                existingUser.getAuthorities());
+
+        authenticationManager.authenticate(authenticationToken);
+
+        return jwtTokenUtil.generateToken(existingUser);
+
+    }
+
+    @Override
+    public Account getUserDetailsFromToken(String token) throws Exception {
+        // TODO Auto-generated method stub
+        if (jwtTokenUtil.isTokenExpired(token)) {
+            throw new Exception("Token is expired");
+        }
+        String phoneNumber = jwtTokenUtil.extractPhoneNumber(token);
+        Optional<Account> user = AccountDAO.findByEmail(phoneNumber);
+
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new Exception("User not found");
+        }
     }
 
 }

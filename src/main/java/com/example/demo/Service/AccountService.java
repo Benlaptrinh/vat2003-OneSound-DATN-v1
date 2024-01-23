@@ -9,7 +9,10 @@ import com.example.demo.entity.Account;
 import com.example.demo.entity.Role;
 
 public interface AccountService {
+
     List<Account> getAllAccount();
+
+    Account getUserDetailsFromToken(String token) throws Exception;
 
     Page<Account> getAllAccount(Pageable pageable);
 
@@ -22,4 +25,7 @@ public interface AccountService {
     Account getAccountById(Long accountId);
 
     Account getAccountByEmail(String email);
+
+    String login(String mail, String password) throws Exception;
+
 }
