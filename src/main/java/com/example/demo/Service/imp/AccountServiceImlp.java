@@ -55,8 +55,30 @@ public class AccountServiceImlp implements AccountService {
     }
 
     @Override
-    public Account updateAccount(Account account) {
-        throw new UnsupportedOperationException("Unimplemented method 'updateAccount'");
+    public Account updateAccount(Long id, Account account) {
+        Account existingAccount = AccountDAO.findById(id).orElse(null);
+
+        if (existingAccount == null) {
+            throw new IllegalArgumentException("Account not found with id: " + id);
+        }
+
+        // Check if the email is being updated to an existing email
+        String newEmail = account.getEmail();
+        if (!newEmail.equals(existingAccount.getEmail()) && AccountDAO.existsByEmail(newEmail)) {
+            throw new IllegalArgumentException("An account with this email already exists.");
+        }
+
+        // Update other fields if needed
+        existingAccount.setFullname(account.getFullname());
+        existingAccount.setEmail(newEmail);
+        existingAccount.setAddress(account.getAddress());
+        existingAccount.setAvatar_url(account.getAvatar_url());
+        existingAccount.setGender(account.isGender());
+
+        // Update other fields as needed
+
+        Account updatedAccountEntity = AccountDAO.save(existingAccount);
+        return updatedAccountEntity;
     }
 
     @Override
@@ -109,7 +131,6 @@ public class AccountServiceImlp implements AccountService {
 
     @Override
     public Account getUserDetailsFromToken(String token) throws Exception {
-        // TODO Auto-generated method stub
         if (jwtTokenUtil.isTokenExpired(token)) {
             throw new Exception("Token is expired");
         }
@@ -121,6 +142,11 @@ public class AccountServiceImlp implements AccountService {
         } else {
             throw new Exception("User not found");
         }
+    }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        return AccountDAO.existsByEmail(email);
     }
 
 }

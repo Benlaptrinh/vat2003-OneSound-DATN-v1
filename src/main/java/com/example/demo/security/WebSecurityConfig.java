@@ -3,6 +3,7 @@ package com.example.demo.security;
 import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
+import static org.springframework.http.HttpMethod.PUT;
 
 import java.util.Arrays;
 import java.util.List;
@@ -75,6 +76,14 @@ public class WebSecurityConfig {
                                                         .permitAll()
 
                                                         .requestMatchers(POST,
+                                                                        String.format("%s/users/**", apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/users**", apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(PUT,
                                                                         String.format("%s/users/**", apiPrefix))
                                                         .permitAll()
 

@@ -6,7 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.example.demo.entity.Account;
-import com.example.demo.entity.Role;
 
 public interface AccountService {
 
@@ -18,7 +17,7 @@ public interface AccountService {
 
     Account createAccount(Account account);
 
-    Account updateAccount(Account account);
+    Account updateAccount(Long id, Account account);
 
     void deleteAccount(Long accountId);
 
@@ -27,5 +26,7 @@ public interface AccountService {
     Account getAccountByEmail(String email);
 
     String login(String mail, String password) throws Exception;
+
+    boolean existsByEmail(String email);
 
 }

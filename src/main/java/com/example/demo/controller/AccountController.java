@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("${api.prefix}/users")
@@ -91,6 +92,26 @@ public class AccountController {
     public ResponseEntity<Account> getUserByEmail(@RequestParam String mail) {
         Account account = accountService.getAccountByEmail(mail);
         return ResponseEntity.ok(account);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateUser(
+            @PathVariable Long id,
+            @Valid @RequestBody Account updatedAccount,
+            BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> errors = result.getFieldErrors()
+                    .stream()
+                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        try {
+            accountService.updateAccount(id, updatedAccount);
+            return ResponseEntity.ok("User updated successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 }
