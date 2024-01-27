@@ -46,12 +46,12 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@Valid @RequestBody UserLoginDTO userLoginDTO) {
+    public ResponseEntity<Void> login(@Valid @RequestBody UserLoginDTO userLoginDTO) {
         try {
             String token = accountService.login(userLoginDTO.getEmail(), userLoginDTO.getPassword());
-            return ResponseEntity.ok(token);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().build();
         }
     }
 
