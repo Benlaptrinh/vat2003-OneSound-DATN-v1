@@ -46,6 +46,10 @@ public class WebSecurityConfig {
                                                                         String.format("%s/users**", apiPrefix))
                                                         .permitAll()
 
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/users/details", apiPrefix))
+                                                        .permitAll()
+
                                                         .requestMatchers(
                                                                         String.format("%s/users/**", apiPrefix))
                                                         .permitAll()

@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserLoginDTO {
+    @JsonProperty("email")
     private String email;
-
+    @JsonProperty("password")
     private String password;
 }

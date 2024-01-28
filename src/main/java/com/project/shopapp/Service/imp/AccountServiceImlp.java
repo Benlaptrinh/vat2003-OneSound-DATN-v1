@@ -17,6 +17,7 @@ import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.entity.Account;
 import com.project.shopapp.entity.Role;
 import com.project.shopapp.repository.AccountDAO;
+import com.project.shopapp.security.DataNotFoundException;
 import com.project.shopapp.security.JwtTokenUtil;
 
 @Service
@@ -108,23 +109,16 @@ public class AccountServiceImlp implements AccountService {
 
     @Override
     public String login(String mail, String password) throws Exception {
+
         Optional<Account> optionalUser = AccountDAO.findByEmail(mail);
 
-        if (optionalUser.isEmpty()) {
-            throw new Exception("Invalid phone mail / password");
-        }
-
         Account existingUser = optionalUser.get();
-        if (!passwordEncoder.matches(password, existingUser.getPassword())) {
-            throw new BadCredentialsException("Wrong phone number or password");
-        }
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 mail, password,
                 existingUser.getAuthorities());
 
         authenticationManager.authenticate(authenticationToken);
-
         return jwtTokenUtil.generateToken(existingUser);
 
     }

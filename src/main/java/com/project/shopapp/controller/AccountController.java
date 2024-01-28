@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.entity.Account;
 import com.project.shopapp.entity.UserLoginDTO;
+import com.project.shopapp.utils.LoginResponse;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,12 +47,19 @@ public class AccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Void> login(@Valid @RequestBody UserLoginDTO userLoginDTO) {
+    public ResponseEntity<LoginResponse> login(
+            @Valid @RequestBody UserLoginDTO userLoginDTO) {
+        // Kiểm tra thông tin đăng nhập và sinh token
         try {
-            String token = accountService.login(userLoginDTO.getEmail(), userLoginDTO.getPassword());
-            return ResponseEntity.ok().build();
+            String token = accountService.login(
+                    userLoginDTO.getEmail(),
+                    userLoginDTO.getPassword());
+            return ResponseEntity.ok(LoginResponse.builder()
+                    .token(token)
+                    .build());
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
+
         }
     }
 
@@ -61,7 +69,7 @@ public class AccountController {
         try {
             String extractedToken = authorizationHeader.substring(7);
             Account user = accountService.getUserDetailsFromToken(extractedToken);
-            return (ResponseEntity<Account>) ResponseEntity.ok(user);
+            return ResponseEntity.ok(user);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
