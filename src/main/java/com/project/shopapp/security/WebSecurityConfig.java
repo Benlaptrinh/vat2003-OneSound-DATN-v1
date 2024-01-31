@@ -99,6 +99,28 @@ public class WebSecurityConfig {
                                                         .permitAll()
 
                                                         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                                                        // ------------------------Album--------------------//
+                                                        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/album**", apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/album/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/album**", apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/album/**", apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/album/**", apiPrefix))
+                                                        .permitAll()
+
+                                                        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
                                                         // ------------------------Role--------------------//
                                                         // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
                                                         .requestMatchers(GET,

@@ -16,6 +16,8 @@ import com.project.shopapp.entity.Singer;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -35,6 +37,11 @@ public class SingerController {
     @GetMapping("/Singer")
     public List<Singer> getAllSingers() {
         return singerService.getAllSingers();
+    }
+
+    @GetMapping("/Singer/get-singer-by-name")
+    public Singer gétingerByName(@RequestParam String name) {
+        return singerService.getSingersByName(name);
     }
 
     @GetMapping("/Singer/Singers")

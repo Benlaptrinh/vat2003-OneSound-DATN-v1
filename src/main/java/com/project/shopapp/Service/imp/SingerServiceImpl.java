@@ -62,4 +62,10 @@ public class SingerServiceImpl implements SingerService {
         return singerRepository.save(singer);
     }
 
+    @Override
+    public Singer getSingersByName(String name) {
+        return singerRepository.findByFullnameIgnoreCaseContaining(name);
+
+    }
+
 }

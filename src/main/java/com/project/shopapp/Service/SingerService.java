@@ -14,6 +14,8 @@ public interface SingerService {
 
     Singer getSingerById(Long id);
 
+    Singer getSingersByName(String name);
+
     Singer createSinger(Singer singer);
 
     Singer updateSinger(Long id, Singer singer);

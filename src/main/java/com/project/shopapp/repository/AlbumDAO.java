@@ -1,8 +1,9 @@
-// package com.datn.repository;
+package com.project.shopapp.repository;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// import com.datn.entity.Album;
+import com.project.shopapp.entity.Album;
 
-// public interface AlbumDAO extends JpaRepository<Album, Long>{
-// }
+public interface AlbumDAO extends JpaRepository<Album, Long> {
+
+}

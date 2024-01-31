@@ -1,5 +1,6 @@
 package com.project.shopapp.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +29,9 @@ public class Album {
 	private String title;
 	private String image;
 	private Integer releaseYear;
+	@Temporal(TemporalType.DATE)
+	private Date albumCreateDate = new Date();
+
 	private String description;
 
 	@JsonIgnore
