@@ -24,4 +24,32 @@ public class AlbumServiceImlp implements AlbumService {
         return albumDAO.findAll(pageable);
     }
 
+    @Override
+    public Album getAlbumById(Long id) {
+        return albumDAO.findById(id).orElse(null);
+    }
+
+    @Override
+    public Album createAlbum(Album Album) {
+        return albumDAO.save(Album);
+    }
+
+    @Override
+    public Album updateAlbum(Long id, Album Album) {
+        Album oldAlbum = getAlbumById(id);
+        if (oldAlbum == null)
+            throw new IllegalArgumentException("No such album exists!");
+        else {
+            return albumDAO.save(Album);
+        }
+
+    }
+
+    @Override
+    public void deleteAlbum(Long id) {
+        Album Album = getAlbumById(id);
+        albumDAO.delete(Album);
+
+    }
+
 }

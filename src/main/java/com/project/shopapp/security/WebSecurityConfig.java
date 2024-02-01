@@ -109,7 +109,7 @@ public class WebSecurityConfig {
                                                                         String.format("%s/album/**", apiPrefix))
                                                         .permitAll()
                                                         .requestMatchers(POST,
-                                                                        String.format("%s/album**", apiPrefix))
+                                                                        String.format("%s/album/create", apiPrefix))
                                                         .permitAll()
 
                                                         .requestMatchers(PUT,
@@ -118,6 +118,32 @@ public class WebSecurityConfig {
 
                                                         .requestMatchers(DELETE,
                                                                         String.format("%s/album/**", apiPrefix))
+                                                        .permitAll()
+
+                                                        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                                                        // ------------------------Singer Album--------------------//
+                                                        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/singerAlbum/**", apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/singerAlbum/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/singerAlbum/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/singerAlbum/create",
+                                                                                        apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/singerAlbum/**", apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/albumAlbum/**", apiPrefix))
                                                         .permitAll()
 
                                                         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
