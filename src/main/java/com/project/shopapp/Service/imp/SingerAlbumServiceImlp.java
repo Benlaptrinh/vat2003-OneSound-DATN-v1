@@ -14,6 +14,8 @@ import com.project.shopapp.repository.AlbumDAO;
 import com.project.shopapp.repository.SingerAlbumDAO;
 import com.project.shopapp.repository.SingerDAO;
 
+import jakarta.persistence.EntityNotFoundException;
+
 @Service
 public class SingerAlbumServiceImlp implements SingerAlbumService {
 
@@ -38,18 +40,40 @@ public class SingerAlbumServiceImlp implements SingerAlbumService {
 
     @Override
     public SingerAlbum addSingerAlbum(SingerAlbumId singerAlbumId) {
+
         SingerAlbum singerAlbum = new SingerAlbum();
 
-        Singer s = new Singer();
-        s = sdao.findById(singerAlbumId.getSingerId()).get();
+        // Tìm kiếm Singer
+        Singer s = sdao.findById(singerAlbumId.getSingerId())
+                .orElseThrow(() -> new EntityNotFoundException("Singer not found"));
 
-        Album a = new Album();
-        a = adao.findById(singerAlbumId.getAlbumId()).get();
+        // Tìm kiếm Album
+        Album a = adao.findById(singerAlbumId.getAlbumId())
+                .orElseThrow(() -> new EntityNotFoundException("Album not found"));
 
         singerAlbum.setAlbum(a);
         singerAlbum.setSinger(s);
         singerAlbum.setId(singerAlbumId);
+
         return singerAlbumDao.save(singerAlbum);
+    }
+
+    @Override
+    public void removeSingerAlbum(Long albumId) {
+
+        // // Tìm kiếm Album
+        // Album a = adao.findById(singerAlbumId)
+        // .orElseThrow(() -> new EntityNotFoundException("Album not found"));
+
+        List<SingerAlbum> singerAlbum = singerAlbumDao.findAllByAlbumId(albumId);
+
+        singerAlbumDao.deleteAll(singerAlbum);
+
+    }
+
+    @Override
+    public void deleteByAlbumId(Long albumId) {
+        singerAlbumDao.deleteByAlbumId(albumId);
     }
 
 }

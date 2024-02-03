@@ -12,4 +12,7 @@ public interface SingerAlbumService {
 
     SingerAlbum addSingerAlbum(SingerAlbumId singerAlbumId);
 
+    void removeSingerAlbum(Long singerAlbumId);
+
+    void deleteByAlbumId(Long albumId);
 }

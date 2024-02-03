@@ -24,4 +24,6 @@ public interface SingerService {
 
     Page<Singer> getAllSingers(Pageable pageable);
 
+    List<Singer> findAllSingerByAlbumId(Long albumId);
+
 }

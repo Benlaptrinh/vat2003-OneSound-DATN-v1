@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,6 +46,17 @@ public class SingerAlbumController {
     @PostMapping("singerAlbum/create")
     public SingerAlbum createAlbum(@RequestBody SingerAlbumId singerAlbumId) {
         return SingerAlbumService.addSingerAlbum(singerAlbumId);
+    }
+
+    @DeleteMapping("singerAlbum/delete/{id}")
+    public void deleteAlbum(@PathVariable("id") Long singerAlbumId) {
+        SingerAlbumService.removeSingerAlbum(singerAlbumId);
+    }
+
+    // Xóa singer album theo album id
+    @DeleteMapping("singerAlbum/deleteByAlbumId/{id}")
+    public void deleteByAlbumId(@PathVariable("id") Long AlbumId) {
+        SingerAlbumService.removeSingerAlbum(AlbumId);
     }
 
 }
