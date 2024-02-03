@@ -37,15 +37,14 @@ public class SingerAlbumServiceImlp implements SingerAlbumService {
     }
 
     @Override
-    public SingerAlbum addSingerAlbum(Long singerId, Long albumId) {
+    public SingerAlbum addSingerAlbum(SingerAlbumId singerAlbumId) {
         SingerAlbum singerAlbum = new SingerAlbum();
-        SingerAlbumId singerAlbumId = new SingerAlbumId(singerId, albumId);
 
         Singer s = new Singer();
-        s = sdao.findById(singerId).get();
+        s = sdao.findById(singerAlbumId.getSingerId()).get();
 
         Album a = new Album();
-        a = adao.findById(albumId).get();
+        a = adao.findById(singerAlbumId.getAlbumId()).get();
 
         singerAlbum.setAlbum(a);
         singerAlbum.setSinger(s);
