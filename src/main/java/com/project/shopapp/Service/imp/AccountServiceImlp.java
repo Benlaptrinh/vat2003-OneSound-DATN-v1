@@ -4,7 +4,9 @@ package com.project.shopapp.Service.imp;
 import java.util.List;
 import java.util.Optional;
 
+import com.project.shopapp.utils.UpdateUserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,9 +24,56 @@ import com.project.shopapp.security.JwtTokenUtil;
 
 @Service
 public class AccountServiceImlp implements AccountService {
+    @Override
+    public Account updateAccount(Long id, UpdateUserDTO updateUserDTO) {
+        Account existingUser = AccountDAO.findById(id)
+                .orElseThrow();
+
+        // Check if the phone number is being changed and if it already exists for
+        // another user
+        String mail = updateUserDTO.getEmail();
+        if (!existingUser.getEmail().equals(mail) &&
+                AccountDAO.existsByEmail(mail)) {
+            throw new DataIntegrityViolationException("Email  already exists");
+        }
+
+        if (updateUserDTO.getFullName() != null) {
+            existingUser.setFullname(updateUserDTO.getFullName());
+        }
+
+        if (updateUserDTO.getAddress() != null) {
+            existingUser.setAddress(updateUserDTO.getAddress());
+        }
+
+        if (updateUserDTO.getCreatedDate() != null) {
+            existingUser.setCreatedDate(updateUserDTO.getCreatedDate());
+        }
+        if (updateUserDTO.getAvatar_url() != null) {
+            existingUser.setAvatar_url(updateUserDTO.getAvatar_url());
+        }
+
+        if (updateUserDTO.isGender() != existingUser.isGender()) {
+            existingUser.setGender(updateUserDTO.isGender());
+        }
+
+        if (updateUserDTO.getPassword() != null
+                && !updateUserDTO.getPassword().isEmpty()) {
+
+            String newPassword = updateUserDTO.getPassword();
+            String encodedPassword = passwordEncoder.encode(newPassword);
+            existingUser.setPassword(encodedPassword);
+        }
+
+        return AccountDAO.save(existingUser);
+    }
 
     @Autowired
     private AccountDAO AccountDAO;
+
+    @Override
+    public Account getAccountByEmail(String email) {
+        return AccountDAO.findByEmail(email).orElseThrow();
+    }
 
     @Autowired
     private com.project.shopapp.repository.RoleDAO RoleDAO;
@@ -92,10 +141,6 @@ public class AccountServiceImlp implements AccountService {
         return AccountDAO.findById(accountId).orElse(null);
     }
 
-    @Override
-    public Account getAccountByEmail(String email) {
-        return AccountDAO.findByEmail(email).orElseThrow();
-    }
 
     @Override
     public List<Account> getAllAccount() {

@@ -4,7 +4,101 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7db67e01-6fbd-4ca4-ae2e-7eb1238ecebf" name="Changes" comment="" />
+    <list default="true" id="7db67e01-6fbd-4ca4-ae2e-7eb1238ecebf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/utils/UpdateUserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/utils/UpdateUserDTO$UpdateUserDTOBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/utils/UpdateUserDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f13dda79-0f88-49df-9440-22083cb017df.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f13dda79-0f88-49df-9440-22083cb017df/storage_v2/_src_/database/DATN_OneSound.8aVCGA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f13dda79-0f88-49df-9440-22083cb017df/storage_v2/_src_/database/DATN_OneSound.8aVCGA/schema/INFORMATION_SCHEMA.NBgcMw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f13dda79-0f88-49df-9440-22083cb017df/storage_v2/_src_/database/DATN_OneSound.8aVCGA/schema/dbo.sYMBAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f13dda79-0f88-49df-9440-22083cb017df/storage_v2/_src_/database/DATN_OneSound.8aVCGA/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/AccountServiceImlp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/AccountServiceImlp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/JwtTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/JwtTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/AccountService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/AccountService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/AlbumService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/AlbumService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/GenreService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/GenreService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/RoleService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/RoleService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/SingerAlbumService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/SingerAlbumService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/SingerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/SingerService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/UploadService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/UploadService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/AccountServiceImlp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/AccountServiceImlp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/AlbumServiceImlp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/AlbumServiceImlp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/GenreServiceimpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/GenreServiceimpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/RoleServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/RoleServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/SingerAlbumServiceImlp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/SingerAlbumServiceImlp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/SingerServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/SingerServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/UploadServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/UploadServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/ShopappApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/ShopappApplication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/FavoriteAlbumId.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/FavoriteAlbumId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/FavoriteGenresId.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/FavoriteGenresId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/FavoriteSingerId.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/FavoriteSingerId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/FavoriteSongId.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/FavoriteSongId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/FollowUserId.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/FollowUserId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/PlaylistSongId.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/PlaylistSongId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/SingerAlbumId.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/SingerAlbumId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/SongGenreId.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/SongGenreId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/SongSingerId.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/composite/SongSingerId.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/AccountController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/AlbumController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/AlbumController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/GenresController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/GenresController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/RoleController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/RoleController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/SingerAlbumController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/SingerAlbumController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/SingerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/SingerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/UploadRestController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/UploadRestController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Account.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Account.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Album.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Album.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/FavoriteAlbum.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/FavoriteAlbum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/FavoriteGenre.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/FavoriteGenre.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/FavoriteSinger.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/FavoriteSinger.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/FavoriteSong.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/FavoriteSong.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/FollowUser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/FollowUser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Genre.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Genre.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/PasswordResetToken.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/PasswordResetToken.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Playlist.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Playlist.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/PlaylistSong.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/PlaylistSong.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Role.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Role.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Singer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Singer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/SingerAlbum.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/SingerAlbum.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Song.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Song.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/SongGenre.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/SongGenre.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/SongSinger.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/SongSinger.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/UserLoginDTO$UserLoginDTOBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/UserLoginDTO$UserLoginDTOBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/UserLoginDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/UserLoginDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/AccountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/AccountDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/AlbumDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/AlbumDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/FavoriteAlbumDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/FavoriteAlbumDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/FavoriteGenresDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/FavoriteGenresDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/FavoriteSingerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/FavoriteSingerDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/FavoriteSongDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/FavoriteSongDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/FollowDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/FollowDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/GenreDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/GenreDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/PlaylistSongDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/PlaylistSongDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/RoleDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/RoleDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/SingerAlbumDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/SingerAlbumDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/SingerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/SingerDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/SongGenreDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/SongGenreDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/SongSingerDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/SongSingerDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/DataNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/DataNotFoundException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/InvalidParamException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/InvalidParamException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/JwtTokenFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/JwtTokenFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/JwtTokenUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/JwtTokenUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/PermissionDenyException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/PermissionDenyException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/RessourceNotFoundException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/RessourceNotFoundException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/utils/LoginResponse$LoginResponseBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/utils/LoginResponse$LoginResponseBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/utils/LoginResponse.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/utils/LoginResponse.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/utils/WebUtils.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/utils/WebUtils.class" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,31 +136,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ShopappApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;alaxed&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.ShopappApplication.executor": "Run",
+    "git-widget-placeholder": "Merging anhTai02",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;sqlserver&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "sqlserver"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="ShopappApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
@@ -104,7 +198,7 @@
       <workItem from="1706929790315" duration="2560000" />
       <workItem from="1706974245185" duration="1199000" />
       <workItem from="1707045817222" duration="1556000" />
-      <workItem from="1707051794480" duration="2415000" />
+      <workItem from="1707051794480" duration="2722000" />
     </task>
     <servers />
   </component>
