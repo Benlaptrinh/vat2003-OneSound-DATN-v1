@@ -1,5 +1,6 @@
 package com.project.shopapp.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.shopapp.Service.AlbumService;
+import com.project.shopapp.Service.GenreService;
 import com.project.shopapp.entity.Album;
+import com.project.shopapp.entity.Genre;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,13 +45,18 @@ public class AlbumController {
         return albumService.getAlbumById(id);
     }
 
+    @GetMapping("album/getAlbumByTitle/{title}")
+    public Page<Album> getAlbumByTitle(@PathVariable("title") String title, Pageable pageable) {
+        return albumService.findByTitleContainingIgnoreCase(title, pageable);
+    }
+
     @PostMapping("album/create")
     public Album createAlbum(@RequestBody Album album) {
         return albumService.createAlbum(album);
 
     }
 
-    @PutMapping("album/{id}")
+    @PutMapping("album/update/{id}")
     public Album updateAlbum(@PathVariable Long id, @RequestBody Album album) {
 
         return albumService.updateAlbum(id, album);

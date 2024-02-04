@@ -55,6 +55,12 @@ public class SingerController {
         return ResponseEntity.ok(employee);
     }
 
+    @GetMapping("/Singer/getAllByAlbumId/{id}")
+    public List<Singer> getAllSingerByAlbumId(@PathVariable Long id) {
+        List<Singer> singers = singerService.findAllSingerByAlbumId(id);
+        return singers;
+    }
+
     @PostMapping("/Singer")
     public Singer createEmployee(@RequestBody Singer Singer) {
         System.out.println(Singer);

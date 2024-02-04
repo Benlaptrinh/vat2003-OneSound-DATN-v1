@@ -68,4 +68,9 @@ public class SingerServiceImpl implements SingerService {
 
     }
 
+    @Override
+    public List<Singer> findAllSingerByAlbumId(Long albumId) {
+        return singerRepository.findAllSingerByAlbumId(albumId);
+    }
+
 }

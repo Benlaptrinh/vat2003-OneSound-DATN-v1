@@ -1,5 +1,7 @@
 package com.project.shopapp.Service.imp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -50,6 +52,16 @@ public class AlbumServiceImlp implements AlbumService {
         Album Album = getAlbumById(id);
         albumDAO.delete(Album);
 
+    }
+
+    @Override
+    public List<Album> findByTitleContaining(String title) {
+        return albumDAO.findByTitleContainingIgnoreCase(title);
+    }
+
+    @Override
+    public Page<Album> findByTitleContainingIgnoreCase(String title, Pageable pageable) {
+        return albumDAO.findByTitleContainingIgnoreCase(title, pageable);
     }
 
 }

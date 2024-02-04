@@ -1,5 +1,7 @@
 package com.project.shopapp.Service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -17,4 +19,8 @@ public interface AlbumService {
     Album updateAlbum(Long id, Album Album);
 
     void deleteAlbum(Long id);
+
+    List<Album> findByTitleContaining(String title);
+
+    Page<Album> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 }
