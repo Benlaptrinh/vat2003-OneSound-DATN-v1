@@ -1,5 +1,6 @@
 package com.project.shopapp.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,11 @@ public class AlbumController {
     @GetMapping("album/getbyid/{id}")
     public Album getAlbumById(@PathVariable Long id) {
         return albumService.getAlbumById(id);
+    }
+
+    @GetMapping("album/getAlbumByTitle/{title}")
+    public Page<Album> getAlbumByTitle(@PathVariable("title") String title, Pageable pageable) {
+        return albumService.findByTitleContainingIgnoreCase(title, pageable);
     }
 
     @PostMapping("album/create")
