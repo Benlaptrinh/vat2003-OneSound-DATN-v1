@@ -2,6 +2,7 @@ package com.project.shopapp.Service;
 
 import java.util.List;
 
+import com.project.shopapp.utils.UpdateUserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,6 +19,9 @@ public interface AccountService {
     Account createAccount(Account account);
 
     Account updateAccount(Long id, Account account);
+
+    Account updateAccount(Long id, UpdateUserDTO updateUserDTO);
+
 
     void deleteAccount(Long accountId);
 

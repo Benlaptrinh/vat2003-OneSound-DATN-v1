@@ -1,8 +1,12 @@
 
 package com.project.shopapp.controller;
 
+import com.project.shopapp.entity.Singer;
+import com.project.shopapp.utils.UpdateUserDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -25,7 +29,11 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
-
+    @GetMapping("/email/{mail}")
+    public ResponseEntity<Boolean> checkEmailExists(@PathVariable String mail) {
+        boolean emailExists = accountService.existsByEmail(mail);
+        return ResponseEntity.ok(emailExists);
+    }
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody com.project.shopapp.entity.Account Account,
             BindingResult result) {
@@ -40,7 +48,7 @@ public class AccountController {
 
             System.out.println("createUser " + Account);
             accountService.createAccount(Account);
-            return ResponseEntity.ok("User registered successfully");
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -80,6 +88,11 @@ public class AccountController {
         return accountService.getAllAccount();
     }
 
+    @GetMapping("/page")
+    public Page<Account> getAllSingers(Pageable pageable) {
+        return accountService.getAllAccount(pageable);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUsere(@PathVariable long id) {
         Account employeeToDelete = accountService.getAccountById(id);
@@ -117,6 +130,18 @@ public class AccountController {
             return ResponseEntity.ok("User updated successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/details/{userId}")
+    public ResponseEntity<Account> updateUserDetails(
+            @PathVariable Long userId,
+            @RequestBody UpdateUserDTO updatedUserDTO) {
+        try {
+            Account updatedUser = accountService.updateAccount(userId, updatedUserDTO);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 
