@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -44,6 +45,7 @@ public class Account implements UserDetails {
 	private Long id;
 	private String password;
 	private String fullname;
+	@Column(unique = true) 
 	private String email;
 	private boolean active;
 	@Temporal(TemporalType.DATE)
@@ -51,7 +53,10 @@ public class Account implements UserDetails {
 
 	private String address;
 	private String avatar_url;
-	private boolean gender;
+	private String gender;
+	@Temporal(TemporalType.DATE)
+	private Date birthday;
+	private String phonenumber;
 
 	@ManyToOne
 	@JoinColumn(name = "role_id") // Đảm bảo tên cột khớp với tên cột trong cơ sở dữ liệu

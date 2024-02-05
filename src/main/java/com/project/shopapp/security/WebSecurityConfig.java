@@ -42,13 +42,35 @@ public class WebSecurityConfig {
                                                         // ------------------------users--------------------//
                                                         // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
 
-                                                        .requestMatchers(
-                                                                        String.format("%s/users**", apiPrefix))
-                                                        .permitAll()
+//                                                        .requestMatchers(GET,
+//                                                                        String.format("%s/users**", apiPrefix))
+//                                                        .permitAll()
+//
+//                                                        .requestMatchers(POST,
+//                                                                        String.format("%s/users/details", apiPrefix))
+//                                                        .permitAll()
+//
+//                                                        .requestMatchers(
+//                                                                        String.format("%s/users/**", apiPrefix))
+//                                                        .permitAll()
+//                                        
+                                        .requestMatchers(GET,
+                                                String.format("%s/users**", apiPrefix))
+                                .permitAll()
+                                .requestMatchers(GET,
+                                                String.format("%s/users/**", apiPrefix))
+                                .permitAll()
+                                .requestMatchers(POST,
+                                                String.format("%s/users**", apiPrefix))
+                                .permitAll()
 
-                                                        .requestMatchers(
-                                                                        String.format("%s/users/**", apiPrefix))
-                                                        .permitAll()
+                                .requestMatchers(PUT,
+                                                String.format("%s/users/**", apiPrefix))
+                                .permitAll()
+
+                                .requestMatchers(DELETE,
+                                                String.format("%s/users/**", apiPrefix))
+                                .permitAll()
                                                         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
                                                         // ------------------------Genre--------------------//
                                                         // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
@@ -69,6 +91,27 @@ public class WebSecurityConfig {
 
                                                         .requestMatchers(DELETE,
                                                                         String.format("%s/Genre/**", apiPrefix))
+                                                        .permitAll()
+                                                        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                                                        // ------------------------Author-------------------//
+                                                        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Author**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Author/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/Author**", apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/Author/**", apiPrefix))
+                                                        .permitAll()
+
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/Author/**", apiPrefix))
                                                         .permitAll()
 
                                                         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
@@ -111,11 +154,11 @@ public class WebSecurityConfig {
                                                         .permitAll()
                                                         .requestMatchers(GET,
                                                                         String.format("%s/Role/**", apiPrefix))
-                                                        .permitAll()
+                                                        .permitAll();
                                                         // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
                                                         // ------------------------Role--------------------//
 
-                                                        .anyRequest().authenticated();
+//                                                        .anyRequest().authenticated();
 
                                 })
                                 .csrf(AbstractHttpConfigurer::disable);

@@ -3,6 +3,8 @@ package com.project.shopapp.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.entity.Account;
+import com.project.shopapp.entity.Genre;
 import com.project.shopapp.entity.UserLoginDTO;
 
 import java.util.HashMap;
@@ -19,11 +22,12 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("${api.prefix}/users")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody com.project.shopapp.entity.Account Account,
@@ -110,6 +114,11 @@ public class AccountController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    
+    @GetMapping("/Account")
+    public Page<Account> getAllAccounts(Pageable pageable) {
+        return accountService.getAllAccount(pageable);
     }
 
 }

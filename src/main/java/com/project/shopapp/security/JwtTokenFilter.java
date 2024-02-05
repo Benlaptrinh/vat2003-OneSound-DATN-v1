@@ -72,12 +72,21 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of(String.format("%s/Singer", apiPrefix), "POST"),
                 Pair.of(String.format("%s/Singer/", apiPrefix), "DELETE"),
                 Pair.of(String.format("%s/Singer/", apiPrefix), "PUT"),
+                Pair.of(String.format("%s/Role", apiPrefix), "GET"),
+                Pair.of(String.format("%s/Role", apiPrefix), "POST"),
+                Pair.of(String.format("%s/Role/", apiPrefix), "DELETE"),
+                Pair.of(String.format("%s/Role/", apiPrefix), "PUT"),
+                Pair.of(String.format("%s/Author", apiPrefix), "GET"),
+                Pair.of(String.format("%s/Author", apiPrefix), "POST"),
+                Pair.of(String.format("%s/Author/", apiPrefix), "DELETE"),
+                Pair.of(String.format("%s/Author/", apiPrefix), "PUT"),
                 Pair.of(String.format("%s/Genre", apiPrefix), "GET"),
                 Pair.of(String.format("%s/Genre", apiPrefix), "POST"),
                 Pair.of(String.format("%s/Genre/", apiPrefix), "DELETE"),
                 Pair.of(String.format("%s/Genre/", apiPrefix), "PUT"),
                 Pair.of(String.format("%s/users/register", apiPrefix), "POST"),
                 Pair.of(String.format("%s/users", apiPrefix), "GET"),
+                Pair.of(String.format("%s/users/details", apiPrefix), "POST"),
                 Pair.of(String.format("%s/users/login", apiPrefix), "POST"));
         for (Pair<String, String> bypassToken : bypassTokens) {
             if (request.getServletPath().contains(bypassToken.getFirst()) &&
