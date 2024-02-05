@@ -64,4 +64,9 @@ public class AlbumServiceImlp implements AlbumService {
         return albumDAO.findByTitleContainingIgnoreCase(title, pageable);
     }
 
+    @Override
+    public Page<Album> searchByTitle(String title, Pageable pageable) {
+        return albumDAO.searchByTitle(title, pageable);
+    }
+
 }

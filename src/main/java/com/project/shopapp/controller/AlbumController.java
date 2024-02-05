@@ -45,9 +45,9 @@ public class AlbumController {
         return albumService.getAlbumById(id);
     }
 
-    @GetMapping("album/getAlbumByTitle/{title}")
-    public Page<Album> getAlbumByTitle(@PathVariable("title") String title, Pageable pageable) {
-        return albumService.findByTitleContainingIgnoreCase(title, pageable);
+    @GetMapping("album/getAlbumByTitle")
+    public Page<Album> getAlbumByTitle(@RequestParam String title, Pageable pageable) {
+        return albumService.searchByTitle(title, pageable);
     }
 
     @PostMapping("album/create")

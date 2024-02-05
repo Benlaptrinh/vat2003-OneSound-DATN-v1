@@ -23,4 +23,6 @@ public interface AlbumService {
     List<Album> findByTitleContaining(String title);
 
     Page<Album> findByTitleContainingIgnoreCase(String title, Pageable pageable);
+
+    Page<Album> searchByTitle(String title, Pageable pageable);
 }
