@@ -49,9 +49,26 @@ public class AccountServiceImlp implements AccountService {
         String encodedPassword = passwordEncoder.encode(password);
         account.setPassword(encodedPassword);
         account.setAccountRole(userRole);
-
         Account savedAccount = AccountDAO.save(account);
         System.out.println(savedAccount);
+        return savedAccount;
+    }
+
+    @Override
+    public Account createAccountadmin(Account account) {
+        if (AccountDAO.existsByEmail(account.getEmail())) {
+            throw new IllegalArgumentException("An account with this email already exists.");
+        }
+
+        @SuppressWarnings("null")
+        Role userRole = RoleDAO.findById(account.getAccountRole().getId()).orElseThrow();
+        String password = account.getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
+        account.setPassword(encodedPassword);
+        account.setAccountRole(userRole);
+        Account savedAccount = AccountDAO.save(account);
+        System.out.println(savedAccount);
+
         return savedAccount;
     }
 
@@ -75,6 +92,36 @@ public class AccountServiceImlp implements AccountService {
         existingAccount.setAddress(account.getAddress());
         existingAccount.setAvatar_url(account.getAvatar_url());
         existingAccount.setGender(account.isGender());
+
+        // Update other fields as needed
+
+        Account updatedAccountEntity = AccountDAO.save(existingAccount);
+        return updatedAccountEntity;
+    }
+
+    @Override
+    public Account updateAccountadmin(Long id, Account account) {
+        Account existingAccount = AccountDAO.findById(id).orElse(null);
+
+        if (existingAccount == null) {
+            throw new IllegalArgumentException("Account not found with id: " + id);
+        }
+
+        // Check if the email is being updated to an existing email
+        String newEmail = account.getEmail();
+        if (newEmail != null && !newEmail.equals(existingAccount.getEmail()) && AccountDAO.existsByEmail(newEmail)) {
+            throw new IllegalArgumentException("An account with this email already exists.");
+        }
+
+        // Update other fields if needed
+        existingAccount.setFullname(account.getFullname());
+        existingAccount.setEmail(newEmail);
+        existingAccount.setAddress(account.getAddress());
+        existingAccount.setAvatar_url(account.getAvatar_url());
+        existingAccount.setGender(account.isGender());
+        existingAccount.setPhone(account.getPhone());
+        existingAccount.setActive(account.isActive());
+        existingAccount.setAccountRole(account.getAccountRole());
 
         // Update other fields as needed
 

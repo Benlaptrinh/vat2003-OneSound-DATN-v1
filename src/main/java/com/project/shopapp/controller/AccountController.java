@@ -3,6 +3,9 @@ package com.project.shopapp.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -27,7 +30,7 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> createUser(@Valid @RequestBody com.project.shopapp.entity.Account Account,
+    public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
             BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
@@ -37,10 +40,26 @@ public class AccountController {
             return ResponseEntity.badRequest().body(errors);
         }
         try {
-
-            System.out.println("createUser " + Account);
             accountService.createAccount(Account);
-            return ResponseEntity.ok("User registered successfully");
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> create(@Valid @RequestBody Account Account,
+            BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError error : result.getFieldErrors()) {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(errors);
+        }
+        try {
+            accountService.createAccountadmin(Account);
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -49,7 +68,6 @@ public class AccountController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(
             @Valid @RequestBody UserLoginDTO userLoginDTO) {
-        // Kiểm tra thông tin đăng nhập và sinh token
         try {
             String token = accountService.login(
                     userLoginDTO.getEmail(),
@@ -78,6 +96,11 @@ public class AccountController {
     @GetMapping("")
     public List<Account> getAllUser() {
         return accountService.getAllAccount();
+    }
+
+    @GetMapping("/page")
+    public Page<Account> getAllSingers(Pageable pageable) {
+        return accountService.getAllAccount(pageable);
     }
 
     @DeleteMapping("/{id}")
@@ -117,6 +140,28 @@ public class AccountController {
             return ResponseEntity.ok("User updated successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateUserr(
+            @PathVariable Long id,
+            @Valid @RequestBody Account updatedAccount,
+            BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> errors = result.getFieldErrors()
+                    .stream()
+                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        try {
+            accountService.updateAccountadmin(id, updatedAccount);
+            return ResponseEntity.ok().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
         }
     }
 
