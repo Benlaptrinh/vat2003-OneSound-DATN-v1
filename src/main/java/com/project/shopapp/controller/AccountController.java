@@ -7,18 +7,25 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import com.project.shopapp.Service.AccountService;
+import com.project.shopapp.Service.PasswordResetTokenService;
+import com.project.shopapp.Service.imp.AccountServiceImlp;
 import com.project.shopapp.entity.Account;
+import com.project.shopapp.entity.PasswordResetToken;
 import com.project.shopapp.entity.UserLoginDTO;
+import com.project.shopapp.repository.AccountDAO;
+import com.project.shopapp.repository.TokenRepositoryDAO;
 import com.project.shopapp.utils.LoginResponse;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,6 +35,21 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private PasswordResetTokenService PasswordResetTokenService;
+
+    @Autowired
+    private AccountServiceImlp AccountServiceImlp;
+
+    @Autowired
+    private AccountDAO AccountDAO;
+
+    @Autowired
+    private TokenRepositoryDAO TokenRepositoryDAO;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
@@ -98,6 +120,11 @@ public class AccountController {
         return accountService.getAllAccount();
     }
 
+    @GetMapping("/passwordResetTokens") // Đặt tên phản ánh chức năng của API endpoint
+    public List<PasswordResetToken> getAllPasswordResetTokens() {
+        return PasswordResetTokenService.getAllPasswordResetToken();
+    }
+
     @GetMapping("/page")
     public Page<Account> getAllSingers(Pageable pageable) {
         return accountService.getAllAccount(pageable);
@@ -115,6 +142,49 @@ public class AccountController {
     public ResponseEntity<Account> getUser(@PathVariable Long id) {
         Account employee = accountService.getAccountById(id);
         return ResponseEntity.ok(employee);
+    }
+
+    @GetMapping("/forgotPassword/{mail}")
+    public ResponseEntity<?> forgotPassword(@PathVariable String mail) {
+        try {
+            Optional<Account> userOptional = AccountDAO.findByEmail(mail);
+
+            if (userOptional.isPresent()) {
+                Account user = userOptional.get();
+                AccountServiceImlp.sendEmail(user);
+                return ResponseEntity.ok(user);
+            } else {
+                return ResponseEntity.badRequest().body("Không tìm thấy mail " + mail);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/resetPassword/token/{token}")
+    public ResponseEntity<?> resetPasswordForm(@PathVariable String token) {
+        PasswordResetToken reset = TokenRepositoryDAO.findByToken(token);
+
+        if (reset == null || AccountServiceImlp.hasExipred(reset.getExpiryDateTime())) {
+            return ResponseEntity.badRequest().body("Invalid or expired token");
+        }
+
+        try {
+            return ResponseEntity.ok(reset.getAccount().getEmail());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/resetPassword/quenmk")
+    public ResponseEntity<Account> getUserDetails2(@RequestBody Account Account) {
+        try {
+            Account user = accountService.getAccountByEmail(Account.getEmail());
+            accountService.quenmk(user);
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/email")
