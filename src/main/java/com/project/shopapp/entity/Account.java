@@ -48,7 +48,7 @@ public class Account implements UserDetails {
 	private boolean active;
 	@Temporal(TemporalType.DATE)
 	private Date createdDate = new Date();
-
+	private String Phone;
 	private String address;
 	private String avatar_url;
 	private boolean gender;

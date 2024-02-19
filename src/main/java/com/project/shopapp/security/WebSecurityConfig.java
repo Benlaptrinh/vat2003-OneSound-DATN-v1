@@ -49,6 +49,12 @@
 //                                                         .requestMatchers(POST,
 //                                                                         String.format("%s/users/details", apiPrefix))
 //                                                         .permitAll()
+<<<<<<< HEAD
+=======
+//                                                         .requestMatchers(POST,
+//                                                                         String.format("%s/users/create", apiPrefix))
+//                                                         .permitAll()
+>>>>>>> backendCURDuser
 
 //                                                         .requestMatchers(
 //                                                                         String.format("%s/users/**", apiPrefix))
@@ -102,7 +108,11 @@
 //                                                         // ------------------------Album--------------------//
 //                                                         // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
 //                                                         .requestMatchers(GET,
+<<<<<<< HEAD
 //                                                                         String.format("%s/album/**", apiPrefix))
+=======
+//                                                                         String.format("%s/album**", apiPrefix))
+>>>>>>> backendCURDuser
 //                                                         .permitAll()
 
 //                                                         .requestMatchers(GET,
@@ -115,9 +125,12 @@
 //                                                         .requestMatchers(PUT,
 //                                                                         String.format("%s/album/**", apiPrefix))
 //                                                         .permitAll()
+<<<<<<< HEAD
 //                                                         .requestMatchers(PUT,
 //                                                                         String.format("%s/album/update", apiPrefix))
 //                                                         .permitAll()
+=======
+>>>>>>> backendCURDuser
 
 //                                                         .requestMatchers(DELETE,
 //                                                                         String.format("%s/album/**", apiPrefix))
@@ -193,6 +206,7 @@
 //                 return http.build();
 //         }
 // }
+<<<<<<< HEAD
 //package com.project.shopapp.security;
 //
 //import lombok.RequiredArgsConstructor;
@@ -388,6 +402,8 @@
 //        }
 //}
 
+=======
+>>>>>>> backendCURDuser
 
 package com.project.shopapp.security;
 
@@ -426,6 +442,7 @@ public class WebSecurityConfig {
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http
+<<<<<<< HEAD
 //                                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
 //                                .authorizeHttpRequests(requests -> requests
 //                                                .anyRequest().permitAll())
@@ -468,6 +485,29 @@ public class WebSecurityConfig {
                                         httpSecurityCorsConfigurer.configurationSource(source);
                                 }
                         });
+=======
+                                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                                .authorizeHttpRequests(requests -> requests
+                                                .anyRequest().permitAll())
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
+                                        @Override
+                                        public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
+                                                CorsConfiguration configuration = new CorsConfiguration();
+                                                configuration.setAllowedOrigins(List.of("*"));
+                                                configuration.setAllowedMethods(
+                                                                Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE",
+                                                                                "OPTIONS"));
+                                                configuration.setAllowedHeaders(
+                                                                Arrays.asList("authorization", "content-type",
+                                                                                "x-auth-token"));
+                                                configuration.setExposedHeaders(List.of("x-auth-token"));
+                                                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                                                source.registerCorsConfiguration("/**", configuration);
+                                                httpSecurityCorsConfigurer.configurationSource(source);
+                                        }
+                                });
+>>>>>>> backendCURDuser
 
                 return http.build();
         }
