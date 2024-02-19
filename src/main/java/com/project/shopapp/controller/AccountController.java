@@ -53,7 +53,7 @@ public class AccountController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
-            BindingResult result) {
+                                        BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -71,7 +71,7 @@ public class AccountController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody Account Account,
-            BindingResult result) {
+                                    BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -187,10 +187,27 @@ public class AccountController {
         }
     }
 
-    @GetMapping("/email")
-    public ResponseEntity<Account> getUserByEmail(@RequestParam String mail) {
-        Account account = accountService.getAccountByEmail(mail);
-        return ResponseEntity.ok(account);
+
+    //    @GetMapping("/email")
+//    public ResponseEntity<Account> getUserByEmail(@RequestParam String mail) {
+//        Account account = accountService.getAccountByEmail(mail);
+//        return ResponseEntity.ok(account);
+//    }
+    @GetMapping("/email/{email}")
+    public ResponseEntity<Boolean> checkIfUserExistsByEmail(@PathVariable String email) {
+        try {
+            // boolean accountExists = accountService.getAccountByEmail(email);
+            Account account = accountService.getAccountByEmail(email);
+            boolean accountExists = account != null;
+
+            return ResponseEntity.ok(accountExists);
+        } catch (Exception e) {
+            // Log the exception for debugging purposes
+            e.printStackTrace();
+
+            // Return false in case of an error
+            return ResponseEntity.ok(false);
+        }
     }
 
     @PutMapping("/{id}")
