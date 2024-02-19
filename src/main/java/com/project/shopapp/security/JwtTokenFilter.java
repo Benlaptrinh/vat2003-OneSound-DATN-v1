@@ -82,32 +82,26 @@
 //                 Pair.of(String.format("%s/singerAlbum/create", apiPrefix), "POST"),
 //                 Pair.of(String.format("%s/singerAlbum/", apiPrefix), "DELETE"),
 //                 Pair.of(String.format("%s/singerAlbum/", apiPrefix), "PUT"),
-<<<<<<< HEAD
 //                 Pair.of(String.format("%s/singerAlbum/update", apiPrefix), "PUT"),
 
 //                 // ----------------------End singer album---------------------
-=======
 
 //                 // ----------------------End singer album---------------------
 //                 Pair.of(String.format("%s/Role", apiPrefix), "GET"),
 
->>>>>>> backendCURDuser
 //                 Pair.of(String.format("%s/album", apiPrefix), "GET"),
 //                 Pair.of(String.format("%s/album", apiPrefix), "POST"),
 //                 Pair.of(String.format("%s/album/create", apiPrefix), "POST"),
 //                 Pair.of(String.format("%s/album/", apiPrefix), "DELETE"),
 //                 Pair.of(String.format("%s/album/", apiPrefix), "PUT"),
-<<<<<<< HEAD
 //                 Pair.of(String.format("%s/album/update", apiPrefix), "PUT"),
 //                 Pair.of(String.format("%s/users/register", apiPrefix), "POST"),
 //                 Pair.of(String.format("%s/users", apiPrefix), "GET"),
 //                 Pair.of(String.format("%s/users/details", apiPrefix), "POST"),
-=======
 //                 Pair.of(String.format("%s/users/register", apiPrefix), "POST"),
 //                 Pair.of(String.format("%s/users", apiPrefix), "GET"),
 //                 Pair.of(String.format("%s/users/details", apiPrefix), "POST"),
 //                 Pair.of(String.format("%s/users/create", apiPrefix), "POST"),
->>>>>>> backendCURDuser
 //                 Pair.of(String.format("%s/users/login", apiPrefix), "POST"));
 //         for (Pair<String, String> bypassToken : bypassTokens) {
 //             if (request.getServletPath().contains(bypassToken.getFirst()) &&
@@ -119,7 +113,6 @@
 //         return false;
 //     }
 // }
-<<<<<<< HEAD
 //package com.project.shopapp.security;
 //
 //import jakarta.servlet.FilterChain;
@@ -226,8 +219,6 @@
 //        return false;
 //    }
 //}
-=======
->>>>>>> backendCURDuser
 
 package com.project.shopapp.security;
 
@@ -286,8 +277,4 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> backendCURDuser
