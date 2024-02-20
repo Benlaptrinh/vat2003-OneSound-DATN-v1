@@ -19,6 +19,7 @@ import com.project.shopapp.Service.PasswordResetTokenService;
 import com.project.shopapp.Service.imp.AccountServiceImlp;
 import com.project.shopapp.entity.Account;
 import com.project.shopapp.entity.PasswordResetToken;
+import com.project.shopapp.entity.Genre;
 import com.project.shopapp.entity.UserLoginDTO;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
@@ -32,17 +33,12 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("${api.prefix}/users")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class AccountController {
 
     @Autowired
     private AccountService accountService;
 
-    @GetMapping("/email/{mail}")
-    public ResponseEntity<Boolean> checkEmailExists(@PathVariable String mail) {
-        boolean emailExists = accountService.existsByEmail(mail);
-        return ResponseEntity.ok(emailExists);
-    }
 
     @Autowired
     private PasswordResetTokenService PasswordResetTokenService;
@@ -236,6 +232,11 @@ public class AccountController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
+    }
+    
+    @GetMapping("/Account")
+    public Page<Account> getAllAccounts(Pageable pageable) {
+        return accountService.getAllAccount(pageable);
     }
 
     //<<<<<<< HEAD

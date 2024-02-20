@@ -104,12 +104,16 @@ public class AccountServiceImlp implements AccountService {
         if (AccountDAO.existsByEmail(account.getEmail())) {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
-
+        if(account.getAccountRole()==null) {
         Role userRole = RoleDAO.findById(2L).orElseThrow();
+        account.setAccountRole(userRole);
+        }
         String password = account.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         account.setPassword(encodedPassword);
-        account.setAccountRole(userRole);
+//        account.setAccountRole(userRole);
+
+
         Account savedAccount = AccountDAO.save(account);
         System.out.println(savedAccount);
         return savedAccount;
@@ -143,26 +147,51 @@ public class AccountServiceImlp implements AccountService {
     }
 
     @Override
-    public Account updateAccount(Long id, Account account) {
+//    public Account updateAccount(Long id, Account account) {
+    public Account updateAccount(Long id, Account updatedAccount) {
         Account existingAccount = AccountDAO.findById(id).orElse(null);
-
-        if (existingAccount == null) {
-            throw new IllegalArgumentException("Account not found with id: " + id);
+        if(updatedAccount.getEmail()!=existingAccount.getEmail()) {
+        	Account other=AccountDAO.findByEmail(updatedAccount.getEmail()).orElse(null);
+        	if(other!=null && other.getId()!=existingAccount.getId()) {
+        		System.err.println("Đã có tài khoản đăng ký địa chỉ email này, vui lòng chọn email khác!");
+        		// Update the fields of the existing account with the provided values
+                existingAccount.setFullname(updatedAccount.getFullname());
+                existingAccount.setActive(updatedAccount.isActive());
+                existingAccount.setAddress(updatedAccount.getAddress());
+                existingAccount.setAvatar_url(updatedAccount.getAvatar_url());
+                existingAccount.setGender(updatedAccount.isGender());
+                existingAccount.setBirthday(updatedAccount.getBirthday());
+                existingAccount.setPhonenumber(updatedAccount.getPhonenumber());
+                existingAccount.setAccountRole(updatedAccount.getAccountRole());
+                existingAccount.setPassword(passwordEncoder.encode(updatedAccount.getPassword()));
+        	}
+        	else {
+        		existingAccount.setFullname(updatedAccount.getFullname());
+                existingAccount.setActive(updatedAccount.isActive());
+                existingAccount.setAddress(updatedAccount.getAddress());
+                existingAccount.setAvatar_url(updatedAccount.getAvatar_url());
+                existingAccount.setGender(updatedAccount.isGender());
+                existingAccount.setBirthday(updatedAccount.getBirthday());
+                existingAccount.setPhonenumber(updatedAccount.getPhonenumber());
+                existingAccount.setAccountRole(updatedAccount.getAccountRole());
+                existingAccount.setPassword(passwordEncoder.encode(updatedAccount.getPassword()));
+                existingAccount.setEmail(updatedAccount.getEmail());
+                System.err.println("Đang chạy trường hợp 2");
+        	}
         }
-
-        // Check if the email is being updated to an existing email
-        String newEmail = account.getEmail();
-        if (!newEmail.equals(existingAccount.getEmail()) && AccountDAO.existsByEmail(newEmail)) {
-            throw new IllegalArgumentException("An account with this email already exists.");
+        else {
+        	existingAccount.setFullname(updatedAccount.getFullname());
+            existingAccount.setActive(updatedAccount.isActive());
+            existingAccount.setAddress(updatedAccount.getAddress());
+            existingAccount.setAvatar_url(updatedAccount.getAvatar_url());
+            existingAccount.setGender(updatedAccount.isGender());
+            existingAccount.setBirthday(updatedAccount.getBirthday());
+            existingAccount.setPhonenumber(updatedAccount.getPhonenumber());
+            existingAccount.setAccountRole(updatedAccount.getAccountRole());
+            existingAccount.setPassword(passwordEncoder.encode(updatedAccount.getPassword()));
+            existingAccount.setEmail(updatedAccount.getEmail());
+            System.err.println("Đang chạy trường hợp 3");
         }
-
-        // Update other fields if needed
-        existingAccount.setFullname(account.getFullname());
-        existingAccount.setEmail(newEmail);
-        existingAccount.setAddress(account.getAddress());
-        existingAccount.setAvatar_url(account.getAvatar_url());
-        existingAccount.setGender(account.isGender());
-
         // Update other fields as needed
 
         Account updatedAccountEntity = AccountDAO.save(existingAccount);

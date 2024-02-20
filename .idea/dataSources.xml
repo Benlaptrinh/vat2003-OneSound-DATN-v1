@@ -1,28 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <data-source source="LOCAL" name="DATN_OneSound@localhost" uuid="f13dda79-0f88-49df-9440-22083cb017df">
-=======
-    <data-source source="LOCAL" name="DATN_OneSound@localhost" uuid="6b6e592d-7686-409c-8791-9eaf4c72e66f">
->>>>>>> backendCURDuser
+    <data-source source="LOCAL" name="DATN_OneSound@localhost" uuid="f6e758fa-d165-46cf-8eb1-a134d4331096">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://localhost:1433;database=DATN_OneSound</jdbc-url>
-<<<<<<< HEAD
-=======
-    <data-source source="LOCAL" name="DATN_OneSound@localhost" uuid="abbfedd2-265d-457e-aaa7-309bf17933aa">
-      <driver-ref>sqlserver.ms</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>$PROJECT_DIR$/src/main/resources/application.properties</remarks>
-      <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://localhost:1433;databaseName=DATN_OneSound;encrypt=true;trustServerCertificate=true</jdbc-url>
->>>>>>> origin/anhTai
-=======
->>>>>>> backendCURDuser
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
