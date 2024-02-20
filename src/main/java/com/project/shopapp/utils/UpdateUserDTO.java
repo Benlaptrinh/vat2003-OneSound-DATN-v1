@@ -2,6 +2,7 @@ package com.project.shopapp.utils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.project.shopapp.entity.Role;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.NotBlank;
@@ -33,6 +34,9 @@ public class UpdateUserDTO {
 
     @JsonProperty("gender")
     private boolean gender;
+
+    @JsonProperty("role_id")
+    private Role accountRole;
 
     @Temporal(TemporalType.DATE)
     private Date createdDate = new Date();

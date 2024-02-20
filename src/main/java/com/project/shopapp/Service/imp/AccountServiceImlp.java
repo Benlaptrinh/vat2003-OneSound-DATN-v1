@@ -62,6 +62,10 @@ public class AccountServiceImlp implements AccountService {
             existingUser.setGender(updateUserDTO.isGender());
         }
 
+        if (updateUserDTO.getAccountRole() != existingUser.getAccountRole()) {
+            existingUser.setAccountRole(updateUserDTO.getAccountRole());
+        }
+
         if (updateUserDTO.getPassword() != null
                 && !updateUserDTO.getPassword().isEmpty()) {
 
