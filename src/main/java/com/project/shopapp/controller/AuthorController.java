@@ -51,6 +51,18 @@ public class AuthorController {
         Author auth = dao.findById(id).orElse(null);
         return ResponseEntity.ok(auth);
     }
+    
+    @GetMapping("/Author/name/{name}")
+    public ResponseEntity<List<Author>> getSingerByName(@PathVariable String id) {
+        List<Author> auth = dao.findByFullname(id);
+        return ResponseEntity.ok(auth);
+    }
+
+    @GetMapping("/Author/getAuthorByName/{title}")
+    public Page<Author> getAlbumByTitle(@PathVariable String title, Pageable pageable) {
+        return dao.findByFullnamePage(title, pageable);
+    }
+
 
     @PostMapping("/Author")
     public ResponseEntity<Author> createAuthor(@RequestBody Author author) {

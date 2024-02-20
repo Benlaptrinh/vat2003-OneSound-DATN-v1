@@ -1,6 +1,7 @@
 package com.project.shopapp.entity;
 
-import com.project.shopapp.composite.SongSingerId;
+
+import com.project.shopapp.composite.SongAuthorId;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -15,10 +16,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "SongSinger")
+@Table(name = "SongAuthors")
 public class SongAuthor {
 	@EmbeddedId
-	private SongSingerId id;
+	private SongAuthorId id;
 
 	@ManyToOne
 	@JoinColumn(name = "songId", insertable = false, updatable = false)

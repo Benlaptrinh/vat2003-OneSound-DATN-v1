@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SongAuthor implements Serializable {
+public class SongAuthorId implements Serializable {
 	private Long songId;
 	private Long authorId;
 
@@ -27,7 +27,7 @@ public class SongAuthor implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		SongAuthor other = (SongAuthor) obj;
+		SongAuthorId other = (SongAuthorId) obj;
 		return Objects.equals(authorId, other.authorId) && Objects.equals(songId, other.songId);
 	}
 
