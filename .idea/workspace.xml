@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="7db67e01-6fbd-4ca4-ae2e-7eb1238ecebf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +54,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.ShopappApplication.executor": "Run",
-    "git-widget-placeholder": "mergeMainUyenPhuong",
+    "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -108,6 +109,7 @@
       <workItem from="1707045817222" duration="1556000" />
       <workItem from="1707051794480" duration="2722000" />
       <workItem from="1708166832721" duration="2004000" />
+      <workItem from="1708438336611" duration="406000" />
     </task>
     <servers />
   </component>
@@ -135,7 +137,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java</url>
           <line>58</line>
-          <properties class="com.project.shopapp.controller.AccountController" method="createUser">
+          <properties class="com.project.shopapp.controller.AccountController">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -144,7 +146,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/AccountService.java</url>
           <line>18</line>
-          <properties class="com.project.shopapp.Service.AccountService" method="createAccount">
+          <properties class="com.project.shopapp.Service.AccountService">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -153,7 +155,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/AccountServiceImlp.java</url>
           <line>102</line>
-          <properties class="com.project.shopapp.Service.imp.AccountServiceImlp" method="createAccount">
+          <properties class="com.project.shopapp.Service.imp.AccountServiceImlp">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
