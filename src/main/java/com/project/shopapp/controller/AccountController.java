@@ -251,27 +251,27 @@ public class AccountController {
 //            return ResponseEntity.badRequest().build();
 //=======
 
-//    @PutMapping("/update/{id}")
-//    public ResponseEntity<?> updateUserr(
-//            @PathVariable Long id,
-//            @Valid @RequestBody Account updatedAccount,
-//            BindingResult result) {
-//        if (result.hasErrors()) {
-//            Map<String, String> errors = result.getFieldErrors()
-//                    .stream()
-//                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
-//            return ResponseEntity.badRequest().body(errors);
-//        }
-//
-//        try {
-//            accountService.updateAccountadmin(id, updatedAccount);
-//            return ResponseEntity.ok().build();
-//        } catch (IllegalArgumentException e) {
-//            return ResponseEntity.badRequest().body(e);
-//        } catch (Exception e) {
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
-//        }
-//    }
+    @PutMapping("/update/admin/{id}")
+    public ResponseEntity<?> updateUserr(
+            @PathVariable Long id,
+            @Valid @RequestBody Account updatedAccount,
+            BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> errors = result.getFieldErrors()
+                    .stream()
+                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage));
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        try {
+            accountService.updateAccountadmin(id, updatedAccount);
+            return ResponseEntity.ok().build();
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
+        }
+    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> updateUserr(
