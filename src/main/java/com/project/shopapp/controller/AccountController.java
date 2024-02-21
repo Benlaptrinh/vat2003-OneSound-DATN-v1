@@ -3,6 +3,8 @@ package com.project.shopapp.controller;
 
 import com.project.shopapp.entity.Singer;
 import com.project.shopapp.utils.UpdateUserDTO;
+import com.project.shopapp.utils.thongbao;
+
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -288,29 +290,6 @@ public class AccountController {
         }
     }
 
-    // @PutMapping("/update/pass/{email}")
-    // public ResponseEntity<?> updatepassuser(
-    // @PathVariable String email,
-    // @Valid @RequestBody UserLoginDTO UserLoginDTO,
-    // BindingResult result) {
-    // if (result.hasErrors()) {
-    // Map<String, String> errors = result.getFieldErrors()
-    // .stream()
-    // .collect(Collectors.toMap(FieldError::getField,
-    // FieldError::getDefaultMessage));
-    // return ResponseEntity.badRequest().body(errors);
-    // }
-
-    // try {
-    // accountService.UpdatePassUser(email, UserLoginDTO);
-    // return ResponseEntity.ok().build();
-    // } catch (IllegalArgumentException e) {
-    // return ResponseEntity.badRequest().body(e);
-    // } catch (Exception e) {
-    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
-    // }
-    // }
-
     @PutMapping("/update/pass/{email}")
     public ResponseEntity<?> updatepassuser(
             @PathVariable String email,
@@ -332,10 +311,9 @@ public class AccountController {
             @PathVariable String email) {
 
         try {
-            // Tạo đối tượng Account từ dữ liệu trong path
+            return ResponseEntity
+                    .ok(thongbao.builder().message(AccountServiceImlp.sendCustomEmail(email, mess)).build());
 
-            // Sử dụng giá trị từ path và đối tượng Account đã tạo
-            return ResponseEntity.ok(AccountServiceImlp.sendCustomEmail(email, mess));
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
