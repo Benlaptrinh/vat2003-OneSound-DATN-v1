@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.project.shopapp.entity.Account;
+import com.project.shopapp.entity.UserLoginDTO;
 
 public interface AccountService {
 
@@ -37,5 +38,7 @@ public interface AccountService {
     String login(String mail, String password) throws Exception;
 
     boolean existsByEmail(String email);
+
+    Account UpdatePassUser(String email, UpdateUserDTO UpdateUserDTO);
 
 }

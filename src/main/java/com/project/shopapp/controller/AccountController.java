@@ -39,7 +39,6 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-
     @Autowired
     private PasswordResetTokenService PasswordResetTokenService;
 
@@ -57,7 +56,7 @@ public class AccountController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
-                                        BindingResult result) {
+            BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -75,7 +74,7 @@ public class AccountController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody Account Account,
-                                    BindingResult result) {
+            BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -191,12 +190,6 @@ public class AccountController {
         }
     }
 
-
-    //    @GetMapping("/email")
-//    public ResponseEntity<Account> getUserByEmail(@RequestParam String mail) {
-//        Account account = accountService.getAccountByEmail(mail);
-//        return ResponseEntity.ok(account);
-//    }
     @GetMapping("/email/{email}")
     public ResponseEntity<Boolean> checkIfUserExistsByEmail(@PathVariable String email) {
         try {
@@ -233,23 +226,23 @@ public class AccountController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-    
+
     @GetMapping("/Account")
     public Page<Account> getAllAccounts(Pageable pageable) {
         return accountService.getAllAccount(pageable);
     }
 
-    //<<<<<<< HEAD
-//    @PutMapping("/details/{userId}")
-//    public ResponseEntity<Account> updateUserDetails(
-//            @PathVariable Long userId,
-//            @RequestBody UpdateUserDTO updatedUserDTO) {
-//        try {
-//            Account updatedUser = accountService.updateAccount(userId, updatedUserDTO);
-//            return ResponseEntity.ok().build();
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().build();
-//=======
+    // <<<<<<< HEAD
+    // @PutMapping("/details/{userId}")
+    // public ResponseEntity<Account> updateUserDetails(
+    // @PathVariable Long userId,
+    // @RequestBody UpdateUserDTO updatedUserDTO) {
+    // try {
+    // Account updatedUser = accountService.updateAccount(userId, updatedUserDTO);
+    // return ResponseEntity.ok().build();
+    // } catch (Exception e) {
+    // return ResponseEntity.badRequest().build();
+    // =======
 
     @PutMapping("/update/admin/{id}")
     public ResponseEntity<?> updateUserr(
@@ -294,4 +287,60 @@ public class AccountController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
         }
     }
+
+    // @PutMapping("/update/pass/{email}")
+    // public ResponseEntity<?> updatepassuser(
+    // @PathVariable String email,
+    // @Valid @RequestBody UserLoginDTO UserLoginDTO,
+    // BindingResult result) {
+    // if (result.hasErrors()) {
+    // Map<String, String> errors = result.getFieldErrors()
+    // .stream()
+    // .collect(Collectors.toMap(FieldError::getField,
+    // FieldError::getDefaultMessage));
+    // return ResponseEntity.badRequest().body(errors);
+    // }
+
+    // try {
+    // accountService.UpdatePassUser(email, UserLoginDTO);
+    // return ResponseEntity.ok().build();
+    // } catch (IllegalArgumentException e) {
+    // return ResponseEntity.badRequest().body(e);
+    // } catch (Exception e) {
+    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
+    // }
+    // }
+
+    @PutMapping("/update/pass/{email}")
+    public ResponseEntity<?> updatepassuser(
+            @PathVariable String email,
+            @RequestBody UpdateUserDTO UpdateUserDTO) {
+
+        try {
+            Account updatedAccount = accountService.UpdatePassUser(email, UpdateUserDTO);
+            return ResponseEntity.ok(updatedAccount);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/mess/{mess}/{email}")
+    public ResponseEntity<?> messmail(
+            @PathVariable String mess,
+            @PathVariable String email) {
+
+        try {
+            // Tạo đối tượng Account từ dữ liệu trong path
+
+            // Sử dụng giá trị từ path và đối tượng Account đã tạo
+            return ResponseEntity.ok(AccountServiceImlp.sendCustomEmail(email, mess));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
+    }
+
 }
