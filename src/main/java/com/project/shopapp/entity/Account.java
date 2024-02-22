@@ -62,8 +62,11 @@ public class Account implements UserDetails {
 	@JoinColumn(name = "role_id") // Đảm bảo tên cột khớp với tên cột trong cơ sở dữ liệu
 	private Role accountRole;
 
-	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-	private PasswordResetToken passwordResetToken;
+	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+	private List<PasswordResetToken> passwordResetTokens;
+
+//	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+//	private PasswordResetToken passwordResetToken;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
