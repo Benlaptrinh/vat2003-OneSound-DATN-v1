@@ -11,6 +11,8 @@ import com.project.shopapp.entity.Genre;
 public interface AlbumService {
 
     Page<Album> findAllAlbums(Pageable pageable);
+    
+    List<Album> getAll();
 
     Album getAlbumById(Long id);
 
