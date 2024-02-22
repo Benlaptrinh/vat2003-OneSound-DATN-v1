@@ -36,8 +36,6 @@ public class AccountServiceImlp implements AccountService {
         Account existingUser = AccountDAO.findById(id)
                 .orElseThrow();
 
-        // Check if the phone number is being changed and if it already exists for
-        // another user
         String mail = updateUserDTO.getEmail();
         if (!existingUser.getEmail().equals(mail) &&
                 AccountDAO.existsByEmail(mail)) {
@@ -328,8 +326,8 @@ public class AccountServiceImlp implements AccountService {
 
         PasswordResetToken savedToken = TokenRepositoryDAO.save(tokenToSave);
         if (savedToken != null) {
-            String endpointUrl = "http://localhost:4200/onesound/quenmk2";
-            return endpointUrl + "/" + savedToken.getToken();
+            String endpointUrl = "http://localhost:4200/onesound/changepassword";
+            return endpointUrl + "/" + savedToken.getToken() + "?a=" + user.getEmail();
         }
 
         return "";
@@ -342,25 +340,19 @@ public class AccountServiceImlp implements AccountService {
 
     @Override
     public Account UpdatePassUser(String email, UpdateUserDTO UpdateUserDTO) {
+
         Account existingAccount = AccountDAO.findByEmail(email).orElse(null);
 
         if (existingAccount != null) {
-            // Update password
+
             String password = UpdateUserDTO.getPassword();
             String encodedPassword = passwordEncoder.encode(password);
             existingAccount.setPassword(encodedPassword);
-            // Save the updated account
-            Account savedAccount = AccountDAO.save(existingAccount);
 
-            PasswordResetToken passwordResetToken = existingAccount.getPasswordResetToken();
-            if (passwordResetToken != null) {
-                // Delete the existing password reset token
-                TokenRepositoryDAO.delete(passwordResetToken);
-            }
+            Account savedAccount = AccountDAO.save(existingAccount);
 
             return savedAccount;
         } else {
-            // Handle the case where the account doesn't exist
             throw new IllegalArgumentException("Account not found for email: " + email);
         }
     }

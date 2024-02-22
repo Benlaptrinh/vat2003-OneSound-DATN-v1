@@ -27,7 +27,8 @@ public class PasswordResetToken {
     private String token;
     private LocalDateTime expiryDateTime;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "account_id")
     private Account account;
+
 }

@@ -27,6 +27,7 @@ import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
 import com.project.shopapp.utils.LoginResponse;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -168,16 +169,51 @@ public class AccountController {
 
     @GetMapping("/resetPassword/token/{token}")
     public ResponseEntity<?> resetPasswordForm(@PathVariable String token) {
-        PasswordResetToken reset = TokenRepositoryDAO.findByToken(token);
-
-        if (reset == null || AccountServiceImlp.hasExipred(reset.getExpiryDateTime())) {
-            return ResponseEntity.badRequest().body("Invalid or expired token");
-        }
-
         try {
-            return ResponseEntity.ok(reset.getAccount().getEmail());
+            PasswordResetToken reset = TokenRepositoryDAO.findByToken(token);
+
+            if (reset == null) {
+                return ResponseEntity.badRequest().body("Token not found");
+            }
+
+            TokenRepositoryDAO.deleteById(reset.getId());
+            return ResponseEntity.ok(reset);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    // @GetMapping("/resetPassword/token/{token}")
+    // public ResponseEntity<?> resetPasswordForm(@PathVariable String token) {
+    // PasswordResetToken reset = TokenRepositoryDAO.findByToken(token);
+
+    // if (reset == null || reset.getExpiryDateTime() == null
+    // || reset.getExpiryDateTime().isBefore(LocalDateTime.now())) {
+
+    // return ResponseEntity.badRequest().body(thongbao.builder().message("lỗi"));
+    // }
+    // try {
+    // TokenRepositoryDAO.deleteById(reset.getId());
+    // return ResponseEntity.ok(reset);
+
+    // } catch (Exception e) {
+    // return ResponseEntity.badRequest().body(e.getMessage());
+    // }
+    // }
+
+    @PutMapping("/update/pass/{email}")
+    public ResponseEntity<?> updatepassuser(
+            @PathVariable String email,
+            @RequestBody UpdateUserDTO UpdateUserDTO) {
+
+        try {
+
+            Account updatedAccount = accountService.UpdatePassUser(email, UpdateUserDTO);
+            return ResponseEntity.ok(updatedAccount);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
@@ -195,16 +231,12 @@ public class AccountController {
     @GetMapping("/email/{email}")
     public ResponseEntity<Boolean> checkIfUserExistsByEmail(@PathVariable String email) {
         try {
-            // boolean accountExists = accountService.getAccountByEmail(email);
             Account account = accountService.getAccountByEmail(email);
             boolean accountExists = account != null;
 
             return ResponseEntity.ok(accountExists);
         } catch (Exception e) {
-            // Log the exception for debugging purposes
             e.printStackTrace();
-
-            // Return false in case of an error
             return ResponseEntity.ok(false);
         }
     }
@@ -287,21 +319,6 @@ public class AccountController {
             return ResponseEntity.badRequest().body(e);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
-        }
-    }
-
-    @PutMapping("/update/pass/{email}")
-    public ResponseEntity<?> updatepassuser(
-            @PathVariable String email,
-            @RequestBody UpdateUserDTO UpdateUserDTO) {
-
-        try {
-            Account updatedAccount = accountService.UpdatePassUser(email, UpdateUserDTO);
-            return ResponseEntity.ok(updatedAccount);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
         }
     }
 
