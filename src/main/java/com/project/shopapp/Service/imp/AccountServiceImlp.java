@@ -294,7 +294,7 @@ public class AccountServiceImlp implements AccountService {
             msg.setTo(user.getEmail());
             msg.setSubject("RESET PASSWORD FOR ONESOUND ACCOUNT");
             msg.setText("Hello, This is a reset password mail from ONESOUND \n\n"
-                    + "Please click on this link to Reset your Password :" + resetLink + ". \n\n"
+                    + "Please click on this link to Reset your Password : <a href='" + resetLink + "'>"
                     + "Regards \n" + "ONESOUND");
 
             javaMailSender.send(msg);

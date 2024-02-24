@@ -25,6 +25,11 @@ public class AlbumServiceImlp implements AlbumService {
     public Page<Album> findAllAlbums(Pageable pageable) {
         return albumDAO.findAll(pageable);
     }
+    
+    @Override
+    public List<Album> getAll() {
+        return albumDAO.findAll();
+    }
 
     @Override
     public Album getAlbumById(Long id) {
