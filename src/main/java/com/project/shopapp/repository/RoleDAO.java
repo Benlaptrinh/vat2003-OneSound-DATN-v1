@@ -10,5 +10,6 @@ import com.project.shopapp.entity.Role;
  * RoleDAO
  */
 public interface RoleDAO extends JpaRepository<Role, Long> {
+
     Optional<Role> findById(int i);
 }
