@@ -24,4 +24,7 @@ public class Role {
 	@JsonIgnore
 	@OneToMany(mappedBy = "accountRole")
 	List<Account> accounts;
+
+	public static String ADMIN = "ADMIN";
+	public static String USER = "USER";
 }

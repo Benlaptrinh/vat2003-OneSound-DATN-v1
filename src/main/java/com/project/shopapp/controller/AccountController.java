@@ -177,29 +177,13 @@ public class AccountController {
             }
 
             TokenRepositoryDAO.deleteById(reset.getId());
-            return ResponseEntity.ok(reset);
+            // return ResponseEntity.ok(reset.getAccount().getEmail());
+            return ResponseEntity.ok(thongbao.builder().message(reset.getAccount().getEmail()).build());
+
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-    // @GetMapping("/resetPassword/token/{token}")
-    // public ResponseEntity<?> resetPasswordForm(@PathVariable String token) {
-    // PasswordResetToken reset = TokenRepositoryDAO.findByToken(token);
-
-    // if (reset == null || reset.getExpiryDateTime() == null
-    // || reset.getExpiryDateTime().isBefore(LocalDateTime.now())) {
-
-    // return ResponseEntity.badRequest().body(thongbao.builder().message("lỗi"));
-    // }
-    // try {
-    // TokenRepositoryDAO.deleteById(reset.getId());
-    // return ResponseEntity.ok(reset);
-
-    // } catch (Exception e) {
-    // return ResponseEntity.badRequest().body(e.getMessage());
-    // }
-    // }
 
     @PutMapping("/update/pass/{email}")
     public ResponseEntity<?> updatepassuser(
@@ -265,18 +249,6 @@ public class AccountController {
     public Page<Account> getAllAccounts(Pageable pageable) {
         return accountService.getAllAccount(pageable);
     }
-
-    // <<<<<<< HEAD
-    // @PutMapping("/details/{userId}")
-    // public ResponseEntity<Account> updateUserDetails(
-    // @PathVariable Long userId,
-    // @RequestBody UpdateUserDTO updatedUserDTO) {
-    // try {
-    // Account updatedUser = accountService.updateAccount(userId, updatedUserDTO);
-    // return ResponseEntity.ok().build();
-    // } catch (Exception e) {
-    // return ResponseEntity.badRequest().build();
-    // =======
 
     @PutMapping("/update/admin/{id}")
     public ResponseEntity<?> updateUserr(
