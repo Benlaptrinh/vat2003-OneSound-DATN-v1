@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.shopapp.Service.GenreService;
+import com.project.shopapp.entity.Album;
 import com.project.shopapp.entity.Genre;
 
 /**
@@ -49,6 +50,11 @@ public class GenresController {
     public Genre createEmployee(@RequestBody Genre Genre) {
         System.out.println(Genre);
         return GenreService.createGenre(Genre);
+    }
+    
+    @GetMapping("/Genre/name/{name}")
+    public List<Genre> getGenreByName(@PathVariable String name) {
+        return GenreService.findByTitleContainingIgnoreCase(name);
     }
 
     @GetMapping("/Genre/{id}")

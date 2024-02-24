@@ -19,7 +19,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("${api.prefix}")
 public class AuthorController {
@@ -53,9 +53,9 @@ public class AuthorController {
     }
     
     @GetMapping("/Author/name/{name}")
-    public ResponseEntity<List<Author>> getSingerByName(@PathVariable String id) {
-        List<Author> auth = dao.findByFullname(id);
-        return ResponseEntity.ok(auth);
+    public List<Author> getSingerByName(@PathVariable String name) {
+        List<Author> auth = dao.findByFullnameIgnoreCase(name);
+        return auth;
     }
 
     @GetMapping("/Author/getAuthorByName/{title}")

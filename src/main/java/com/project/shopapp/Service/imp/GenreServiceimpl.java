@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.GenreService;
+import com.project.shopapp.entity.Album;
 import com.project.shopapp.entity.Genre;
 import com.project.shopapp.repository.GenreDAO;
 
@@ -21,7 +22,10 @@ public class GenreServiceimpl implements GenreService {
     public List<Genre> getAllGenre() {
         return dao.findAll();
     }
-
+    @Override
+    public List<Genre> findByTitleContainingIgnoreCase(String title) {
+        return dao.findByNameContainingIgnoreCase(title);
+    }
     @Override
     public Genre getGenreById(Long id) {
         // TODO Auto-generated method stub
