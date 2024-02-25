@@ -158,7 +158,7 @@ public class AccountController {
             if (userOptional.isPresent()) {
                 Account user = userOptional.get();
                 AccountServiceImlp.sendEmail(user);
-                return ResponseEntity.ok(user);
+                return ResponseEntity.ok(thongbao.builder().message(user.getEmail()).build());
             } else {
                 return ResponseEntity.badRequest().body("Không tìm thấy mail " + mail);
             }

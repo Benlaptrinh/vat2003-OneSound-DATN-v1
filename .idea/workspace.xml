@@ -6,11 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="7db67e01-6fbd-4ca4-ae2e-7eb1238ecebf" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/AccountServiceImlp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/AccountServiceImlp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/entity/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/entity/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/entity/PasswordResetToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/entity/PasswordResetToken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/JwtTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/JwtTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/AccountServiceImlp.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/Service/imp/AccountServiceImlp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/AccountController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/JwtTokenFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/JwtTokenFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/JwtTokenUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/JwtTokenUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/WebSecurityConfig$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/WebSecurityConfig$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/WebSecurityConfig.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,7 +64,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "Spring Boot.ShopappApplication.executor": "Run",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "dev002",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "node.js.detected.package.eslint": "true",
@@ -119,6 +125,7 @@
       <workItem from="1708480254400" duration="3046000" />
       <workItem from="1708532137743" duration="1107000" />
       <workItem from="1708594446527" duration="4419000" />
+      <workItem from="1708847807353" duration="7430000" />
     </task>
     <servers />
   </component>
@@ -145,18 +152,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java</url>
-          <line>302</line>
+          <line>274</line>
           <option name="timeStamp" value="33" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java</url>
-          <line>152</line>
-          <option name="timeStamp" value="35" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java</url>
-          <line>169</line>
-          <option name="timeStamp" value="37" />
+          <line>95</line>
+          <option name="timeStamp" value="39" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java</url>
@@ -178,7 +180,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/AccountServiceImlp.java</url>
-          <line>105</line>
+          <line>103</line>
           <properties class="com.project.shopapp.Service.imp.AccountServiceImlp" method="createAccount">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -196,7 +198,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/AccountServiceImlp.java</url>
-          <line>34</line>
+          <line>39</line>
           <properties class="com.project.shopapp.Service.imp.AccountServiceImlp" method="updateAccount">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -204,18 +206,45 @@
           <option name="timeStamp" value="34" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java</url>
+          <line>96</line>
+          <properties class="com.project.shopapp.controller.AccountController" method="login">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/AccountServiceImlp.java</url>
-          <line>289</line>
+          <line>299</line>
           <properties class="com.project.shopapp.Service.imp.AccountServiceImlp" method="sendEmail">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="36" />
+          <option name="timeStamp" value="41" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/AccountServiceImlp.java</url>
+          <line>318</line>
+          <properties class="com.project.shopapp.Service.imp.AccountServiceImlp" method="generateResetToken">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="42" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java</url>
+          <line>153</line>
+          <properties class="com.project.shopapp.controller.AccountController" method="forgotPassword">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="44" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/vat2003_OneSound_DATN_v1$ShopappApplication.ic" NAME="ShopappApplication Coverage Results" MODIFIED="1706936980719" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/vat2003_OneSound_DATN_v1$ShopappApplication.ic" NAME="ShopappApplication Coverage Results" MODIFIED="1708852803827" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>

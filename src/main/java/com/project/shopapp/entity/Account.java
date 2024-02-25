@@ -38,7 +38,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "Accounts")
-@ToString(exclude = "accountRole")
+@ToString(exclude = {"accountRole", "passwordResetTokens"})
 public class Account implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
