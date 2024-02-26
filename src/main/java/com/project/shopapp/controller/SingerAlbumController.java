@@ -53,6 +53,7 @@ public class SingerAlbumController {
         SingerAlbumService.removeSingerAlbum(singerAlbumId);
     }
 
+    
     // Xóa singer album theo album id
     @DeleteMapping("singerAlbum/deleteByAlbumId/{id}")
     public void deleteByAlbumId(@PathVariable("id") Long AlbumId) {

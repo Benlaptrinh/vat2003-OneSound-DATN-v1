@@ -64,9 +64,7 @@ public class SingerAlbumServiceImlp implements SingerAlbumService {
         // // Tìm kiếm Album
         // Album a = adao.findById(singerAlbumId)
         // .orElseThrow(() -> new EntityNotFoundException("Album not found"));
-
         List<SingerAlbum> singerAlbum = singerAlbumDao.findAllByAlbumId(albumId);
-
         singerAlbumDao.deleteAll(singerAlbum);
 
     }

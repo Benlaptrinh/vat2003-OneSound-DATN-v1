@@ -74,4 +74,9 @@ public class AlbumServiceImlp implements AlbumService {
         return albumDAO.searchByTitle(title, pageable);
     }
 
+	@Override
+	public List<Album> findAlbumByTitle(String title) {
+		return albumDAO.searchByTitle(title);
+	}
+
 }
