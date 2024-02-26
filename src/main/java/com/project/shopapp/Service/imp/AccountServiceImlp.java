@@ -207,9 +207,9 @@ public class AccountServiceImlp implements AccountService {
         if (newEmail != null && !newEmail.equals(existingAccount.getEmail()) && AccountDAO.existsByEmail(newEmail)) {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
-        String password = account.getPassword();
-        String encodedPassword = passwordEncoder.encode(password);
-        existingAccount.setPassword(encodedPassword);
+        // String password = account.getPassword();
+        // String encodedPassword = passwordEncoder.encode(password);
+        // existingAccount.setPassword(encodedPassword);
         existingAccount.setFullname(account.getFullname());
         existingAccount.setEmail(newEmail);
         existingAccount.setAddress(account.getAddress());
