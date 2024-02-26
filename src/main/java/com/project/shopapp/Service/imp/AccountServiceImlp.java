@@ -70,7 +70,6 @@ public class AccountServiceImlp implements AccountService {
             existingUser.setAccountRole(updateUserDTO.getAccountRole());
         }
 
-
         return AccountDAO.save(existingUser);
     }
 
@@ -125,10 +124,6 @@ public class AccountServiceImlp implements AccountService {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
 
-        // @SuppressWarnings("null")
-        // Role userRole =
-        // RoleDAO.findById(account.getAccountRole().getId()).orElseThrow();
-
         if (account.getAccountRole() == null) {
             Role userRole = RoleDAO.findById(1L).orElseThrow();
             account.setAccountRole(userRole);
@@ -159,7 +154,6 @@ public class AccountServiceImlp implements AccountService {
             Account other = AccountDAO.findByEmail(updatedAccount.getEmail()).orElse(null);
             if (other != null && other.getId() != existingAccount.getId()) {
                 System.err.println("Đã có tài khoản đăng ký địa chỉ email này, vui lòng chọn email khác!");
-                // Update the fields of the existing account with the provided values
                 existingAccount.setFullname(updatedAccount.getFullname());
                 existingAccount.setActive(updatedAccount.isActive());
                 existingAccount.setAddress(updatedAccount.getAddress());
@@ -213,9 +207,9 @@ public class AccountServiceImlp implements AccountService {
         if (newEmail != null && !newEmail.equals(existingAccount.getEmail()) && AccountDAO.existsByEmail(newEmail)) {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
-        String password = account.getPassword();
-        String encodedPassword = passwordEncoder.encode(password);
-        existingAccount.setPassword(encodedPassword);
+        // String password = account.getPassword();
+        // String encodedPassword = passwordEncoder.encode(password);
+        // existingAccount.setPassword(encodedPassword);
         existingAccount.setFullname(account.getFullname());
         existingAccount.setEmail(newEmail);
         existingAccount.setAddress(account.getAddress());

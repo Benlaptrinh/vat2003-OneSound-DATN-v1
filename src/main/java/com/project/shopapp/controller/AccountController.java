@@ -24,6 +24,7 @@ import com.project.shopapp.entity.PasswordResetToken;
 import com.project.shopapp.entity.Genre;
 import com.project.shopapp.entity.UserLoginDTO;
 import com.project.shopapp.repository.AccountDAO;
+import com.project.shopapp.repository.SingerDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
 import com.project.shopapp.utils.LoginResponse;
 
@@ -310,4 +311,8 @@ public class AccountController {
         }
     }
 
+    @GetMapping("/users/getaccountByName/{title}")
+    public Page<Account> getAlbumByTitle(@PathVariable String title, Pageable pageable) {
+        return AccountDAO.findByFullnamePage(title, pageable);
+    }
 }

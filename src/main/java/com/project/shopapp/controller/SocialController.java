@@ -30,26 +30,24 @@ import com.project.shopapp.entity.Role;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.RoleDAO;
 
-
 @RestController
 @RequestMapping("/social")
 @CrossOrigin("http://localhost:4200")
 public class SocialController {
 
-	private UserService service;
-	@Autowired
-	private RoleDAO roledao;
-	
-	@Autowired
-	private AccountDAO dao;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-	private String email;
-	
-	@Autowired
-	private TokenService tokenService;
+    private UserService service;
+    @Autowired
+    private RoleDAO roledao;
 
+    @Autowired
+    private AccountDAO dao;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    private String email;
+
+    @Autowired
+    private TokenService tokenService;
 
     @Value("${google.id}")
     private String idClient;
@@ -62,14 +60,13 @@ public class SocialController {
         System.out.println("pass " + password);
         NetHttpTransport transport = new NetHttpTransport();
         JacksonFactory factory = JacksonFactory.getDefaultInstance();
-        GoogleIdTokenVerifier.Builder ver =
-                new GoogleIdTokenVerifier.Builder(transport,factory)
-                        .setAudience(Collections.singleton(idClient));
-        GoogleIdToken googleIdToken = GoogleIdToken.parse(ver.getJsonFactory(),tokenDto.getToken());
+        GoogleIdTokenVerifier.Builder ver = new GoogleIdTokenVerifier.Builder(transport, factory)
+                .setAudience(Collections.singleton(idClient));
+        GoogleIdToken googleIdToken = GoogleIdToken.parse(ver.getJsonFactory(), tokenDto.getToken());
         GoogleIdToken.Payload payload = googleIdToken.getPayload();
         email = payload.getEmail();
-       Account user = new Account();
-        if(dao.existsByEmail(email)){
+        Account user = new Account();
+        if (dao.existsByEmail(email)) {
             user = dao.findByEmail(email).get();
         } else {
             user = createUser(email);
@@ -92,16 +89,17 @@ public class SocialController {
         return dao.save(user);
     }
 
-    //http://localhost:8080/social/facebook
+    // http://localhost:8080/social/facebook
     @PostMapping("/facebook")
     public ResponseEntity<LoginResponse> loginWithFacebook(@RequestBody TokenDTO tokenDto) throws Exception {
         Facebook facebook = new FacebookTemplate(tokenDto.getToken());
-        String [] data = {"email"};
-        org.springframework.social.facebook.api.User user = facebook.fetchObject("me", org.springframework.social.facebook.api.User.class,data);
+        String[] data = { "email" };
+        org.springframework.social.facebook.api.User user = facebook.fetchObject("me",
+                org.springframework.social.facebook.api.User.class, data);
 
         email = user.getEmail();
         Account userFace = new Account();
-        if(dao.existsByEmail(email)){
+        if (dao.existsByEmail(email)) {
             userFace = dao.findByEmail(email).get();
         } else {
             userFace = createUser(email);
