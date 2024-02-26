@@ -49,6 +49,11 @@ public class SongController {
 	        return songDAO.findByNameIgnoreCase(Name, pageable);
 	    }
 	    
+	    @GetMapping("Songs/albumId/{albumId}")
+	    public ResponseEntity<List<Song>> getSongByAlbumId(@PathVariable Long albumId) {
+	        List<Song> song = songDAO.findSongsByAlbumId(albumId);
+	        return ResponseEntity.ok(song);
+	    }
 	    
 	    @GetMapping("/Song/Name/{name}")
 	    public List<Song> getSongByName1(@PathVariable("name") String name) {
