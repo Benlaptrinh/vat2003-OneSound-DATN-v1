@@ -70,14 +70,6 @@ public class AccountServiceImlp implements AccountService {
             existingUser.setAccountRole(updateUserDTO.getAccountRole());
         }
 
-        if (updateUserDTO.getPassword() != null
-                && !updateUserDTO.getPassword().isEmpty()) {
-
-            String newPassword = updateUserDTO.getPassword();
-            String encodedPassword = passwordEncoder.encode(newPassword);
-            existingUser.setPassword(encodedPassword);
-        }
-
         return AccountDAO.save(existingUser);
     }
 
@@ -113,7 +105,7 @@ public class AccountServiceImlp implements AccountService {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
         if (account.getAccountRole() == null) {
-            Role userRole = RoleDAO.findById(2L).orElseThrow();
+            Role userRole = RoleDAO.findById(1L).orElseThrow();
             account.setAccountRole(userRole);
         }
         String password = account.getPassword();
@@ -131,10 +123,6 @@ public class AccountServiceImlp implements AccountService {
         if (AccountDAO.existsByEmail(account.getEmail())) {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
-
-        // @SuppressWarnings("null")
-        // Role userRole =
-        // RoleDAO.findById(account.getAccountRole().getId()).orElseThrow();
 
         if (account.getAccountRole() == null) {
             Role userRole = RoleDAO.findById(1L).orElseThrow();
@@ -166,7 +154,6 @@ public class AccountServiceImlp implements AccountService {
             Account other = AccountDAO.findByEmail(updatedAccount.getEmail()).orElse(null);
             if (other != null && other.getId() != existingAccount.getId()) {
                 System.err.println("Đã có tài khoản đăng ký địa chỉ email này, vui lòng chọn email khác!");
-                // Update the fields of the existing account with the provided values
                 existingAccount.setFullname(updatedAccount.getFullname());
                 existingAccount.setActive(updatedAccount.isActive());
                 existingAccount.setAddress(updatedAccount.getAddress());
@@ -311,8 +298,8 @@ public class AccountServiceImlp implements AccountService {
             msg.setTo(user.getEmail());
             msg.setSubject("RESET PASSWORD FOR ONESOUND ACCOUNT");
             msg.setText("Hello, This is a reset password mail from ONESOUND \n\n"
-                    + "Please click on this link to Reset your Password : <a href='" + resetLink + "'>"
-                    + "Regards \n" + "ONESOUND");
+                    + "Please click on this link to Reset your Password :" + resetLink
+                    + "\n" + "ONESOUND");
 
             javaMailSender.send(msg);
             return "success";
