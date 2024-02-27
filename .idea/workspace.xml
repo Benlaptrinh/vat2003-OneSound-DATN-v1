@@ -118,7 +118,7 @@
       <workItem from="1708532137743" duration="1107000" />
       <workItem from="1708594446527" duration="4419000" />
       <workItem from="1708847807353" duration="7430000" />
-      <workItem from="1709044745751" duration="2259000" />
+      <workItem from="1709044745751" duration="3007000" />
     </task>
     <servers />
   </component>
@@ -197,6 +197,6 @@
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/vat2003_OneSound_DATN_v1$ShopappApplication.ic" NAME="ShopappApplication Coverage Results" MODIFIED="1709048015596" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/vat2003_OneSound_DATN_v1$ShopappApplication.ic" NAME="ShopappApplication Coverage Results" MODIFIED="1709048340774" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
