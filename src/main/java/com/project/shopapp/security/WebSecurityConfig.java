@@ -56,6 +56,16 @@ public class WebSecurityConfig {
                                     String.format("%s/users/email/**", apiPrefix))
                             .permitAll()
                             .requestMatchers(GET,
+                                    String.format("%s/users/resetPassword/token/**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/users/forgotPassword/**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/users/update/pass/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(GET,
                                     String.format("%s/users/**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
 
