@@ -1,12 +1,16 @@
 package com.project.shopapp.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import com.project.shopapp.utils.UpdateUserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import com.project.shopapp.entity.Account;
+import com.project.shopapp.entity.CountAccountDTO;
 
 public interface AccountService {
 
@@ -38,4 +42,11 @@ public interface AccountService {
 
     boolean existsByEmail(String email);
 
+    List<CountAccountDTO> countAccountByDate(int index);
+
+    List<CountAccountDTO> countByCreatedById(int index);
+
+    List<Account> getAllAccountByCreatedDate(Date date);
+
+    Account UpdatePassUser(String email, UpdateUserDTO UpdateUserDTO);
 }

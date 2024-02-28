@@ -1,7 +1,9 @@
 
 package com.project.shopapp.Service.imp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -14,18 +16,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.entity.Account;
+import com.project.shopapp.entity.CountAccountDTO;
 import com.project.shopapp.entity.PasswordResetToken;
 import com.project.shopapp.entity.Role;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
-import com.project.shopapp.security.DataNotFoundException;
 import com.project.shopapp.security.JwtTokenUtil;
 
 @Service
@@ -108,15 +110,14 @@ public class AccountServiceImlp implements AccountService {
         if (AccountDAO.existsByEmail(account.getEmail())) {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
-        if(account.getAccountRole()==null) {
-        Role userRole = RoleDAO.findById(2L).orElseThrow();
-        account.setAccountRole(userRole);
+        if (account.getAccountRole() == null) {
+            Role userRole = RoleDAO.findById(2L).orElseThrow();
+            account.setAccountRole(userRole);
         }
         String password = account.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         account.setPassword(encodedPassword);
-//        account.setAccountRole(userRole);
-
+        // account.setAccountRole(userRole);
 
         Account savedAccount = AccountDAO.save(account);
         System.out.println(savedAccount);
@@ -151,14 +152,14 @@ public class AccountServiceImlp implements AccountService {
     }
 
     @Override
-//    public Account updateAccount(Long id, Account account) {
+    // public Account updateAccount(Long id, Account account) {
     public Account updateAccount(Long id, Account updatedAccount) {
         Account existingAccount = AccountDAO.findById(id).orElse(null);
-        if(updatedAccount.getEmail()!=existingAccount.getEmail()) {
-        	Account other=AccountDAO.findByEmail(updatedAccount.getEmail()).orElse(null);
-        	if(other!=null && other.getId()!=existingAccount.getId()) {
-        		System.err.println("Đã có tài khoản đăng ký địa chỉ email này, vui lòng chọn email khác!");
-        		// Update the fields of the existing account with the provided values
+        if (updatedAccount.getEmail() != existingAccount.getEmail()) {
+            Account other = AccountDAO.findByEmail(updatedAccount.getEmail()).orElse(null);
+            if (other != null && other.getId() != existingAccount.getId()) {
+                System.err.println("Đã có tài khoản đăng ký địa chỉ email này, vui lòng chọn email khác!");
+                // Update the fields of the existing account with the provided values
                 existingAccount.setFullname(updatedAccount.getFullname());
                 existingAccount.setActive(updatedAccount.isActive());
                 existingAccount.setAddress(updatedAccount.getAddress());
@@ -168,9 +169,8 @@ public class AccountServiceImlp implements AccountService {
                 existingAccount.setPhonenumber(updatedAccount.getPhonenumber());
                 existingAccount.setAccountRole(updatedAccount.getAccountRole());
                 existingAccount.setPassword(passwordEncoder.encode(updatedAccount.getPassword()));
-        	}
-        	else {
-        		existingAccount.setFullname(updatedAccount.getFullname());
+            } else {
+                existingAccount.setFullname(updatedAccount.getFullname());
                 existingAccount.setActive(updatedAccount.isActive());
                 existingAccount.setAddress(updatedAccount.getAddress());
                 existingAccount.setAvatar_url(updatedAccount.getAvatar_url());
@@ -181,10 +181,9 @@ public class AccountServiceImlp implements AccountService {
                 existingAccount.setPassword(passwordEncoder.encode(updatedAccount.getPassword()));
                 existingAccount.setEmail(updatedAccount.getEmail());
                 System.err.println("Đang chạy trường hợp 2");
-        	}
-        }
-        else {
-        	existingAccount.setFullname(updatedAccount.getFullname());
+            }
+        } else {
+            existingAccount.setFullname(updatedAccount.getFullname());
             existingAccount.setActive(updatedAccount.isActive());
             existingAccount.setAddress(updatedAccount.getAddress());
             existingAccount.setAvatar_url(updatedAccount.getAvatar_url());
@@ -240,7 +239,6 @@ public class AccountServiceImlp implements AccountService {
     public Account getAccountById(Long accountId) {
         return AccountDAO.findById(accountId).orElse(null);
     }
-
 
     @Override
     public List<Account> getAllAccount() {
@@ -336,6 +334,44 @@ public class AccountServiceImlp implements AccountService {
     public boolean hasExipred(LocalDateTime expiryDateTime) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         return expiryDateTime.isAfter(currentDateTime);
+    }
+
+    @Override
+    public List<CountAccountDTO> countAccountByDate(int index) {
+        if (index == 0) {
+            return AccountDAO.countByCreatedDateDESC();
+        } else {
+            return AccountDAO.countByCreatedDateAsc();
+        }
+
+    }
+
+    @Override
+    public List<Account> getAllAccountByCreatedDate(Date date) {
+        return AccountDAO.getAllAccountByCreatedDate(date);
+    }
+
+    @Override
+    public List<CountAccountDTO> countByCreatedById(int index) {
+        return AccountDAO.countByCreatedById();
+    }
+
+    @Override
+    public Account UpdatePassUser(String email, UpdateUserDTO UpdateUserDTO) {
+        Account existingAccount = AccountDAO.findByEmail(email).orElse(null);
+
+        if (existingAccount != null) {
+
+            String password = UpdateUserDTO.getPassword();
+            String encodedPassword = passwordEncoder.encode(password);
+            existingAccount.setPassword(encodedPassword);
+
+            Account savedAccount = AccountDAO.save(existingAccount);
+
+            return savedAccount;
+        } else {
+            throw new IllegalArgumentException("Account not found for email: " + email);
+        }
     }
 
 }

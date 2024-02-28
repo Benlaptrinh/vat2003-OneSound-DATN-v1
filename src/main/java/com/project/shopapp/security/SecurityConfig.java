@@ -3,6 +3,8 @@ package com.project.shopapp.security;
 import com.project.shopapp.repository.AccountDAO;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,12 +20,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @RequiredArgsConstructor
 public class SecurityConfig {
-    private final AccountDAO AccountDAO;
+    private final AccountDAO accountDAO;
 
     // user's detail object
     @Bean
     public UserDetailsService userDetailsService() {
-        return phoneNumber -> AccountDAO
+        return phoneNumber -> accountDAO
                 .findByEmail(phoneNumber)
                 .orElseThrow(() -> new UsernameNotFoundException(
                         "Cannot find user with phone number = " + phoneNumber));

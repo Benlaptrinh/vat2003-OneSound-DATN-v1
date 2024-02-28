@@ -32,7 +32,7 @@ public class Song {
 
 	private String name;
 	private String image;
-	private String path;
+	private String audio;
 
 	@Lob
 	private String lyrics;
@@ -48,7 +48,7 @@ public class Song {
 	@JsonIgnore
 	@OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
 	private List<SongAuthor> songAuthors;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
 	private List<SongGenre> songGenres;
