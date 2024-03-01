@@ -45,7 +45,7 @@ public class Account implements UserDetails {
 	private Long id;
 	private String password;
 	private String fullname;
-	@Column(unique = true) 
+	@Column(unique = true)
 	private String email;
 	private boolean active;
 	@Temporal(TemporalType.DATE)
@@ -67,6 +67,11 @@ public class Account implements UserDetails {
 
 //	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
 //	private PasswordResetToken passwordResetToken;
+//=======
+//	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+//	@JoinColumn(name = "passwordResetToken")
+//	private PasswordResetToken passwordResetToken;
+//>>>>>>> ceci_22/02/2024
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
@@ -131,4 +136,5 @@ public class Account implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
 }

@@ -1,11 +1,14 @@
 
 package com.project.shopapp.Service.imp;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.project.shopapp.security.DataNotFoundException;
 import com.project.shopapp.utils.UpdateUserDTO;
 
 import jakarta.mail.internet.MimeMessage;
@@ -18,20 +21,20 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
+
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.entity.Account;
+import com.project.shopapp.entity.CountAccountDTO;
 import com.project.shopapp.entity.PasswordResetToken;
 import com.project.shopapp.entity.Role;
 import com.project.shopapp.entity.UserLoginDTO;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.RoleDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
-import com.project.shopapp.security.DataNotFoundException;
 import com.project.shopapp.security.JwtTokenUtil;
 
 @Service
@@ -105,7 +108,10 @@ public class AccountServiceImlp implements AccountService {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
         if (account.getAccountRole() == null) {
-            Role userRole = RoleDAO.findById(1L).orElseThrow();
+//<<<<<<< HEAD
+//            Role userRole = RoleDAO.findById(1L).orElseThrow();
+//=======
+            Role userRole = RoleDAO.findById(2L).orElseThrow();
             account.setAccountRole(userRole);
         }
         String password = account.getPassword();
@@ -154,6 +160,7 @@ public class AccountServiceImlp implements AccountService {
             Account other = AccountDAO.findByEmail(updatedAccount.getEmail()).orElse(null);
             if (other != null && other.getId() != existingAccount.getId()) {
                 System.err.println("Đã có tài khoản đăng ký địa chỉ email này, vui lòng chọn email khác!");
+                // Update the fields of the existing account with the provided values
                 existingAccount.setFullname(updatedAccount.getFullname());
                 existingAccount.setActive(updatedAccount.isActive());
                 existingAccount.setAddress(updatedAccount.getAddress());
@@ -343,8 +350,27 @@ public class AccountServiceImlp implements AccountService {
     }
 
     @Override
-    public Account UpdatePassUser(String email, UpdateUserDTO UpdateUserDTO) {
+    public List<CountAccountDTO> countAccountByDate(int index) {
+        if (index == 0) {
+            return AccountDAO.countByCreatedDateDESC();
+        } else {
+            return AccountDAO.countByCreatedDateAsc();
+        }
 
+    }
+
+    @Override
+    public List<Account> getAllAccountByCreatedDate(Date date) {
+        return AccountDAO.getAllAccountByCreatedDate(date);
+    }
+
+    @Override
+    public List<CountAccountDTO> countByCreatedById(int index) {
+        return AccountDAO.countByCreatedById();
+    }
+
+    @Override
+    public Account UpdatePassUser(String email, UpdateUserDTO UpdateUserDTO) {
         Account existingAccount = AccountDAO.findByEmail(email).orElse(null);
 
         if (existingAccount != null) {

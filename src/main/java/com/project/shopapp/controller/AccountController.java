@@ -187,10 +187,7 @@ public class AccountController {
     }
 
     @PutMapping("/update/pass/{email}")
-    public ResponseEntity<?> updatepassuser(
-            @PathVariable String email,
-            @RequestBody UpdateUserDTO UpdateUserDTO) {
-
+    public ResponseEntity<?> updatepassuser(@PathVariable String email, @RequestBody UpdateUserDTO UpdateUserDTO) {
         try {
 
             Account updatedAccount = accountService.UpdatePassUser(email, UpdateUserDTO);
@@ -213,6 +210,12 @@ public class AccountController {
         }
     }
 
+
+    // @GetMapping("/email")
+    // public ResponseEntity<Account> getUserByEmail(@RequestParam String mail) {
+    // Account account = accountService.getAccountByEmail(mail);
+    // return ResponseEntity.ok(account);
+    // }
     @GetMapping("/email/{email}")
     public ResponseEntity<Boolean> checkIfUserExistsByEmail(@PathVariable String email) {
         try {
@@ -250,6 +253,18 @@ public class AccountController {
     public Page<Account> getAllAccounts(Pageable pageable) {
         return accountService.getAllAccount(pageable);
     }
+
+    // <<<<<<< HEAD
+    // @PutMapping("/details/{userId}")
+    // public ResponseEntity<Account> updateUserDetails(
+    // @PathVariable Long userId,
+    // @RequestBody UpdateUserDTO updatedUserDTO) {
+    // try {
+    // Account updatedUser = accountService.updateAccount(userId, updatedUserDTO);
+    // return ResponseEntity.ok().build();
+    // } catch (Exception e) {
+    // return ResponseEntity.badRequest().build();
+    // =======
 
     @PutMapping("/update/admin/{id}")
     public ResponseEntity<?> updateUserr(
