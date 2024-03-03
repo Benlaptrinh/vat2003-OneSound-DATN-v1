@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,14 +40,14 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "Accounts")
-@ToString(exclude = {"accountRole", "passwordResetTokens"})
+@ToString(exclude = { "accountRole", "passwordResetTokens" })
 public class Account implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String password;
 	private String fullname;
-	@Column(unique = true) 
+	@Column(unique = true)
 	private String email;
 	private boolean active;
 	@Temporal(TemporalType.DATE)
@@ -58,6 +60,9 @@ public class Account implements UserDetails {
 	private Date birthday;
 	private String phonenumber;
 
+	@Enumerated(EnumType.STRING)
+	private AuthProvider provider;
+
 	@ManyToOne
 	@JoinColumn(name = "role_id") // Đảm bảo tên cột khớp với tên cột trong cơ sở dữ liệu
 	private Role accountRole;
@@ -65,8 +70,8 @@ public class Account implements UserDetails {
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
 	private List<PasswordResetToken> passwordResetTokens;
 
-//	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-//	private PasswordResetToken passwordResetToken;
+	// @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+	// private PasswordResetToken passwordResetToken;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")

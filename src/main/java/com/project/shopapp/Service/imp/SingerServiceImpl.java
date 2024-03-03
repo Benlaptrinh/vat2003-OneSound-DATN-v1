@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.shopapp.Service.SingerService;
 import com.project.shopapp.entity.Singer;
+import com.project.shopapp.entity.SingerFullInfoDTO;
 import com.project.shopapp.repository.SingerDAO;
 
 import java.util.List;
@@ -27,14 +28,6 @@ public class SingerServiceImpl implements SingerService {
     public Singer getSingerById(Long id) {
         return singerRepository.findById(id).orElse(null);
     }
-
-    // @Override
-    // public Singer createSinger(Singer singer) {
-    // MultipartFile imageFile = singer.getImageFile();
-    // String imageUrl = saveImage(imageFile); // Implement saveImage method
-    // singer.setImage(imageUrl);
-    // return singerRepository.save(singer);
-    // }
 
     @Override
     public Singer updateSinger(Long id, Singer singer) {
@@ -71,6 +64,24 @@ public class SingerServiceImpl implements SingerService {
     @Override
     public List<Singer> findAllSingerByAlbumId(Long albumId) {
         return singerRepository.findAllSingerByAlbumId(albumId);
+    }
+
+    @Override
+    public SingerFullInfoDTO getSingerFullInfoById(Long id) {
+        // Lấy thông tin từ singerRepository
+        Singer singer = singerRepository.findById(id).orElse(null);
+
+        // Tạo đối tượng SingerFullInfoDTO và set thông tin
+        SingerFullInfoDTO singerFullInfoDTO = new SingerFullInfoDTO();
+        singerFullInfoDTO.setId(singer.getId());
+        singerFullInfoDTO.setFullname(singer.getFullname());
+        singerFullInfoDTO.setDescription(singer.getDescription());
+        singerFullInfoDTO.setImage(singer.getImage());
+        singerFullInfoDTO.setSingerAlbums(singer.getSingerAlbums());
+        singerFullInfoDTO.setSongSinger(singer.getSongSinger());
+        singerFullInfoDTO.setFavoriteSinger(singer.getFavoriteSinger());
+
+        return singerFullInfoDTO;
     }
 
 }
