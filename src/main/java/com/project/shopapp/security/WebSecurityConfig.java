@@ -113,67 +113,69 @@ import static org.springframework.http.HttpMethod.*;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-        private final JwtTokenFilter jwtTokenFilter;
+    private final JwtTokenFilter jwtTokenFilter;
 
-        @Value("${api.prefix}")
-        private String apiPrefix;
+    @Value("${api.prefix}")
+    private String apiPrefix;
 
-        @Bean
-        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-                http
-                                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                                .authorizeHttpRequests(requests -> {
-                                        requests
-                                                        // ------------------------users--------------------//
-                                                        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+        http
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(requests -> {
+                    requests
+                            // ------------------------users--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
 
-                                                        .requestMatchers(
-                                                                        String.format("%s/users/register", apiPrefix),
-                                                                        String.format("%s/users/registerfb", apiPrefix),
-                                                                        String.format("%s/users/login", apiPrefix))
-                                                        .permitAll()
+                            .requestMatchers(
+                                    String.format("%s/users/register", apiPrefix),
+                                    String.format("%s/users/registerfb", apiPrefix),
+                                    String.format("%s/users/login", apiPrefix))
+                            .permitAll()
 
-                                                        .requestMatchers(GET,
-                                                                        String.format("%s/users**", apiPrefix))
-                                                        .permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/users**", apiPrefix))
+                            .permitAll()
 
-                                                        .anyRequest().authenticated();
-                                })
-                                .csrf(AbstractHttpConfigurer::disable);
-                http
-                                .oauth2Login()
-                                .loginPage("http://localhost:4200/onesound/signin")
-                                .defaultSuccessUrl("http://localhost:4200/onesound/home", true)
-                                .and()
-                                .logout()
-                                .invalidateHttpSession(true)
-                                .deleteCookies("JSESSIONID")
-                                .clearAuthentication(true)
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .logoutSuccessUrl("/login?logout")
-                                .and()
-                                .exceptionHandling()
-                                .accessDeniedPage("/403")
-                                .and()
-                                .csrf(AbstractHttpConfigurer::disable);
-                http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
-                        @Override
-                        public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
-                                CorsConfiguration configuration = new CorsConfiguration();
-                                configuration.setAllowedOrigins(List.of("*"));
-                                configuration.setAllowedMethods(
-                                                Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-                                configuration.setAllowedHeaders(
-                                                Arrays.asList("authorization", "content-type", "x-auth-token"));
-                                configuration.setExposedHeaders(List.of("x-auth-token"));
-                                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-                                source.registerCorsConfiguration("/**", configuration);
-                                httpSecurityCorsConfigurer.configurationSource(source);
-                        }
-                });
+                            .anyRequest().authenticated();
+                })
+                .csrf(AbstractHttpConfigurer::disable);
+        http
+                .oauth2Login()
+                .loginPage("http://localhost:4200/onesound/signin")
+//                .defaultSuccessUrl("http://localhost:4200/onesound/home", true)
+                .defaultSuccessUrl("/api/v1/users/oauth2/login/success", true)
+                .failureUrl("/auth/login/error")
+                .and()
+                .logout()
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .and()
+                .exceptionHandling()
+                .accessDeniedPage("/403")
+                .and()
+                .csrf(AbstractHttpConfigurer::disable);
+        http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
+            @Override
+            public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
+                CorsConfiguration configuration = new CorsConfiguration();
+                configuration.setAllowedOrigins(List.of("*"));
+                configuration.setAllowedMethods(
+                        Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+                configuration.setAllowedHeaders(
+                        Arrays.asList("authorization", "content-type", "x-auth-token"));
+                configuration.setExposedHeaders(List.of("x-auth-token"));
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", configuration);
+                httpSecurityCorsConfigurer.configurationSource(source);
+            }
+        });
 
-                return http.build();
-        }
+        return http.build();
+    }
 
 }
