@@ -9,5 +9,6 @@ import com.project.shopapp.entity.SongGenre;
 
 public interface SongGenreDAO extends JpaRepository<SongGenre, SongGenreId> {
 	List<SongGenre> findByGenreId(Long singer);
+	List<SongGenre> findBySongId(Long singer);
 	void deleteBySongId(long id);
 }

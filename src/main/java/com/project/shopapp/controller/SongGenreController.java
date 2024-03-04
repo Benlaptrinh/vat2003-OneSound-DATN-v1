@@ -20,6 +20,7 @@ import com.project.shopapp.Service.AlbumService;
 import com.project.shopapp.composite.SongGenreId;
 import com.project.shopapp.entity.Album;
 import com.project.shopapp.entity.SongGenre;
+import com.project.shopapp.entity.SongGenre;
 import com.project.shopapp.repository.SongGenreDAO;
 import com.project.shopapp.repository.SongGenreDAO;
 
@@ -60,6 +61,12 @@ public class SongGenreController {
     @DeleteMapping("SongGenre/delete-by-song/{id}")
     public void deleteBySong(@PathVariable("id") Long SongGenreId) {
         SongGenreService.deleteBySongId(SongGenreId);
+    }
+    
+    @GetMapping("SongGenre/get-by-song/{id}")
+    public List<SongGenre> getBySongGenre(@PathVariable("id") Long SongGenreId) {
+    	List<SongGenre> ss=SongGenreService.findBySongId(SongGenreId);
+        return ss;
     }
 
     

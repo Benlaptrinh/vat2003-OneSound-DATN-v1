@@ -20,6 +20,7 @@ import com.project.shopapp.Service.AlbumService;
 import com.project.shopapp.composite.SongAuthorId;
 import com.project.shopapp.entity.Album;
 import com.project.shopapp.entity.SongAuthor;
+import com.project.shopapp.entity.SongAuthor;
 import com.project.shopapp.repository.SongAuthorDAO;
 import com.project.shopapp.repository.SongAuthorDAO;
 
@@ -62,7 +63,12 @@ public class SongAuthorController {
         SongAuthorService.deleteBySongId(SongAuthorId);
     }
 
-    
+    @GetMapping("SongAuthor/get-by-song/{id}")
+    public List<SongAuthor> getBySongAuthor(@PathVariable("id") Long SongAuthorId) {
+    	List<SongAuthor> ss=SongAuthorService.findBySongId(SongAuthorId);
+        return ss;
+    }
+
     // Xóa Author album theo album id
 //    @DeleteMapping("SongAuthor/deleteByAlbumId/{id}")
 //    public void deleteByAlbumId(@PsathVariable("id") Long AlbumId) {

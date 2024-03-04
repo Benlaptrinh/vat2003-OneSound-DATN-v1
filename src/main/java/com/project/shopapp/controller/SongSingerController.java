@@ -56,6 +56,14 @@ public class SongSingerController {
         SongSingerService.deleteAll(ss);
     }
     
+    @GetMapping("SongSinger/get-by-song/{id}")
+    public List<SongSinger> getBySongSinger(@PathVariable("id") Long SongSingerId) {
+    	List<SongSinger> ss=SongSingerService.findBySongId(SongSingerId);
+        return ss;
+    }
+    
+    
+    
     @DeleteMapping("SongSinger/delete-by-song/{id}")
     public void deleteBySong(@PathVariable("id") Long SongSingerId) {
         SongSingerService.deleteBySongId(SongSingerId);
