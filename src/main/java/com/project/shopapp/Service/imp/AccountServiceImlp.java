@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import com.project.shopapp.entity.*;
 import com.project.shopapp.security.DataNotFoundException;
 import com.project.shopapp.utils.UpdateUserDTO;
 
@@ -27,11 +28,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.AccountService;
-import com.project.shopapp.entity.Account;
-import com.project.shopapp.entity.CountAccountDTO;
-import com.project.shopapp.entity.PasswordResetToken;
-import com.project.shopapp.entity.Role;
-import com.project.shopapp.entity.UserLoginDTO;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.RoleDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
@@ -39,6 +35,26 @@ import com.project.shopapp.security.JwtTokenUtil;
 
 @Service
 public class AccountServiceImlp implements AccountService {
+
+    public String sendEmailFedd(FeedRequest user) {
+        try {
+            String emailContent = user.getContent();
+
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setTo(user.getEmail());
+            helper.setSubject(user.getReason());
+            helper.setText(emailContent, true);
+
+            javaMailSender.send(message);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+
     @Override
     public Account updateAccount(Long id, UpdateUserDTO updateUserDTO) {
         Account existingUser = AccountDAO.findById(id)

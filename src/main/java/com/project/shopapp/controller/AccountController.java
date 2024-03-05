@@ -1,7 +1,7 @@
 
 package com.project.shopapp.controller;
 
-import com.project.shopapp.entity.Singer;
+import com.project.shopapp.entity.*;
 import com.project.shopapp.utils.UpdateUserDTO;
 import com.project.shopapp.utils.thongbao;
 
@@ -19,10 +19,6 @@ import org.springframework.web.bind.annotation.*;
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.Service.PasswordResetTokenService;
 import com.project.shopapp.Service.imp.AccountServiceImlp;
-import com.project.shopapp.entity.Account;
-import com.project.shopapp.entity.PasswordResetToken;
-import com.project.shopapp.entity.Genre;
-import com.project.shopapp.entity.UserLoginDTO;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.SingerDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
@@ -58,9 +54,21 @@ public class AccountController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @PostMapping("/feed")
+    public ResponseEntity<?> hello1(@RequestBody FeedRequest request) {
+        if (request.getEmail() == null || request.getContent() == null || request.getEmail().isEmpty()
+                || request.getContent().isEmpty()){
+            return ResponseEntity.badRequest().body("Email and content cannot be empty");
+        }
+        AccountServiceImlp.sendEmailFedd(request);
+        return ResponseEntity.ok("Received email: " + request.getEmail() + ", reason: " + request.getReason()
+                + ", content: " + request.getContent());
+    }
+
+
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
-            BindingResult result) {
+                                        BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -78,7 +86,7 @@ public class AccountController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody Account Account,
-            BindingResult result) {
+                                    BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
