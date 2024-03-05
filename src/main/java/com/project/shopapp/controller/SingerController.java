@@ -11,9 +11,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.project.shopapp.Service.SingerService;
 import com.project.shopapp.Service.UploadService;
+import com.project.shopapp.Service.imp.AccountServiceImlp;
 import com.project.shopapp.entity.Author;
 import com.project.shopapp.entity.Singer;
+import com.project.shopapp.entity.SingerFullInfoDTO;
 import com.project.shopapp.repository.SingerDAO;
+import com.project.shopapp.utils.thongbao;
 
 import java.io.File;
 import java.util.List;
@@ -56,6 +59,18 @@ public class SingerController {
     public ResponseEntity<Singer> getSingerById(@PathVariable Long id) {
         Singer employee = singerService.getSingerById(id);
         return ResponseEntity.ok(employee);
+    }
+
+    @GetMapping("/Singer/profile/{id}")
+    public ResponseEntity<?> getSingerById1(@PathVariable Long id) {
+        SingerFullInfoDTO singerFullInfoDTO = singerService.getSingerFullInfoById(id);
+
+        if (singerFullInfoDTO != null) {
+            return ResponseEntity.ok(singerFullInfoDTO);
+
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @GetMapping("/Singer/getSingerByName/{title}")

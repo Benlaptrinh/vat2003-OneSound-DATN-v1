@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.project.shopapp.entity.Singer;
+import com.project.shopapp.entity.SingerFullInfoDTO;
 
 public interface SingerService {
     List<Singer> getAllSingers();
@@ -25,5 +26,7 @@ public interface SingerService {
     Page<Singer> getAllSingers(Pageable pageable);
 
     List<Singer> findAllSingerByAlbumId(Long albumId);
+
+    SingerFullInfoDTO getSingerFullInfoById(Long id);
 
 }

@@ -23,6 +23,8 @@ public interface AccountService {
 
     Account createAccount(Account account);
 
+    Account createAccountfb(Account account);
+
     Account createAccountadmin(Account account);
 
     Account quenmk(Account account);

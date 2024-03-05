@@ -2,6 +2,7 @@
 package com.project.shopapp.controller;
 
 import com.project.shopapp.entity.*;
+import com.project.shopapp.repository.RoleDAO;
 import com.project.shopapp.utils.UpdateUserDTO;
 import com.project.shopapp.utils.thongbao;
 
@@ -11,7 +12,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +29,13 @@ import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.SingerDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
 import com.project.shopapp.utils.LoginResponse;
+import org.springframework.web.servlet.view.RedirectView;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -49,6 +61,9 @@ public class AccountController {
     private AccountDAO AccountDAO;
 
     @Autowired
+    private RoleDAO RoleDAO;
+
+    @Autowired
     private TokenRepositoryDAO TokenRepositoryDAO;
 
     @Autowired
@@ -57,12 +72,77 @@ public class AccountController {
     @PostMapping("/feed")
     public ResponseEntity<?> hello1(@RequestBody FeedRequest request) {
         if (request.getEmail() == null || request.getContent() == null || request.getEmail().isEmpty()
-                || request.getContent().isEmpty()){
+                || request.getContent().isEmpty()) {
             return ResponseEntity.badRequest().body("Email and content cannot be empty");
         }
         AccountServiceImlp.sendEmailFedd(request);
         return ResponseEntity.ok("Received email: " + request.getEmail() + ", reason: " + request.getReason()
                 + ", content: " + request.getContent());
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<?> hello(Principal principal) {
+        if (principal instanceof OAuth2AuthenticationToken) {
+            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) principal;
+            Map<String, Object> userAttributes = oauthToken.getPrincipal().getAttributes();
+            // Xử lý thông tin người dùng từ userAttributes
+            return ResponseEntity.ok(userAttributes);
+        } else {
+            // Xử lý người dùng thông thường
+            return ResponseEntity.ok(principal);
+        }
+    }
+
+    @GetMapping("/oauth2/login/success")
+    public RedirectView success(OAuth2AuthenticationToken oauth) throws IOException, URISyntaxException {
+        String method = oauth.getAuthorizedClientRegistrationId();
+        String email = oauth.getPrincipal().getAttribute("email");
+        String fullname = oauth.getPrincipal().getAttribute("name");
+        String picture = oauth.getPrincipal().getAttribute("picture");
+        System.out.println("EMAIL" + email);
+        System.out.println("FULLNAME" + fullname);
+        System.out.println("PICTURE" + picture);
+        System.out.println("METHOD ==> " + method);
+        String url = "http://localhost:4200/onesound/signin";
+
+//        Optional<Account> acc = Optional.of(AccountDAO.findByEmail(email).orElse(null));
+        Optional<Account> acc = AccountDAO.findByEmail(email);
+//        Account acc = accountService.getAccountByEmail(email);
+        if (acc.isPresent()) {
+//        if (acc != null) {
+            System.out.println("THIS ACCOUNT ALREADY EXIST!");
+            System.out.println(acc.get());
+            return new RedirectView("http://localhost:4200/onesound/home");
+
+        } else {
+            try {
+                System.out.println("THIS ACCOUNT NOT EXIST!");
+                Account newAcc = new Account();
+                Role userRole = RoleDAO.findById(1).get();
+                newAcc.setEmail(email);
+                newAcc.setFullname(fullname);
+                newAcc.setAccountRole(userRole);
+                newAcc.setAvatar_url(picture);
+
+                if (method.equalsIgnoreCase("google")) {
+                    newAcc.setProvider(AuthProvider.GOOGLE);
+                } else if (method.equalsIgnoreCase("facebook")) {
+                    newAcc.setProvider(AuthProvider.FACEBOOK);
+                } else if (method.equalsIgnoreCase("github")) {
+                    newAcc.setProvider(AuthProvider.GITHUB);
+                }
+
+
+                accountService.createAccountfb(newAcc);
+                System.out.println("Create account successfully ==> " + newAcc.getFullname());
+            } catch (Exception e) {
+                System.err.println("****ERROR*****" + e);
+                // Trả về một giá trị nếu xảy ra ngoại lệ
+//                return "error" + e; // Ví dụ: Trả về trang lỗi
+            }
+        }
+
+        return new RedirectView("http://localhost:4200/onesound/home/explore");
     }
 
 

@@ -140,6 +140,7 @@ public class AccountServiceImlp implements AccountService {
         return savedAccount;
     }
 
+
     @Override
     public Account createAccountadmin(Account account) {
         if (AccountDAO.existsByEmail(account.getEmail())) {
@@ -314,23 +315,46 @@ public class AccountServiceImlp implements AccountService {
         return AccountDAO.existsByEmail(email);
     }
 
+    // public String sendEmail(Account user) {
+    // try {
+    // String resetLink = generateResetToken(user);
+    // SimpleMailMessage msg = new SimpleMailMessage();
+    // msg.setTo(user.getEmail());
+    // msg.setSubject("RESET PASSWORD FOR ONESOUND ACCOUNT");
+    // msg.setText("Hello, This is a reset password mail from ONESOUND \n\n"
+    // + "Please click on this link to Reset your Password :" + resetLink
+    // + "\n" + "ONESOUND");
+
+    // javaMailSender.send(msg);
+    // return "success";
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // return "error";
+    // }
+
+    // }
+
     public String sendEmail(Account user) {
         try {
             String resetLink = generateResetToken(user);
-            SimpleMailMessage msg = new SimpleMailMessage();
-            msg.setTo(user.getEmail());
-            msg.setSubject("RESET PASSWORD FOR ONESOUND ACCOUNT");
-            msg.setText("Hello, This is a reset password mail from ONESOUND \n\n"
-                    + "Please click on this link to Reset your Password :" + resetLink
-                    + "\n" + "ONESOUND");
+            String emailContent = "Hello, This is a reset password mail from ONESOUND <br/><br/>"
+                    + "Please click on the link below to reset your password:<br/><br/>"
+                    + "<a href='" + resetLink
+                    + "' style='padding: 10px; background-color: #007BFF; color: #FFFFFF; text-decoration: none; border-radius: 5px; display: inline-block;'>Reset Password</a>"
+                    + "<br/><br/>ONESOUND";
 
-            javaMailSender.send(msg);
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setTo(user.getEmail());
+            helper.setSubject("RESET PASSWORD FOR ONESOUND ACCOUNT");
+            helper.setText(emailContent, true);
+
+            javaMailSender.send(message);
             return "success";
         } catch (Exception e) {
             e.printStackTrace();
             return "error";
         }
-
     }
 
     public String generateResetToken(Account user) {
@@ -419,6 +443,18 @@ public class AccountServiceImlp implements AccountService {
             e.printStackTrace();
             return "error: " + e.getMessage();
         }
+    }
+
+    @Override
+    public Account createAccountfb(Account account) {
+
+        if (account.getAccountRole() == null) {
+            Role userRole = RoleDAO.findById(1L).orElseThrow();
+            account.setAccountRole(userRole);
+        }
+        Account savedAccount = AccountDAO.save(account);
+        System.out.println(savedAccount);
+        return savedAccount;
     }
 
 }
