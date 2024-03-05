@@ -1,3 +1,4 @@
+
 // package com.project.shopapp.security;
 
 // import lombok.RequiredArgsConstructor;
@@ -17,8 +18,6 @@
 // import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 // import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-// import com.project.shopapp.entity.Role;
-
 // import java.util.Arrays;
 // import java.util.List;
 
@@ -36,46 +35,28 @@
 
 //         @Bean
 //         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
 //                 http
 //                                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-//                                 .authorizeHttpRequests(requests -> {
-//                                         requests
-//                                                         // ------------------------users--------------------//
-//                                                         // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
-
-//                                                         .requestMatchers(
-//                                                                         String.format("%s/users/register", apiPrefix),
-//                                                                         String.format("%s/users/registerfb", apiPrefix),
-//                                                                         String.format("%s/users/login", apiPrefix))
-//                                                         .permitAll()
-
-//                                                         .requestMatchers(GET,
-//                                                                         String.format("%s/users**", apiPrefix))
-//                                                         .permitAll()
-
-//                                                         .anyRequest().authenticated();
-
-//                                 })
-
-//                                 .csrf(AbstractHttpConfigurer::disable);
-
-//                 http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
-//                         @Override
-//                         public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
-//                                 CorsConfiguration configuration = new CorsConfiguration();
-//                                 configuration.setAllowedOrigins(List.of("*"));
-//                                 configuration.setAllowedMethods(
-//                                                 Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-//                                 configuration.setAllowedHeaders(
-//                                                 Arrays.asList("authorization", "content-type", "x-auth-token"));
-//                                 configuration.setExposedHeaders(List.of("x-auth-token"));
-//                                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//                                 source.registerCorsConfiguration("/**", configuration);
-//                                 httpSecurityCorsConfigurer.configurationSource(source);
-//                         }
-
-//                 });
+//                                 .authorizeHttpRequests(requests -> requests
+//                                                 .anyRequest().permitAll())
+//                                 .csrf(AbstractHttpConfigurer::disable)
+//                                 .cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
+//                                         @Override
+//                                         public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
+//                                                 CorsConfiguration configuration = new CorsConfiguration();
+//                                                 configuration.setAllowedOrigins(List.of("*"));
+//                                                 configuration.setAllowedMethods(
+//                                                                 Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE",
+//                                                                                 "OPTIONS"));
+//                                                 configuration.setAllowedHeaders(
+//                                                                 Arrays.asList("authorization", "content-type",
+//                                                                                 "x-auth-token"));
+//                                                 configuration.setExposedHeaders(List.of("x-auth-token"));
+//                                                 UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//                                                 source.registerCorsConfiguration("/**", configuration);
+//                                                 httpSecurityCorsConfigurer.configurationSource(source);
+//                                         }
+//                                 });
 
 //                 return http.build();
 //         }
@@ -131,10 +112,14 @@ public class WebSecurityConfig {
                                                         .requestMatchers(
                                                                         String.format("%s/users/register", apiPrefix),
                                                                         String.format("%s/users/registerfb", apiPrefix),
+                                                                        String.format("%s/users/feed", apiPrefix),
                                                                         String.format("%s/users/login", apiPrefix))
                                                         .permitAll()
 
                                                         .requestMatchers(GET,
+                                                                        String.format("%s/users**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
                                                                         String.format("%s/users**", apiPrefix))
                                                         .permitAll()
 

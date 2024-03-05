@@ -23,6 +23,7 @@ import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.Service.PasswordResetTokenService;
 import com.project.shopapp.Service.imp.AccountServiceImlp;
 import com.project.shopapp.entity.Account;
+import com.project.shopapp.entity.FeedRequest;
 import com.project.shopapp.entity.PasswordResetToken;
 import com.project.shopapp.entity.Genre;
 import com.project.shopapp.entity.UserLoginDTO;
@@ -73,6 +74,17 @@ public class AccountController {
             // Xử lý người dùng thông thường
             return ResponseEntity.ok(principal);
         }
+    }
+
+    @PostMapping("/feed")
+    public ResponseEntity<?> hello1(@RequestBody FeedRequest request) {
+        if (request.getEmail() == null || request.getContent() == null || request.getEmail().isEmpty()
+                || request.getContent().isEmpty()) {
+            return ResponseEntity.badRequest().body("Email and content cannot be empty");
+        }
+        AccountServiceImlp.sendEmailFedd(request);
+        return ResponseEntity.ok("Received email: " + request.getEmail() + ", reason: " + request.getReason()
+                + ", content: " + request.getContent());
     }
 
     @PostMapping("/register")

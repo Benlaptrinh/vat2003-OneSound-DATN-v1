@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.entity.Account;
+import com.project.shopapp.entity.FeedRequest;
 import com.project.shopapp.entity.PasswordResetToken;
 import com.project.shopapp.entity.Role;
 import com.project.shopapp.entity.UserLoginDTO;
@@ -291,24 +292,23 @@ public class AccountServiceImlp implements AccountService {
         return AccountDAO.existsByEmail(email);
     }
 
-    // public String sendEmail(Account user) {
-    // try {
-    // String resetLink = generateResetToken(user);
-    // SimpleMailMessage msg = new SimpleMailMessage();
-    // msg.setTo(user.getEmail());
-    // msg.setSubject("RESET PASSWORD FOR ONESOUND ACCOUNT");
-    // msg.setText("Hello, This is a reset password mail from ONESOUND \n\n"
-    // + "Please click on this link to Reset your Password :" + resetLink
-    // + "\n" + "ONESOUND");
+    public String sendEmailFedd(FeedRequest user) {
+        try {
+            String emailContent = user.getContent();
 
-    // javaMailSender.send(msg);
-    // return "success";
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // return "error";
-    // }
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setTo(user.getEmail());
+            helper.setSubject(user.getReason());
+            helper.setText(emailContent, true);
 
-    // }
+            javaMailSender.send(message);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
 
     public String sendEmail(Account user) {
         try {
