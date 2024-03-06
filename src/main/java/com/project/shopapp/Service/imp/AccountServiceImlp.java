@@ -292,13 +292,15 @@ public class AccountServiceImlp implements AccountService {
         return AccountDAO.existsByEmail(email);
     }
 
-    public String sendEmailFedd(FeedRequest user) {
+    public String sendEmailFedd(String senderEmail, String recipientEmail, FeedRequest user) {
         try {
             String emailContent = user.getContent();
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
-            helper.setTo(user.getEmail());
+
+            helper.setFrom(senderEmail); // Set sender's email
+            helper.setTo(recipientEmail); // Set fixed recipient's email
             helper.setSubject(user.getReason());
             helper.setText(emailContent, true);
 

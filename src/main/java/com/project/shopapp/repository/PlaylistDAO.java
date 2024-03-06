@@ -1,9 +1,14 @@
-// package com.datn.repository;
+package com.project.shopapp.repository;
 
-// import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
 
-// import com.datn.entity.Playlist;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-// public interface PlaylistDAO extends JpaRepository<Playlist, Long> {
+import com.project.shopapp.entity.Playlist;
 
-// }
+public interface PlaylistDAO extends JpaRepository<Playlist, Long> {
+    Optional<Playlist> findById(Long id);
+
+    Optional<Playlist> findByName(String name);
+
+}

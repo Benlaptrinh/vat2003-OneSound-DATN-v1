@@ -64,14 +64,11 @@ public class Account implements UserDetails {
 	private AuthProvider provider;
 
 	@ManyToOne
-	@JoinColumn(name = "role_id") // Đảm bảo tên cột khớp với tên cột trong cơ sở dữ liệu
+	@JoinColumn(name = "role_id")
 	private Role accountRole;
 
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
 	private List<PasswordResetToken> passwordResetTokens;
-
-	// @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-	// private PasswordResetToken passwordResetToken;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
@@ -99,11 +96,24 @@ public class Account implements UserDetails {
 	@OneToMany(mappedBy = "following")
 	List<FollowUser> following;
 
+	// @Override
+	// public Collection<? extends GrantedAuthority> getAuthorities() {
+	// List<SimpleGrantedAuthority> roles = new ArrayList<>();
+	// roles.add(new SimpleGrantedAuthority("ROLE_" +
+	// getAccountRole().getName().toUpperCase()));
+	// return roles;
+	// }
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> roles = new ArrayList<>();
-		roles.add(new SimpleGrantedAuthority("ROLE_" +
-				getAccountRole().getName().toUpperCase()));
+
+		// Kiểm tra nếu accountRole không phải là null trước khi thêm vào danh sách
+		if (getAccountRole() != null) {
+			roles.add(new SimpleGrantedAuthority("ROLE_" +
+					getAccountRole().getName().toUpperCase()));
+		}
+
 		return roles;
 	}
 

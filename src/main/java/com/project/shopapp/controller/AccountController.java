@@ -5,12 +5,14 @@ import com.project.shopapp.entity.Singer;
 import com.project.shopapp.utils.UpdateUserDTO;
 import com.project.shopapp.utils.thongbao;
 
+import jakarta.mail.internet.MimeMessage;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -82,9 +84,14 @@ public class AccountController {
                 || request.getContent().isEmpty()) {
             return ResponseEntity.badRequest().body("Email and content cannot be empty");
         }
-        AccountServiceImlp.sendEmailFedd(request);
-        return ResponseEntity.ok("Received email: " + request.getEmail() + ", reason: " + request.getReason()
-                + ", content: " + request.getContent());
+
+        // Set the recipient's email to the desired one
+        String recipientEmail = "danghuutai2923@gmail.com";
+
+        // Call the method with the sender's email and the fixed recipient's email
+        AccountServiceImlp.sendEmailFedd(request.getEmail(), recipientEmail, request);
+
+        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/register")
@@ -131,6 +138,7 @@ public class AccountController {
                     userLoginDTO.getEmail(),
                     userLoginDTO.getPassword());
             return ResponseEntity.ok(LoginResponse.builder()
+
                     .token(token)
                     .build());
         } catch (Exception e) {
@@ -345,3 +353,17 @@ public class AccountController {
         return AccountDAO.findByFullnamePage(title, pageable);
     }
 }
+// <!-- <h2>Feedback Form</h2>
+// <form (ngSubmit)="submitFeedback()" method="post">
+// <label for="name">Your Name:</label>
+// <input type="text" id="name" name="name" [(ngModel)]="email" required>
+
+// <label for="reason">Your reason:</label>
+// <input type="text" id="reason" name="reason" [(ngModel)]="reason" required>
+
+// <label for="feedback">Feedback:</label>
+// <textarea id="feedback" name="feedback" cols="30" rows="10"
+// [(ngModel)]="feedbackContent" required></textarea>
+
+// <button type="submit">Submit Feedback</button>
+// </form> -->
