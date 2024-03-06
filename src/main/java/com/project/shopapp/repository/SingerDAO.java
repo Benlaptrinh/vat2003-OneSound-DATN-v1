@@ -13,4 +13,5 @@ public interface SingerDAO extends JpaRepository<Singer, Long> {
 
     @Query("select s from Singer s join s.singerAlbums sa join sa.album a where a.id = :albumId")
     List<Singer> findAllSingerByAlbumId(Long albumId);
+
 }

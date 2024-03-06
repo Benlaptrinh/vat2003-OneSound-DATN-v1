@@ -16,23 +16,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.shopapp.Service.AlbumService;
 import com.project.shopapp.composite.SongSingerId;
 import com.project.shopapp.entity.Album;
+import com.project.shopapp.entity.Singer;
 import com.project.shopapp.entity.SongSinger;
+import com.project.shopapp.entity.SongSinger;
+import com.project.shopapp.repository.SingerDAO;
 import com.project.shopapp.repository.SongSingerDAO;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("${api.prefix}")
 public class SongSingerController {
-
 	@Autowired
-    SongSingerDAO SongSingerService;
+	SingerDAO sdao;
+	
+	@Autowired
+	SongSingerDAO dao;
+	
+	  private final com.project.shopapp.Service.SongSingerService SongSingerService;
+
+	    @Autowired
+	    public SongSingerController(com.project.shopapp.Service.SongSingerService SingerAlbumService) {
+	        this.SongSingerService = SingerAlbumService;
+	    }
+
 
     @GetMapping("SongSinger/getall")
     public List<SongSinger> getAlbum() {
-        return SongSingerService.findAll();
+        return SongSingerService.getAllSongSingers();
     }
 
     // @PostMapping("/SongSinger/create")
@@ -41,24 +55,20 @@ public class SongSingerController {
 
     // }
     @PostMapping("SongSinger/create")
-    public SongSinger createAlbum(@RequestBody SongSinger SongSingerId) {
-        return SongSingerService.save(SongSingerId);
+    public SongSinger createAlbum(@RequestBody SongSingerId SongSingerId) {
+        return SongSingerService.addSongSinger(SongSingerId);
     }
     
-    @PutMapping("SongSinger/update")
-    public SongSinger updateAlbum(@RequestBody SongSinger SongSingerId) {
-        return SongSingerService.save(SongSingerId);
-    }
 
-    @DeleteMapping("SongSinger/delete-by-singer/{id}")
-    public void deleteBySinger(@PathVariable("id") Long SongSingerId) {
-    	List<SongSinger> ss=SongSingerService.findBySingerId(SongSingerId);
-        SongSingerService.deleteAll(ss);
-    }
-    
+//    @DeleteMapping("SongSinger/delete-by-singer/{id}")
+//    public void deleteBySinger(@PathVariable("id") Long SongSingerId) {
+//    	List<SongSinger> ss=SongSingerService.findById(SongSingerId);
+//        SongSingerService.deleteAll(ss);
+//    }
+//    
     @GetMapping("SongSinger/get-by-song/{id}")
     public List<SongSinger> getBySongSinger(@PathVariable("id") Long SongSingerId) {
-    	List<SongSinger> ss=SongSingerService.findBySongId(SongSingerId);
+    	List<SongSinger> ss=dao.findBySongId(SongSingerId);
         return ss;
     }
     

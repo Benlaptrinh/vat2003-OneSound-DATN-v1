@@ -77,7 +77,7 @@ public class SongController {
 	         song.setPath(songRequest.getPath());
 	         song.setRelease(songRequest.getRelease());
 //	         song.setLyrics(songRequest.getLyrics());
-//	         song.setAlbum(songRequest.getAlbum());
+	         song.setAlbum(songRequest.getAlbum());
 //	         // Cài đặt logic khác nếu cần
 	         
 	         songDAO.save(song);
