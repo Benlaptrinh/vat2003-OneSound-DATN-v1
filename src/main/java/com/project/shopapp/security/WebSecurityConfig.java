@@ -131,14 +131,177 @@ public class WebSecurityConfig {
                             .requestMatchers(
                                     String.format("%s/users/register", apiPrefix),
                                     String.format("%s/users/login", apiPrefix),
-                                    String.format("%s/users/feed", apiPrefix),
-                                    String.format("%s/users/registerfb", apiPrefix),
-                                    String.format("%s/users/login", apiPrefix))
+                                    String.format("https://www.googleapis.com/youtube/v3/search/**", apiPrefix),
+                                    String.format("%s/users/feed", apiPrefix))
                             .permitAll()
 
                             .requestMatchers(GET,
                                     String.format("%s/users**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            .requestMatchers(GET,
+                                    String.format("%s/users/email/**", apiPrefix))
                             .permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/users/resetPassword/token/**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/users/forgotPassword/**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/users/update/pass/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(GET,
+                                    String.format("%s/users/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/users**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/users**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/users**", apiPrefix))
+                            .hasAnyRole(Role.USER)
+
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------Genre--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+
+                            .requestMatchers(GET,
+                                    String.format("%s/Genre**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            .requestMatchers(GET,
+                                    String.format("%s/Genre/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            .requestMatchers(POST,
+                                    String.format("%s/Genre**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/Genre/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/Genre/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------Author-------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+
+                            .requestMatchers(GET,
+                                    String.format("%s/Author**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            .requestMatchers(GET,
+                                    String.format("%s/Author/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            .requestMatchers(POST,
+                                    String.format("%s/Author**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/Author/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/Author/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------Singer--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+
+                            .requestMatchers(GET,
+                                    String.format("%s/Singer**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/Singer/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/Singer**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/Singer/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/Singer/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------Role--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/Role/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/Role**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/Role/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/Role**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/Role/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------album---------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/album/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            .requestMatchers(POST,
+                                    String.format("%s/album**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            .requestMatchers(DELETE,
+                                    String.format("%s/album/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            .requestMatchers(GET,
+                                    String.format("%s/album**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            .requestMatchers(GET,
+                                    String.format("%s/album/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------SONG--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/Role/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(POST,
+                                    String.format("%s/Role**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/Role/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/Role**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(GET,
+                                    String.format("%s/Role/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------album---------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
 
                             .anyRequest().authenticated();
                 })
