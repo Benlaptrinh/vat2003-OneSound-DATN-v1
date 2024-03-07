@@ -41,10 +41,10 @@ public class AlbumController {
     public Page<Album> getAlbum(Pageable pageable) {
         return albumService.findAllAlbums(pageable);
     }
-    
+
     @GetMapping("album")
-    public List<Album>getAll(){
-    	return albumService.getAll();
+    public List<Album> getAll() {
+        return albumService.getAll();
     }
 
     @GetMapping("album/getbyid/{id}")
@@ -56,11 +56,12 @@ public class AlbumController {
     public Page<Album> getAlbumByTitle(@RequestParam String title, Pageable pageable) {
         return albumService.searchByTitle(title, pageable);
     }
+
     @GetMapping("/album/name/{name}")
     public List<Album> getAlbumByName(@PathVariable String name) {
         return albumService.findByTitleContaining(name);
     }
-    
+
     @GetMapping("/album/title/{name}")
     public List<Album> getAlbumByTitle(@PathVariable("name") String name) {
         return albumService.findAlbumByTitle(name);
