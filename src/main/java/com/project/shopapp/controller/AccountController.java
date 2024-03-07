@@ -215,7 +215,6 @@ public class AccountController {
             }
 
             TokenRepositoryDAO.deleteById(reset.getId());
-            // return ResponseEntity.ok(reset.getAccount().getEmail());
             return ResponseEntity.ok(thongbao.builder().message(reset.getAccount().getEmail()).build());
 
         } catch (Exception e) {

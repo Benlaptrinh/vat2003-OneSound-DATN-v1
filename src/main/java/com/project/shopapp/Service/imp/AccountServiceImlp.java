@@ -316,6 +316,58 @@ public class AccountServiceImlp implements AccountService {
         try {
             String resetLink = generateResetToken(user);
             String emailContent = "Hello, This is a reset password mail from ONESOUND <br/><br/>"
+                    + "<form [formGroup]=\"userProfileForm\">\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "          <div class=\"row mt-3\">\r\n" + //
+                    "            <div class=\"col-md-12\"><label class=\"labels\">fullname </label>\r\n" + //
+                    "              <input type=\"text\" class=\"form-control\" placeholder=\"enter fullname\" formControlName=\"fullname\"\r\n"
+                    + //
+                    "                [ngClass]=\"{'is-invalid': userProfileForm.get('fullname')?.invalid && userProfileForm.get('fullname')?.touched}\">\r\n"
+                    + //
+                    "              <div *ngIf=\"userProfileForm.get('fullname')?.invalid && userProfileForm.get('fullname')?.touched\"\r\n"
+                    + //
+                    "                class=\"invalid-feedback\" style=\"size: 100px; color: red;\">\r\n" + //
+                    "                Họ và tên là trường bắt buộc.\r\n" + //
+                    "              </div>\r\n" + //
+                    "            </div>\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "            <div class=\"col-md-12\"><label class=\"labels\">Email</label><input type=\"text\" class=\"form-control\"\r\n"
+                    + //
+                    "                placeholder=\"enter Email\" readonly type=\"email\" formControlName=\"email\"></div>\r\n"
+                    + //
+                    "\r\n" + //
+                    "            <div class=\"col-md-12\"><label class=\"labels\">Birthday</label><input type=\"text\" class=\"form-control\"\r\n"
+                    + //
+                    "                placeholder=\"enter Birthday\" type=\"date\" formControlName=\"birthday\"></div>\r\n"
+                    + //
+                    "\r\n" + //
+                    "            <div class=\"col-md-12\"><label class=\"labels\">address</label><input type=\"text\" class=\"form-control\"\r\n"
+                    + //
+                    "                placeholder=\"enter address\" formControlName=\"address\"></div>\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "            <div class=\"col-md-12\"><label class=\"labels\">Area</label><input type=\"file\" class=\"form-control\"\r\n"
+                    + //
+                    "                placeholder=\"enter address line 2\" value=\"\">\r\n" + //
+                    "            </div>\r\n" + //
+                    "          </div>\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "          <input type=\"text\" hidden class=\"form-control\" [value]=\"userProfileForm.get('role_id')?.value\">\r\n"
+                    + //
+                    "          <input type=\"text\" hidden formControlName=\"id\" class=\"form-control\">\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "          <div class=\"mt-5 text-center\">\r\n" + //
+                    "            <button class=\"btn btn-primary profile-button\" (click)=\"save()\" type=\"button\">Save Profile</button>\r\n"
+                    + //
+                    "          </div>\r\n" + //
+                    "        </form>"
                     + "Please click on the link below to reset your password:<br/><br/>"
                     + "<a href='" + resetLink
                     + "' style='padding: 10px; background-color: #007BFF; color: #FFFFFF; text-decoration: none; border-radius: 5px; display: inline-block;'>Reset Password</a>"

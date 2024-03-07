@@ -47,10 +47,9 @@ public class PlaylistSongController {
             PlaylistSong playlistSong = PlaylistSongService.findSongFromPlaylist(playlistId, songId);
 
             if (playlistSong != null) {
-                // Bài hát tồn tại trong PlaylistSong
                 return ResponseEntity.ok(playlistSong);
             } else {
-                // Bài hát không tồn tại trong PlaylistSong
+
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Song not found in the playlist.");
             }
         } catch (Exception e) {

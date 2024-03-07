@@ -20,4 +20,9 @@ public class SongServiceIml implements Songservice {
         return dao.findAll();
     }
 
+    @Override
+    public Song findSongsByYoutube_id(String Youtube_id) {
+        return dao.findSongsByYoutube_id(Youtube_id);
+    }
+
 }

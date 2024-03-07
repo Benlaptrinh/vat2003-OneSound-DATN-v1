@@ -41,6 +41,8 @@ public class Song {
 	@Lob
 	private String lyrics;
 
+	private String youtube_id;
+
 	@ManyToOne
 	@JoinColumn(name = "album_id")
 	private Album album;
@@ -52,7 +54,7 @@ public class Song {
 	@JsonIgnore
 	@OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
 	private List<SongAuthor> songAuthors;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
 	private List<SongGenre> songGenres;

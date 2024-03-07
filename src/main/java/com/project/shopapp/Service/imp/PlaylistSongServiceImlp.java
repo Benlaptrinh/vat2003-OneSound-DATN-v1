@@ -59,10 +59,6 @@ public class PlaylistSongServiceImlp implements PlaylistSongService {
     @Override
     @Transactional
     public void removeAllSongsFromPlaylist(Long playlistId) {
-        // Thực hiện truy vấn để xóa tất cả các bài hát trong playlist_song dựa trên
-        // playlistId
-        // Hãy thay thế đoạn mã này bằng cách sử dụng phương thức từ repository hoặc DAO
-        // của bạn
         dao.deleteAllSongsByPlaylistId(playlistId);
     }
 
