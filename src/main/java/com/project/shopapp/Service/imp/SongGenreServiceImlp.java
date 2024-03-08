@@ -1,15 +1,20 @@
 package com.project.shopapp.Service.imp;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.SongGenreService;
+import com.project.shopapp.Service.SongGenreService;
+import com.project.shopapp.composite.SongGenreId;
 import com.project.shopapp.composite.SongGenreId;
 import com.project.shopapp.entity.Song;
 import com.project.shopapp.entity.Genre;
 import com.project.shopapp.entity.SongGenre;
+import com.project.shopapp.entity.Song;
 import com.project.shopapp.repository.SongDAO;
 import com.project.shopapp.repository.SongGenreDAO;
 import com.project.shopapp.repository.GenreDAO;
@@ -22,10 +27,10 @@ public class SongGenreServiceImlp implements SongGenreService {
     private final SongGenreDAO SongGenreDao;
 
     @Autowired
-    GenreDAO sdao;
+    GenreDAO Genredao;
 
     @Autowired
-    SongDAO adao;
+    SongDAO songdao;
 
     @Autowired
     public SongGenreServiceImlp(SongGenreDAO SongGenreDao) {
@@ -38,38 +43,46 @@ public class SongGenreServiceImlp implements SongGenreService {
         return SongGenreDao.findAll();
     }
 
-    @Override
-    public SongGenre addSongGenre(SongGenreId SongGenreId) {
-
-        SongGenre SongGenre = new SongGenre();
-
-        // Tìm kiếm Genre
-        Genre s = sdao.findById(SongGenreId.getGenreId())
-                .orElseThrow(() -> new EntityNotFoundException("Genre not found"));
-
-        // Tìm kiếm Song
-        Song a = adao.findById(SongGenreId.getSongId())
-                .orElseThrow(() -> new EntityNotFoundException("Song not found"));
-
-        SongGenre.setSong(a);
-        SongGenre.setGenre(s);
-        SongGenre.setId(SongGenreId);
-
-        return SongGenreDao.save(SongGenre);
-    }
+   
 
     @Override
     public void removeSongGenre(Long SongId) {
+
         // // Tìm kiếm Song
         // Song a = adao.findById(SongGenreId)
         // .orElseThrow(() -> new EntityNotFoundException("Song not found"));
         List<SongGenre> SongGenre = SongGenreDao.findBySongId(SongId);
         SongGenreDao.deleteAll(SongGenre);
+
     }
 
     @Override
     public void deleteBySongId(Long SongId) {
         SongGenreDao.deleteBySongId(SongId);
     }
+
+    @Override
+    public SongGenre createSongGenre(SongGenreId songGenreId) {
+        SongGenre ss = new SongGenre();
+        
+        Optional<Song> optionalSong = songdao.findById(songGenreId.getSongId());
+        Optional<Genre> optionalGenre = Genredao.findById(songGenreId.getGenreId());
+        
+        if (optionalSong.isPresent() && optionalGenre.isPresent()) {
+            Song s = optionalSong.get();
+            Genre genre = optionalGenre.get();
+            
+            ss.setId(songGenreId);
+            ss.setGenre(genre);
+            ss.setSong(s);
+            
+            return SongGenreDao.save(ss);
+        } else {
+            // Xử lý khi không tìm thấy bản ghi tương ứng
+            // Ví dụ: ném ra một ngoại lệ, trả về null hoặc xử lý theo ý định của bạn
+            throw new NoSuchElementException("Không tìm thấy bản ghi tương ứng");
+        }
+    }
+
 
 }

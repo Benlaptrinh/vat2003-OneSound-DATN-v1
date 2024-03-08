@@ -16,61 +16,74 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.project.shopapp.Service.AlbumService;
 import com.project.shopapp.composite.SongGenreId;
 import com.project.shopapp.entity.Album;
+import com.project.shopapp.entity.Genre;
 import com.project.shopapp.entity.SongGenre;
 import com.project.shopapp.entity.SongGenre;
+import com.project.shopapp.repository.GenreDAO;
 import com.project.shopapp.repository.SongGenreDAO;
-import com.project.shopapp.repository.SongGenreDAO;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @CrossOrigin("*")
 @RestController
 @RequestMapping("${api.prefix}")
 public class SongGenreController {
+	@Autowired
+	GenreDAO sdao;
 
 	@Autowired
-    SongGenreDAO SongGenreService;
+	SongGenreDAO dao;
 
-    @GetMapping("SongGenre/getall")
-    public List<SongGenre> getAlbum() {
-        return SongGenreService.findAll();
-    }
+	private final com.project.shopapp.Service.SongGenreService SongGenreService;
 
-    // @PostMapping("/SongGenre/create")
-    // public SongGenre createAlbum(@RequestBody SongGenreId SongGenreId) {
-    // return SongGenreService.addSongGenre(SongGenreId);
+	@Autowired
+	public SongGenreController(com.project.shopapp.Service.SongGenreService GenreAlbumService) {
+		this.SongGenreService = GenreAlbumService;
+	}
 
-    // }
-    @PostMapping("SongGenre/create")
-    public SongGenre createSongGenre(@RequestBody SongGenre SongGenreId) {
-        return SongGenreService.save(SongGenreId);
-    }
-    
-    @PutMapping("SongGenre/update")
-    public SongGenre updateSongGenre(@RequestBody SongGenre SongGenreId) {
-        return SongGenreService.save(SongGenreId);
-    }
+	@GetMapping("SongGenre/getall")
+	public List<SongGenre> getAlbum() {
+		return SongGenreService.getAllSongGenres();
+	}
 
-    @DeleteMapping("SongGenre/delete-by-Genre/{id}")
-    public void deleteByGenre(@PathVariable("id") Long SongGenreId) {
-    	List<SongGenre> ss=SongGenreService.findByGenreId(SongGenreId);
-        SongGenreService.deleteAll(ss);
-    }
-    
-    @DeleteMapping("SongGenre/delete-by-song/{id}")
-    public void deleteBySong(@PathVariable("id") Long SongGenreId) {
-        SongGenreService.deleteBySongId(SongGenreId);
-    }
-    
-    @GetMapping("SongGenre/get-by-song/{id}")
-    public List<SongGenre> getBySongGenre(@PathVariable("id") Long SongGenreId) {
-    	List<SongGenre> ss=SongGenreService.findBySongId(SongGenreId);
-        return ss;
-    }
+	// @PostMapping("/SongGenre/create")
+	// public SongGenre createAlbum(@RequestBody SongGenreId SongGenreId) {
+	// return SongGenreService.addSongGenre(SongGenreId);
 
-    
-    // Xóa Genre album theo album id
+	// }
+
+//    @PostMapping("SongGenre/create")
+//    public SongGenre createAlbum(@RequestBody SongGenreId SongGenreId) {
+//        return SongGenreService.addSongGenre(SongGenreId);
+//    }
+
+	@PostMapping("SongGenre/create")
+	public SongGenre createAlbum(@RequestBody SongGenreId songGenreId) {
+		System.out.println("Genre: ------------------->" + songGenreId.getGenreId());
+		System.out.println("Song: ------------------->" + songGenreId.getSongId());
+		return SongGenreService.createSongGenre(songGenreId);
+	}
+
+//    @DeleteMapping("SongGenre/delete-by-Genre/{id}")
+//    public void deleteByGenre(@PathVariable("id") Long SongGenreId) {
+//    	List<SongGenre> ss=SongGenreService.findById(SongGenreId);
+//        SongGenreService.deleteAll(ss);
+//    }
+//    
+	@GetMapping("SongGenre/get-by-song/{id}")
+	public List<SongGenre> getBySongGenre(@PathVariable("id") Long SongGenreId) {
+		List<SongGenre> ss = dao.findBySongId(SongGenreId);
+		return ss;
+	}
+
+	@DeleteMapping("SongGenre/delete-by-song/{id}")
+	public void deleteBySong(@PathVariable("id") Long SongGenreId) {
+		SongGenreService.deleteBySongId(SongGenreId);
+	}
+
+	// Xóa Genre album theo album id
 //    @DeleteMapping("SongGenre/deleteByAlbumId/{id}")
 //    public void deleteByAlbumId(@PsathVariable("id") Long AlbumId) {
 //        SongGenreService.removeSongGenre(AlbumId);

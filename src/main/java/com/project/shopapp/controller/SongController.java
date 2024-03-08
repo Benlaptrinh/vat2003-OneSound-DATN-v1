@@ -87,7 +87,7 @@ public class SongController {
 	    
 	    @PutMapping("Song/update/{id}")
 	    public Song  updateSong (@PathVariable Long id, @RequestBody Song  Song ) {
-	        return songDAO.save(Song );
+	        return songDAO.save(Song);
 	    }
 
 	    @DeleteMapping("Song/delete/{id}")
