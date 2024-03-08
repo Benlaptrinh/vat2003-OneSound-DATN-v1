@@ -41,8 +41,6 @@ public class Song {
 	@Lob
 	private String lyrics;
 
-	private String youtube_id;
-
 	@ManyToOne
 	@JoinColumn(name = "album_id")
 	private Album album;

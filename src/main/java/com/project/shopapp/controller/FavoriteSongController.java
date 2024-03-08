@@ -35,12 +35,12 @@ public class FavoriteSongController {
         this.FavoriteSongService = FavoriteSongService;
     }
 
-    @GetMapping("/FavoriteSong")
+    @GetMapping("/favoriteSong")
     public List<FavoriteSong> getAllFavoriteSong() {
         return FavoriteSongService.getAllFavoriteSong();
     }
 
-    @PostMapping("/FavoriteSong")
+    @PostMapping("/favoriteSong")
     public ResponseEntity<?> addFavoriteSong(@RequestBody Map<String, Long> requestBody) {
         try {
             Long accountId = requestBody.get("accountId");
@@ -61,7 +61,7 @@ public class FavoriteSongController {
         }
     }
 
-    @DeleteMapping("/FavoriteSong")
+    @DeleteMapping("/favoriteSong")
     public ResponseEntity<?> removeFavoriteSong(@RequestBody Map<String, Long> requestBody) {
         try {
             Long accountId = requestBody.get("accountId");
@@ -76,7 +76,7 @@ public class FavoriteSongController {
         }
     }
 
-    @PostMapping("/FavoriteSong/isSongLiked")
+    @GetMapping("/favoriteSong/isSongLiked")
     public ResponseEntity<?> isSongLikedByUser(@RequestBody Map<String, Long> requestBody) {
         try {
             Long accountId = requestBody.get("accountId");
@@ -96,7 +96,7 @@ public class FavoriteSongController {
         }
     }
 
-    @GetMapping("/FavoriteSong/{userId}")
+    @GetMapping("/favoriteSong/{userId}")
     public ResponseEntity<List<FavoriteSong>> getFavoriteSongsByUserId(@PathVariable Long userId) {
         List<FavoriteSong> favoriteSongs = FavoriteSongService.getAllLikedSongsByUser(userId);
 

@@ -18,6 +18,4 @@ public interface SongDAO extends JpaRepository<Song, Long> {
 	@Query("SELECT s FROM Song s WHERE s.album.id = :albumId")
 	List<Song> findSongsByAlbumId(@Param("albumId") Long albumId);
 
-	@Query("SELECT s FROM Song s WHERE s.youtube_id = :youtube_id")
-	Song findSongsByYoutube_id(@Param("youtube_id") String youtube_id);
 }

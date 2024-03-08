@@ -89,8 +89,4 @@ public class SongController {
 		return ResponseEntity.ok(response);
 	}
 
-	@GetMapping("/Song/Youtubeid/{Youtube_id}")
-	public Song getSongByName11(@PathVariable("Youtube_id") String name) {
-		return songDAO.findSongsByYoutube_id(name);
-	}
 }

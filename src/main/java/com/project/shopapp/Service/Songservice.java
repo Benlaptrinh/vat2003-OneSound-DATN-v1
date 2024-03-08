@@ -8,6 +8,4 @@ import com.project.shopapp.entity.Song;
 public interface Songservice {
     List<Song> getAllSong();
 
-    Song findSongsByYoutube_id(String Youtube_id);
-
 }
