@@ -22,10 +22,10 @@ public class SongAuthorServiceImlp implements SongAuthorService {
     private final SongAuthorDAO SongAuthorDao;
 
     @Autowired
-    AuthorDAO sdao;
+    AuthorDAO authorDAO;
 
     @Autowired
-    SongDAO adao;
+    SongDAO songDAO;
 
     @Autowired
     public SongAuthorServiceImlp(SongAuthorDAO SongAuthorDao) {
@@ -38,25 +38,7 @@ public class SongAuthorServiceImlp implements SongAuthorService {
         return SongAuthorDao.findAll();
     }
 
-    @Override
-    public SongAuthor addSongAuthor(SongAuthorId SongAuthorId) {
 
-        SongAuthor SongAuthor = new SongAuthor();
-
-        // Tìm kiếm Author
-        Author s = sdao.findById(SongAuthorId.getAuthorId())
-                .orElseThrow(() -> new EntityNotFoundException("Author not found"));
-
-        // Tìm kiếm Song
-        Song a = adao.findById(SongAuthorId.getSongId())
-                .orElseThrow(() -> new EntityNotFoundException("Song not found"));
-
-        SongAuthor.setSong(a);
-        SongAuthor.setAuthor(s);
-        SongAuthor.setId(SongAuthorId);
-
-        return SongAuthorDao.save(SongAuthor);
-    }
 
     @Override
     public void removeSongAuthor(Long SongId) {
@@ -73,5 +55,19 @@ public class SongAuthorServiceImlp implements SongAuthorService {
     public void deleteBySongId(Long SongId) {
         SongAuthorDao.deleteBySongId(SongId);
     }
+
+	@Override
+	public SongAuthor createAuthor(SongAuthorId songAuthorId) {
+		SongAuthor sa = new SongAuthor();
+		
+		Song s = songDAO.findById(songAuthorId.getSongId()).get();
+		Author a = authorDAO.findById(songAuthorId.getAuthorId()).get();
+		
+		sa.setAuthor(a);
+		sa.setSong(s);
+		sa.setId(songAuthorId);
+		return SongAuthorDao.save(sa);
+		
+	}
 
 }

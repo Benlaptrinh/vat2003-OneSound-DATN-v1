@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SongSingerId implements Serializable {
 	private Long songId;
-	private Long SingerId;
+	private Long singerId;
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(SingerId, songId);
+		return Objects.hash(singerId, songId);
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class SongSingerId implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		SongSingerId other = (SongSingerId) obj;
-		return Objects.equals(SingerId, other.SingerId) && Objects.equals(songId, other.songId);
+		return Objects.equals(singerId, other.singerId) && Objects.equals(songId, other.songId);
 	}
 
 }

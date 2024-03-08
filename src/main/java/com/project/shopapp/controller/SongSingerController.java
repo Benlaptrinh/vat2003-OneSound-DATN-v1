@@ -32,33 +32,39 @@ import jakarta.persistence.EntityNotFoundException;
 public class SongSingerController {
 	@Autowired
 	SingerDAO sdao;
-	
+
 	@Autowired
 	SongSingerDAO dao;
-	
-	  private final com.project.shopapp.Service.SongSingerService SongSingerService;
 
-	    @Autowired
-	    public SongSingerController(com.project.shopapp.Service.SongSingerService SingerAlbumService) {
-	        this.SongSingerService = SingerAlbumService;
-	    }
+	private final com.project.shopapp.Service.SongSingerService SongSingerService;
 
+	@Autowired
+	public SongSingerController(com.project.shopapp.Service.SongSingerService SingerAlbumService) {
+		this.SongSingerService = SingerAlbumService;
+	}
 
-    @GetMapping("SongSinger/getall")
-    public List<SongSinger> getAlbum() {
-        return SongSingerService.getAllSongSingers();
-    }
+	@GetMapping("SongSinger/getall")
+	public List<SongSinger> getAlbum() {
+		return SongSingerService.getAllSongSingers();
+	}
 
-    // @PostMapping("/SongSinger/create")
-    // public SongSinger createAlbum(@RequestBody SongSingerId SongSingerId) {
-    // return SongSingerService.addSongSinger(SongSingerId);
+	// @PostMapping("/SongSinger/create")
+	// public SongSinger createAlbum(@RequestBody SongSingerId SongSingerId) {
+	// return SongSingerService.addSongSinger(SongSingerId);
 
-    // }
-    @PostMapping("SongSinger/create")
-    public SongSinger createAlbum(@RequestBody SongSingerId SongSingerId) {
-        return SongSingerService.addSongSinger(SongSingerId);
-    }
-    
+	// }
+
+//    @PostMapping("SongSinger/create")
+//    public SongSinger createAlbum(@RequestBody SongSingerId SongSingerId) {
+//        return SongSingerService.addSongSinger(SongSingerId);
+//    }
+
+	@PostMapping("SongSinger/create")
+	public SongSinger createAlbum(@RequestBody SongSingerId songSingerId) {
+		System.out.println("Singer: ------------------->" + songSingerId.getSingerId());
+		System.out.println("Song: ------------------->" + songSingerId.getSongId());
+		return SongSingerService.createSongSinger(songSingerId);
+	}
 
 //    @DeleteMapping("SongSinger/delete-by-singer/{id}")
 //    public void deleteBySinger(@PathVariable("id") Long SongSingerId) {
@@ -66,21 +72,18 @@ public class SongSingerController {
 //        SongSingerService.deleteAll(ss);
 //    }
 //    
-    @GetMapping("SongSinger/get-by-song/{id}")
-    public List<SongSinger> getBySongSinger(@PathVariable("id") Long SongSingerId) {
-    	List<SongSinger> ss=dao.findBySongId(SongSingerId);
-        return ss;
-    }
-    
-    
-    
-    @DeleteMapping("SongSinger/delete-by-song/{id}")
-    public void deleteBySong(@PathVariable("id") Long SongSingerId) {
-        SongSingerService.deleteBySongId(SongSingerId);
-    }
+	@GetMapping("SongSinger/get-by-song/{id}")
+	public List<SongSinger> getBySongSinger(@PathVariable("id") Long SongSingerId) {
+		List<SongSinger> ss = dao.findBySongId(SongSingerId);
+		return ss;
+	}
 
-    
-    // Xóa singer album theo album id
+	@DeleteMapping("SongSinger/delete-by-song/{id}")
+	public void deleteBySong(@PathVariable("id") Long SongSingerId) {
+		SongSingerService.deleteBySongId(SongSingerId);
+	}
+
+	// Xóa singer album theo album id
 //    @DeleteMapping("SongSinger/deleteByAlbumId/{id}")
 //    public void deleteByAlbumId(@PsathVariable("id") Long AlbumId) {
 //        SongSingerService.removeSongSinger(AlbumId);

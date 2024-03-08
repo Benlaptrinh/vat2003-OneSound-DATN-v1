@@ -10,9 +10,9 @@ public interface SongAuthorService {
 
     List<SongAuthor> getAllSongAuthors();
 
-    SongAuthor addSongAuthor(SongAuthorId SongAuthorId);
-
     void removeSongAuthor(Long SongAuthorId);
 
     void deleteBySongId(Long albumId);
+
+    SongAuthor createAuthor(SongAuthorId songAuthorId);
 }

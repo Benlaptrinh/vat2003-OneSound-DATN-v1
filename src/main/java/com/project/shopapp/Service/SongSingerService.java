@@ -9,8 +9,8 @@ import com.project.shopapp.entity.SongSinger;
 public interface SongSingerService {
 
     List<SongSinger> getAllSongSingers();
-
-    SongSinger addSongSinger(SongSingerId SongSingerId);
+    
+    SongSinger createSongSinger(SongSingerId songSingerId);
 
     void removeSongSinger(Long SongSingerId);
 

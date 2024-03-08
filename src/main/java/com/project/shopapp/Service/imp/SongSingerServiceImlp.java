@@ -25,10 +25,10 @@ public class SongSingerServiceImlp implements SongSingerService {
     private final SongSingerDAO SongSingerDao;
 
     @Autowired
-    SingerDAO sdao;
+    SingerDAO singerdao;
 
     @Autowired
-    SongDAO adao;
+    SongDAO songdao;
 
     @Autowired
     public SongSingerServiceImlp(SongSingerDAO SongSingerDao) {
@@ -41,27 +41,7 @@ public class SongSingerServiceImlp implements SongSingerService {
         return SongSingerDao.findAll();
     }
 
-    @Override
-    public SongSinger addSongSinger(SongSingerId SongSingerId) {
-
-        SongSinger SongSinger = new SongSinger();
-
-        // Tìm kiếm Singer
-        Singer s = sdao.findById(SongSingerId.getSingerId())
-                .orElseThrow(() -> new EntityNotFoundException("Singer not found"));
-
-        // Tìm kiếm Song
-        Song a = adao.findById(SongSingerId.getSongId())
-                .orElseThrow(() -> new EntityNotFoundException("Song not found"));
-
-        SongSinger.setSong(a);
-        SongSinger.setSinger(s);
-        SongSinger.setId(SongSingerId);
-        
-        
-        System.out.println("ĐÀU CHÓ: "+a+"ĐàU BÀO: "+s);
-        return SongSingerDao.save(SongSinger);
-    }
+   
 
     @Override
     public void removeSongSinger(Long SongId) {
@@ -78,5 +58,18 @@ public class SongSingerServiceImlp implements SongSingerService {
     public void deleteBySongId(Long SongId) {
         SongSingerDao.deleteBySongId(SongId);
     }
+
+	@Override
+	public SongSinger createSongSinger(SongSingerId songSingerId) {
+		SongSinger ss = new SongSinger();
+		
+		Song s = songdao.findById(songSingerId.getSongId()).get();
+		Singer singer = singerdao.findById(songSingerId.getSingerId()).get();
+		
+		ss.setId(songSingerId);
+		ss.setSinger(singer);
+		ss.setSong(s);
+		return SongSingerDao.save(ss);
+	}
 
 }

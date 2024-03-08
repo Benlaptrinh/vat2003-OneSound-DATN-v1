@@ -31,6 +31,14 @@ public class SongAuthorController {
 
 	@Autowired
     SongAuthorDAO SongAuthorService;
+	
+	private final com.project.shopapp.Service.SongAuthorService saService;
+
+	@Autowired
+	public SongAuthorController(com.project.shopapp.Service.SongAuthorService saService) {
+		this.saService = saService;
+	}
+
 
     @GetMapping("SongAuthor/getall")
     public List<SongAuthor> getAlbum() {
@@ -43,8 +51,10 @@ public class SongAuthorController {
 
     // }
     @PostMapping("SongAuthor/create")
-    public SongAuthor createSongAuthor(@RequestBody SongAuthor SongAuthorId) {
-        return SongAuthorService.save(SongAuthorId);
+    public SongAuthor createSongAuthor(@RequestBody SongAuthorId SongAuthorId) {
+    	System.out.println("author: ------------------->" + SongAuthorId.getAuthorId());
+		System.out.println("Song: ------------------->" + SongAuthorId.getSongId());
+        return saService.createAuthor(SongAuthorId);
     }
     
     @PutMapping("SongAuthor/update")
