@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.PlaylistService;
+import com.project.shopapp.entity.Account;
 import com.project.shopapp.entity.Playlist;
+import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.PlaylistDAO;
 
 @Service
@@ -16,13 +18,21 @@ public class PlaylistIServicemlp implements PlaylistService {
     @Autowired
     PlaylistDAO dao;
 
+    @Autowired
+    AccountDAO AccountDAO;
+
     @Override
     public List<Playlist> getAllPlaylist() {
         return dao.findAll();
     }
 
     @Override
-    public Playlist createPlaylist(Playlist playlist) {
+    public Playlist createPlaylist(Playlist playlist, Long userId) {
+        Optional<Account> userOptional = AccountDAO.findById(userId);
+        Account user = userOptional.orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        playlist.setUser_id(user);
+
         return dao.save(playlist);
     }
 

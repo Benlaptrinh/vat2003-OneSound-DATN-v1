@@ -11,7 +11,8 @@ import com.project.shopapp.entity.PlaylistSong;
 public interface PlaylistService {
     List<Playlist> getAllPlaylist();
 
-    Playlist createPlaylist(Playlist playlist);
+    // Playlist createPlaylist(Playlist playlist);
+    Playlist createPlaylist(Playlist playlist, Long userId);
 
     Playlist updatePlaylist(Long id, Playlist playlist);
 

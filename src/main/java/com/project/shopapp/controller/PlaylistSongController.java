@@ -57,6 +57,21 @@ public class PlaylistSongController {
         }
     }
 
+    @GetMapping("/PlaylistSong/playlist/{playlistId}")
+    public ResponseEntity<?> getAllSongsInPlaylist(@PathVariable Long playlistId) {
+        try {
+            List<PlaylistSong> songsInPlaylist = PlaylistSongService.findSongsByPlaylistId(playlistId);
+
+            if (!songsInPlaylist.isEmpty()) {
+                return ResponseEntity.ok(songsInPlaylist);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No songs found in the playlist.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get songs in the playlist.");
+        }
+    }
+
     @PostMapping("/PlaylistSong")
     public ResponseEntity<?> addSongToPlaylist1(@RequestBody Map<String, Long> requestBody) {
         try {

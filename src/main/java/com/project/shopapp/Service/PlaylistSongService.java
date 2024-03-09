@@ -20,4 +20,6 @@ public interface PlaylistSongService {
 
     void removeAllSongsFromPlaylist(Long playlistId);
 
+    List<PlaylistSong> findSongsByPlaylistId(Long playlistId);
+
 }
