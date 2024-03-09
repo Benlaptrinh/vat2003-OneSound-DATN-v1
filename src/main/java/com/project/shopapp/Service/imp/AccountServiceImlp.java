@@ -316,62 +316,16 @@ public class AccountServiceImlp implements AccountService {
         try {
             String resetLink = generateResetToken(user);
             String emailContent = "Hello, This is a reset password mail from ONESOUND <br/><br/>"
-                    + "<form [formGroup]=\"userProfileForm\">\r\n" + //
-                    "\r\n" + //
-                    "\r\n" + //
-                    "\r\n" + //
-                    "\r\n" + //
-                    "          <div class=\"row mt-3\">\r\n" + //
-                    "            <div class=\"col-md-12\"><label class=\"labels\">fullname </label>\r\n" + //
-                    "              <input type=\"text\" class=\"form-control\" placeholder=\"enter fullname\" formControlName=\"fullname\"\r\n"
-                    + //
-                    "                [ngClass]=\"{'is-invalid': userProfileForm.get('fullname')?.invalid && userProfileForm.get('fullname')?.touched}\">\r\n"
-                    + //
-                    "              <div *ngIf=\"userProfileForm.get('fullname')?.invalid && userProfileForm.get('fullname')?.touched\"\r\n"
-                    + //
-                    "                class=\"invalid-feedback\" style=\"size: 100px; color: red;\">\r\n" + //
-                    "                Họ và tên là trường bắt buộc.\r\n" + //
-                    "              </div>\r\n" + //
-                    "            </div>\r\n" + //
-                    "\r\n" + //
-                    "\r\n" + //
-                    "            <div class=\"col-md-12\"><label class=\"labels\">Email</label><input type=\"text\" class=\"form-control\"\r\n"
-                    + //
-                    "                placeholder=\"enter Email\" readonly type=\"email\" formControlName=\"email\"></div>\r\n"
-                    + //
-                    "\r\n" + //
-                    "            <div class=\"col-md-12\"><label class=\"labels\">Birthday</label><input type=\"text\" class=\"form-control\"\r\n"
-                    + //
-                    "                placeholder=\"enter Birthday\" type=\"date\" formControlName=\"birthday\"></div>\r\n"
-                    + //
-                    "\r\n" + //
-                    "            <div class=\"col-md-12\"><label class=\"labels\">address</label><input type=\"text\" class=\"form-control\"\r\n"
-                    + //
-                    "                placeholder=\"enter address\" formControlName=\"address\"></div>\r\n" + //
-                    "\r\n" + //
-                    "\r\n" + //
-                    "            <div class=\"col-md-12\"><label class=\"labels\">Area</label><input type=\"file\" class=\"form-control\"\r\n"
-                    + //
-                    "                placeholder=\"enter address line 2\" value=\"\">\r\n" + //
-                    "            </div>\r\n" + //
-                    "          </div>\r\n" + //
-                    "\r\n" + //
-                    "\r\n" + //
-                    "\r\n" + //
-                    "          <input type=\"text\" hidden class=\"form-control\" [value]=\"userProfileForm.get('role_id')?.value\">\r\n"
-                    + //
-                    "          <input type=\"text\" hidden formControlName=\"id\" class=\"form-control\">\r\n" + //
-                    "\r\n" + //
-                    "\r\n" + //
-                    "          <div class=\"mt-5 text-center\">\r\n" + //
-                    "            <button class=\"btn btn-primary profile-button\" (click)=\"save()\" type=\"button\">Save Profile</button>\r\n"
-                    + //
-                    "          </div>\r\n" + //
-                    "        </form>"
-                    + "Please click on the link below to reset your password:<br/><br/>"
+                    + "<div style='border: 2px solid #007bff; border-radius: 8px; background-color: #f8f9fa; padding: 20px; width: 40%; margin: 20px auto; font-family: Arial, sans-serif;'>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Xin chào <span style='color: #007bff; font-weight: bold;'>Việt</span>,</p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu Facebook của bạn.</p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Nhập mã đặt lại mật khẩu sau đây:</p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Ngoài ra, bạn có thể thay đổi trực tiếp mật khẩu của mình.</p>"
                     + "<a href='" + resetLink
-                    + "' style='padding: 10px; background-color: #007BFF; color: #FFFFFF; text-decoration: none; border-radius: 5px; display: inline-block;'>Reset Password</a>"
-                    + "<br/><br/>ONESOUND";
+                    + "' style='display: inline-block; width: 93%; background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; text-align: center; text-decoration: none;'>Đổi mật khẩu</a>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'><b>Bạn đã không yêu cầu thay đổi này?</b></p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Nếu bạn không yêu cầu mật khẩu mới, <span style='color: #007bff; font-weight: bold;'>hãy cho chúng tôi biết</span></p>"
+                    + "</div>";
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
