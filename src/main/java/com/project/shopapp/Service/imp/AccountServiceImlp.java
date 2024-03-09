@@ -28,6 +28,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.AccountService;
+import com.project.shopapp.entity.Account;
+import com.project.shopapp.entity.FeedRequest;
+import com.project.shopapp.entity.PasswordResetToken;
+import com.project.shopapp.entity.Role;
+import com.project.shopapp.entity.UserLoginDTO;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.RoleDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
@@ -315,33 +320,40 @@ public class AccountServiceImlp implements AccountService {
         return AccountDAO.existsByEmail(email);
     }
 
-    // public String sendEmail(Account user) {
-    // try {
-    // String resetLink = generateResetToken(user);
-    // SimpleMailMessage msg = new SimpleMailMessage();
-    // msg.setTo(user.getEmail());
-    // msg.setSubject("RESET PASSWORD FOR ONESOUND ACCOUNT");
-    // msg.setText("Hello, This is a reset password mail from ONESOUND \n\n"
-    // + "Please click on this link to Reset your Password :" + resetLink
-    // + "\n" + "ONESOUND");
+    public String sendEmailFedd(String senderEmail, String recipientEmail, FeedRequest user) {
+        try {
+            String emailContent = user.getContent();
 
-    // javaMailSender.send(msg);
-    // return "success";
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // return "error";
-    // }
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 
-    // }
+            helper.setFrom(senderEmail); // Set sender's email
+            helper.setTo(recipientEmail); // Set fixed recipient's email
+            helper.setSubject(user.getReason());
+            helper.setText(emailContent, true);
+
+            javaMailSender.send(message);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
 
     public String sendEmail(Account user) {
         try {
             String resetLink = generateResetToken(user);
             String emailContent = "Hello, This is a reset password mail from ONESOUND <br/><br/>"
-                    + "Please click on the link below to reset your password:<br/><br/>"
+                    + "<div style='border: 2px solid #007bff; border-radius: 8px; background-color: #f8f9fa; padding: 20px; width: 40%; margin: 20px auto; font-family: Arial, sans-serif;'>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Xin chào <span style='color: #007bff; font-weight: bold;'>Việt</span>,</p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu Facebook của bạn.</p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Nhập mã đặt lại mật khẩu sau đây:</p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Ngoài ra, bạn có thể thay đổi trực tiếp mật khẩu của mình.</p>"
                     + "<a href='" + resetLink
-                    + "' style='padding: 10px; background-color: #007BFF; color: #FFFFFF; text-decoration: none; border-radius: 5px; display: inline-block;'>Reset Password</a>"
-                    + "<br/><br/>ONESOUND";
+                    + "' style='display: inline-block; width: 93%; background-color: #007bff; color: #fff; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; text-align: center; text-decoration: none;'>Đổi mật khẩu</a>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'><b>Bạn đã không yêu cầu thay đổi này?</b></p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Nếu bạn không yêu cầu mật khẩu mới, <span style='color: #007bff; font-weight: bold;'>hãy cho chúng tôi biết</span></p>"
+                    + "</div>";
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");

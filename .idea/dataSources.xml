@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="DATN_OneSound@localhost" uuid="f6e758fa-d165-46cf-8eb1-a134d4331096">
+    <data-source source="LOCAL" name="DATN_OneSound@localhost" uuid="64c2532a-53db-4a4d-b290-c37f2585dfb0">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>

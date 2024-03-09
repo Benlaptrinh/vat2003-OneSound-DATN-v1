@@ -6,6 +6,7 @@ import com.project.shopapp.repository.RoleDAO;
 import com.project.shopapp.utils.UpdateUserDTO;
 import com.project.shopapp.utils.thongbao;
 
+import jakarta.mail.internet.MimeMessage;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +27,11 @@ import org.springframework.web.bind.annotation.*;
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.Service.PasswordResetTokenService;
 import com.project.shopapp.Service.imp.AccountServiceImlp;
+import com.project.shopapp.entity.Account;
+import com.project.shopapp.entity.FeedRequest;
+import com.project.shopapp.entity.PasswordResetToken;
+import com.project.shopapp.entity.Genre;
+import com.project.shopapp.entity.UserLoginDTO;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.SingerDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
@@ -68,30 +75,6 @@ public class AccountController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @PostMapping("/feed")
-    public ResponseEntity<?> hello1(@RequestBody FeedRequest request) {
-        if (request.getEmail() == null || request.getContent() == null || request.getEmail().isEmpty()
-                || request.getContent().isEmpty()) {
-            return ResponseEntity.badRequest().body("Email and content cannot be empty");
-        }
-        AccountServiceImlp.sendEmailFedd(request);
-        return ResponseEntity.ok("Received email: " + request.getEmail() + ", reason: " + request.getReason()
-                + ", content: " + request.getContent());
-    }
-
-    @GetMapping("/test")
-    public ResponseEntity<?> hello(Principal principal) {
-        if (principal instanceof OAuth2AuthenticationToken) {
-            OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) principal;
-            Map<String, Object> userAttributes = oauthToken.getPrincipal().getAttributes();
-            // Xử lý thông tin người dùng từ userAttributes
-            return ResponseEntity.ok(userAttributes);
-        } else {
-            // Xử lý người dùng thông thường
-            return ResponseEntity.ok(principal);
-        }
-    }
 
     @GetMapping("/oauth2/login/success")
     public RedirectView success(OAuth2AuthenticationToken oauth) throws IOException, URISyntaxException {
@@ -146,6 +129,22 @@ public class AccountController {
     }
 
 
+    @PostMapping("/feed")
+    public ResponseEntity<?> hello1(@RequestBody FeedRequest request) {
+        if (request.getEmail() == null || request.getContent() == null || request.getEmail().isEmpty()
+                || request.getContent().isEmpty()) {
+            return ResponseEntity.badRequest().body("Email and content cannot be empty");
+        }
+
+        // Set the recipient's email to the desired one
+        String recipientEmail = "danghuutai2923@gmail.com";
+
+        // Call the method with the sender's email and the fixed recipient's email
+        AccountServiceImlp.sendEmailFedd(request.getEmail(), recipientEmail, request);
+
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
                                         BindingResult result) {
@@ -190,6 +189,7 @@ public class AccountController {
                     userLoginDTO.getEmail(),
                     userLoginDTO.getPassword());
             return ResponseEntity.ok(LoginResponse.builder()
+
                     .token(token)
                     .build());
         } catch (Exception e) {
@@ -266,7 +266,6 @@ public class AccountController {
             }
 
             TokenRepositoryDAO.deleteById(reset.getId());
-            // return ResponseEntity.ok(reset.getAccount().getEmail());
             return ResponseEntity.ok(thongbao.builder().message(reset.getAccount().getEmail()).build());
 
         } catch (Exception e) {
@@ -419,3 +418,17 @@ public class AccountController {
         return AccountDAO.findByFullnamePage(title, pageable);
     }
 }
+// <!-- <h2>Feedback Form</h2>
+// <form (ngSubmit)="submitFeedback()" method="post">
+// <label for="name">Your Name:</label>
+// <input type="text" id="name" name="name" [(ngModel)]="email" required>
+
+// <label for="reason">Your reason:</label>
+// <input type="text" id="reason" name="reason" [(ngModel)]="reason" required>
+
+// <label for="feedback">Feedback:</label>
+// <textarea id="feedback" name="feedback" cols="30" rows="10"
+// [(ngModel)]="feedbackContent" required></textarea>
+
+// <button type="submit">Submit Feedback</button>
+// </form> -->

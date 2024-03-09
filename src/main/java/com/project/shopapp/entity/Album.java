@@ -31,7 +31,6 @@ public class Album {
 	private Integer releaseYear;
 	@Temporal(TemporalType.DATE)
 	private Date albumCreateDate = new Date();
-
 	private String description;
 
 	@JsonIgnore
