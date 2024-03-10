@@ -50,10 +50,10 @@ public class PlaylistSongController {
                 return ResponseEntity.ok(playlistSong);
             } else {
 
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Song not found in the playlist.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to find song in playlist.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 

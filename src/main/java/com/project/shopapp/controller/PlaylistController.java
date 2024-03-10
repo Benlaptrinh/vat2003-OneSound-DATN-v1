@@ -45,32 +45,20 @@ public class PlaylistController {
         return PlaylistService.findByName(name);
     }
 
-    // @PostMapping("/Playlist")
-    // public ResponseEntity<Playlist> getUserDetails2(@RequestBody Playlist
-    // Playlist) {
-    // try {
-    // Playlist createdPlaylist = PlaylistService.createPlaylist(Playlist);
-
-    // return ResponseEntity.ok(createdPlaylist);
-    // } catch (Exception e) {
-    // return ResponseEntity.badRequest().build();
-    // }
-    // }
+    @GetMapping("/Playlist/user/{userId}")
+    public ResponseEntity<List<Playlist>> getPlaylistsByUserId(@PathVariable Long userId) {
+        List<Playlist> playlists = PlaylistService.findByUser_id(userId);
+        return ResponseEntity.ok(playlists);
+    }
 
     @PostMapping("/Playlist")
     public ResponseEntity<?> createPlaylist(@RequestBody Map<String, Object> playlistData) {
         try {
-            // Lấy thông tin từ request body
             String name = (String) playlistData.get("name");
             Long userId = ((Number) ((Map<?, ?>) playlistData.get("user_id")).get("id")).longValue();
-
-            // Tạo đối tượng Playlist
             Playlist playlist = new Playlist();
             playlist.setName(name);
-
-            // Gọi service để tạo playlist với thông tin user_id
             Playlist createdPlaylist = PlaylistService.createPlaylist(playlist, userId);
-
             return ResponseEntity.ok(createdPlaylist);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
