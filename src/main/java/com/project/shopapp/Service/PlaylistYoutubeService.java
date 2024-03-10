@@ -3,7 +3,7 @@ package com.project.shopapp.Service;
 import java.util.List;
 
 import com.project.shopapp.entity.Playlist;
-
+import com.project.shopapp.entity.PlaylistSong;
 import com.project.shopapp.entity.PlaylistYoutube;
 import com.project.shopapp.entity.Youtube;
 
@@ -19,5 +19,7 @@ public interface PlaylistYoutubeService {
     PlaylistYoutube findYoutubeFromPlaylist(Long playlistId, String youtubeId);
 
     void removeAllYoutubesFromPlaylist(Long playlistId);
+
+    List<PlaylistYoutube> findSongsByPlaylistId(Long playlistId);
 
 }

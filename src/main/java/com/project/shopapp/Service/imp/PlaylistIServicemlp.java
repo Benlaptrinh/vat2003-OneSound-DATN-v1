@@ -46,7 +46,8 @@ public class PlaylistIServicemlp implements PlaylistService {
 
     @Override
     public void deletePlaylist(Long id) {
-        dao.deleteById(id);
+        // dao.deleteById(id);
+        dao.deletePlaylistAndSongsalong(id);
     }
 
     @Override

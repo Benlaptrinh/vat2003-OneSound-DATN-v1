@@ -117,4 +117,17 @@ public class PlaylistSongController {
         }
     }
 
+    @DeleteMapping("/PlaylistSong/delete/{playlistId}")
+    public ResponseEntity<?> xoaketao(@PathVariable Long playlistId) {
+        try {
+            PlaylistSongService.removeAllSongsFromPlaylist(playlistId);
+
+            return ResponseEntity.ok().build();
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e);
+        }
+    }
+
 }
