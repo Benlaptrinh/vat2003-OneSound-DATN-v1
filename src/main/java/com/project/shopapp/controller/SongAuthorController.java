@@ -20,6 +20,7 @@ import com.project.shopapp.Service.AlbumService;
 import com.project.shopapp.composite.SongAuthorId;
 import com.project.shopapp.entity.Album;
 import com.project.shopapp.entity.SongAuthor;
+import com.project.shopapp.entity.SongAuthor;
 import com.project.shopapp.repository.SongAuthorDAO;
 import com.project.shopapp.repository.SongAuthorDAO;
 
@@ -30,6 +31,14 @@ public class SongAuthorController {
 
 	@Autowired
     SongAuthorDAO SongAuthorService;
+	
+	private final com.project.shopapp.Service.SongAuthorService saService;
+
+	@Autowired
+	public SongAuthorController(com.project.shopapp.Service.SongAuthorService saService) {
+		this.saService = saService;
+	}
+
 
     @GetMapping("SongAuthor/getall")
     public List<SongAuthor> getAlbum() {
@@ -42,8 +51,10 @@ public class SongAuthorController {
 
     // }
     @PostMapping("SongAuthor/create")
-    public SongAuthor createSongAuthor(@RequestBody SongAuthor SongAuthorId) {
-        return SongAuthorService.save(SongAuthorId);
+    public SongAuthor createSongAuthor(@RequestBody SongAuthorId SongAuthorId) {
+    	System.out.println("author: ------------------->" + SongAuthorId.getAuthorId());
+		System.out.println("Song: ------------------->" + SongAuthorId.getSongId());
+        return saService.createAuthor(SongAuthorId);
     }
     
     @PutMapping("SongAuthor/update")
@@ -62,7 +73,12 @@ public class SongAuthorController {
         SongAuthorService.deleteBySongId(SongAuthorId);
     }
 
-    
+    @GetMapping("SongAuthor/get-by-song/{id}")
+    public List<SongAuthor> getBySongAuthor(@PathVariable("id") Long SongAuthorId) {
+    	List<SongAuthor> ss=SongAuthorService.findBySongId(SongAuthorId);
+        return ss;
+    }
+
     // Xóa Author album theo album id
 //    @DeleteMapping("SongAuthor/deleteByAlbumId/{id}")
 //    public void deleteByAlbumId(@PsathVariable("id") Long AlbumId) {

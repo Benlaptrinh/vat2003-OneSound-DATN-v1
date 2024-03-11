@@ -38,9 +38,7 @@ public class Song {
 	private String path;
 	@Temporal(TemporalType.DATE)
 	private Date Release;
-	private String audio;
-
-	@Lob
+	//	@Lob
 	private String lyrics;
 
 	@ManyToOne
