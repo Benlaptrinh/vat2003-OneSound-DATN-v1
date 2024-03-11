@@ -469,4 +469,39 @@ public class AccountServiceImlp implements AccountService {
         return savedAccount;
     }
 
+    @Override
+    public List<CountAccountDTO> countAccountBetweenByDate(Date date1, Date date2) {
+        return AccountDAO.getAllAccountByBetweenCreatedDate(date1, date2);
+    }
+
+    @Override
+    public List<Account> getAllAccountBetweenCreatedDate(Date date1, Date date2) {
+        return AccountDAO.getAccountByBetweenCreatedDate(date1, date2);
+    }
+
+    @Override
+    public List<Account> countByCreatedByDayOfCreateDate(Integer day) {
+        return AccountDAO.countAccountByDayOfCreateDate(day);
+    }
+
+    @Override
+    public List<Account> countByCreatedByMonthOfCreateDate(Integer month) {
+        return AccountDAO.countAccountByMounthOfCreateDate(month);
+    }
+
+    @Override
+    public List<Account> countByCreatedByYearOfCreateDate(Integer year) {
+        return AccountDAO.countAccountByYearOfCreateDate(year);
+    }
+
+    @Override
+    public List<Account> getUserByOptionDate(Integer day, Integer month, Integer year) {
+        return AccountDAO.getUserByOptionDate(day, month, year);
+    }
+
+    // @Override
+    // public List<CountAccountByMonthDTO> getCountAccountByYear(Integer year) {
+    // return AccountDAO.getCountAccountByYear(year);
+    // }
+
 }

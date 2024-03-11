@@ -47,9 +47,23 @@ public interface AccountService {
 
     List<CountAccountDTO> countAccountByDate(int index);
 
+    List<CountAccountDTO> countAccountBetweenByDate(Date date1, Date date2);
+
     List<CountAccountDTO> countByCreatedById(int index);
 
     List<Account> getAllAccountByCreatedDate(Date date);
 
+    List<Account> getAllAccountBetweenCreatedDate(Date date1, Date date2);
+
     Account UpdatePassUser(String email, UpdateUserDTO UpdateUserDTO);
+
+    List<Account> countByCreatedByDayOfCreateDate(Integer day);
+
+    List<Account> countByCreatedByMonthOfCreateDate(Integer month);
+
+    List<Account> countByCreatedByYearOfCreateDate(Integer year);
+
+    List<Account> getUserByOptionDate(Integer day, Integer month, Integer year);
+
+    // List<CountAccountByMonthDTO> getCountAccountByYear(Integer year);
 }
