@@ -62,4 +62,14 @@ public interface AccountDAO extends JpaRepository<Account, Long> {
     // :year group by MONTH(a.createdDate) order by MONTH(a.createdDate) asc")
     // List<CountAccountByMonthDTO> getCountAccountByYear(Integer year);
 
+    // @Query("Select new ReportAccountByYear(COUNT(a), MONTH(a.createdDate)) from
+    // Account a where YEAR(a.createdDate) = :year group by MONTH(a.createdDate)
+    // order by MONTH(a.createdDate) asc ")
+    // List<ReportAccountByYear> getCountAccountByYear(Integer year);
+
+    @Query("Select new ReportAccountByYear(COUNT(a), MONTH(a.createdDate)) from Account a group by MONTH(a.createdDate)")
+    List<ReportAccountByYear> getMonthOfCreateDate();
+
+    @Query(value = "EXEC get_user_by_year_order_by_month_of_create_date :p_year", nativeQuery = true)
+    List<Object[]> getCountAccountByYear(@Param("p_year") Integer year);
 }
