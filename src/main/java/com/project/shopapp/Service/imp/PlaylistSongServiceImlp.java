@@ -62,4 +62,9 @@ public class PlaylistSongServiceImlp implements PlaylistSongService {
         dao.deleteAllSongsByPlaylistId(playlistId);
     }
 
+    @Override
+    public List<PlaylistSong> findSongsByPlaylistId(Long playlistId) {
+        return dao.findByPlaylistId(playlistId);
+    }
+
 }

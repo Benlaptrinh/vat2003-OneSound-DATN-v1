@@ -1,5 +1,6 @@
 package com.project.shopapp.repository;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +15,7 @@ public interface PlaylistSongDAO extends JpaRepository<PlaylistSong, PlaylistSon
     @Modifying
     @Query("DELETE FROM PlaylistSong ps WHERE ps.id.playlistId = :playlistId")
     void deleteAllSongsByPlaylistId(@Param("playlistId") Long playlistId);
+
+    List<PlaylistSong> findByPlaylistId(Long playlistId);
+
 }

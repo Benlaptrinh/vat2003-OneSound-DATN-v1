@@ -11,12 +11,14 @@ import com.project.shopapp.entity.PlaylistSong;
 public interface PlaylistService {
     List<Playlist> getAllPlaylist();
 
-    Playlist createPlaylist(Playlist playlist);
+    Playlist createPlaylist(Playlist playlist, Long userId);
 
     Playlist updatePlaylist(Long id, Playlist playlist);
 
     void deletePlaylist(Long id);
 
     Optional<Playlist> findByName(String name);
+
+    List<Playlist> findByUser_id(Long userId);
 
 }
