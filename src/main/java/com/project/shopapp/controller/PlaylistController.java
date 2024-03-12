@@ -45,17 +45,11 @@ public class PlaylistController {
         return PlaylistService.findByName(name);
     }
 
-    // @PostMapping("/Playlist")
-    // public ResponseEntity<Playlist> getUserDetails2(@RequestBody Playlist
-    // Playlist) {
-    // try {
-    // Playlist createdPlaylist = PlaylistService.createPlaylist(Playlist);
-
-    // return ResponseEntity.ok(createdPlaylist);
-    // } catch (Exception e) {
-    // return ResponseEntity.badRequest().build();
-    // }
-    // }
+    @GetMapping("/Playlist/user/{userId}")
+    public ResponseEntity<List<Playlist>> getPlaylistsByUserId(@PathVariable Long userId) {
+        List<Playlist> playlists = PlaylistService.findByUser_id(userId);
+        return ResponseEntity.ok(playlists);
+    }
 
     @PostMapping("/Playlist")
     public ResponseEntity<?> createPlaylist(@RequestBody Map<String, Object> playlistData) {
