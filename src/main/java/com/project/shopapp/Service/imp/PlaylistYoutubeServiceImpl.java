@@ -60,4 +60,9 @@ public class PlaylistYoutubeServiceImpl implements PlaylistYoutubeService {
         dao.deleteAllYoutubesByPlaylistId(playlistId);
     }
 
+    @Override
+    public List<PlaylistYoutube> findSongsByPlaylistId(Long playlistId) {
+        return dao.findByPlaylistYoutubeId(playlistId);
+    }
+
 }

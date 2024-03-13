@@ -16,5 +16,10 @@ public class Youtube {
 
     @Id
     private String id;
+    private String title;
+    private String description;
+    private String thumbnails;
+    private String channelTitle;
+    private String publishTime;
 
 }

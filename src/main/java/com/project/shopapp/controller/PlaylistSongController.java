@@ -50,10 +50,11 @@ public class PlaylistSongController {
                 return ResponseEntity.ok(playlistSong);
             } else {
 
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Song not found in the playlist.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to find song in playlist.");
+            return ResponseEntity.badRequest().body(e);
+
         }
     }
 
@@ -65,10 +66,10 @@ public class PlaylistSongController {
             if (!songsInPlaylist.isEmpty()) {
                 return ResponseEntity.ok(songsInPlaylist);
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No songs found in the playlist.");
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to get songs in the playlist.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
         }
     }
 
@@ -86,10 +87,10 @@ public class PlaylistSongController {
 
             PlaylistSongService.addSongToPlaylist(playlist, song);
 
-            return ResponseEntity.ok("Song added to playlist successfully.");
+            return ResponseEntity.ok().build();
 
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add song to the playlist.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
         }
     }
 
@@ -97,10 +98,10 @@ public class PlaylistSongController {
     public ResponseEntity<?> removeSongFromPlaylist(@PathVariable Long playlistId, @PathVariable Long songId) {
         try {
             PlaylistSongService.removeSongFromPlaylist(playlistId, songId);
-            return ResponseEntity.ok("Song removed from playlist successfully.");
+            return ResponseEntity.ok().build();
 
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to remove song from playlist.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e);
         }
     }
 
@@ -109,11 +110,24 @@ public class PlaylistSongController {
         try {
             PlaylistSongService.removeAllSongsFromPlaylist(playlistId);
 
-            return ResponseEntity.ok("All songs removed from playlist successfully.");
+            return ResponseEntity.ok().build();
 
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to remove songs from playlist.");
+                    .body(e);
+        }
+    }
+
+    @DeleteMapping("/PlaylistSong/delete/{playlistId}")
+    public ResponseEntity<?> xoaketao(@PathVariable Long playlistId) {
+        try {
+            PlaylistSongService.removeAllSongsFromPlaylist(playlistId);
+
+            return ResponseEntity.ok().build();
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e);
         }
     }
 

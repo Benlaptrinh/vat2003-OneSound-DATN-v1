@@ -22,4 +22,6 @@ public interface PlaylistSongService {
 
     List<PlaylistSong> findSongsByPlaylistId(Long playlistId);
 
+    // void xoaketao(Long playlistId);
+
 }

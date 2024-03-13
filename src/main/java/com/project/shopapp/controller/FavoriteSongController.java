@@ -29,15 +29,15 @@ import com.project.shopapp.entity.Song;
 public class FavoriteSongController {
 
     @Autowired
-    FavoriteSongService FavoriteSongService;
+    FavoriteSongService favoriteSongService;
 
     public FavoriteSongController(FavoriteSongService FavoriteSongService) {
-        this.FavoriteSongService = FavoriteSongService;
+        this.favoriteSongService = FavoriteSongService;
     }
 
     @GetMapping("/favoriteSong")
     public List<FavoriteSong> getAllFavoriteSong() {
-        return FavoriteSongService.getAllFavoriteSong();
+        return favoriteSongService.getAllFavoriteSong();
     }
 
     @PostMapping("/favoriteSong")
@@ -51,7 +51,7 @@ public class FavoriteSongController {
 
             Song song = new Song();
             song.setId(songId);
-            FavoriteSongService.addFavoriteSong(account, song);
+            favoriteSongService.addFavoriteSong(account, song);
 
             return ResponseEntity.ok("Song added to FavoriteSong successfully.");
 
@@ -67,7 +67,7 @@ public class FavoriteSongController {
             Long accountId = requestBody.get("accountId");
             Long songId = requestBody.get("songId");
 
-            FavoriteSongService.removeFavoriteSong(accountId, songId);
+            favoriteSongService.removeFavoriteSong(accountId, songId);
             return ResponseEntity.ok("Song removed from FavoriteSong successfully.");
 
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class FavoriteSongController {
             Long accountId = requestBody.get("accountId");
             Long songId = requestBody.get("songId");
 
-            FavoriteSong favoriteSong = FavoriteSongService.getFavoriteSongByUserAndSong(accountId, songId);
+            FavoriteSong favoriteSong = favoriteSongService.getFavoriteSongByUserAndSong(accountId, songId);
 
             if (favoriteSong != null) {
                 return ResponseEntity.ok(favoriteSong);
@@ -98,7 +98,7 @@ public class FavoriteSongController {
 
     @GetMapping("/favoriteSong/{userId}")
     public ResponseEntity<List<FavoriteSong>> getFavoriteSongsByUserId(@PathVariable Long userId) {
-        List<FavoriteSong> favoriteSongs = FavoriteSongService.getAllLikedSongsByUser(userId);
+        List<FavoriteSong> favoriteSongs = favoriteSongService.getAllLikedSongsByUser(userId);
 
         if (favoriteSongs.isEmpty()) {
             return ResponseEntity.noContent().build();
