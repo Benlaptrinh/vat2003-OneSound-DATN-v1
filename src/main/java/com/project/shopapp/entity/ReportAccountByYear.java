@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Entity
 public class ReportAccountByYear {
     @Id
-    private Integer count;
+    private Long count;
     private Integer month;
 }

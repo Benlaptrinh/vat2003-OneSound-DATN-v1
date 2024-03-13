@@ -19,6 +19,7 @@ import org.springframework.web.servlet.function.EntityResponse;
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.entity.Account;
 import com.project.shopapp.entity.CountAccountDTO;
+import com.project.shopapp.entity.ReportAccountByYear;
 import com.project.shopapp.repository.AccountDAO;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -122,16 +123,33 @@ public class StaticticalController {
         return accountService.getUserByOptionDate(day, month, year);
     }
 
-    // @GetMapping("/statictical/get-count-user-by-year/{year}")
-    // public List<CountAccountByMonthDTO>
-    // getCountAccountByMonth(@PathVariable("year") Integer year) {
-    // return accountDAO.getCountAccountByYear(year);
-    // }
+    @GetMapping("/statictical/get-count-user-by-year/{year}")
+    public List<ReportAccountByYear> getMethodName(@PathVariable("year") Integer year) {
+        List<Object[]> reportList = new ArrayList<>();
+        List<ReportAccountByYear> rpList = new ArrayList<>();
+        reportList = accountDAO.getCountAccountByYear(year);
+        // for (ReportAccountByYear reportAccountByYear : reportList) {
+        // System.out.println(reportAccountByYear.getMonth());
+        // }
 
-    // @GetMapping("/statictical/get-count-user-by-year/{year}")
-    // public List<CountAccountByMonthDTO> getMethodName(@PathVariable("year")
-    // Integer year) {
-    // return accountService.getCountAccountByYear(year);
-    // }
+        for (Object[] obj : reportList) {
+            Long count = Long.parseLong(String.valueOf(obj[0])); // Ép kiểu và chuyển đổi sang Long
+            Integer month = (Integer) obj[1];
+
+            ReportAccountByYear rp = new ReportAccountByYear();
+            rp.setCount(count);
+            rp.setMonth(month);
+
+            rpList.add(rp);
+        }
+        return rpList;
+
+    }
+
+    @GetMapping("/statictical/get-month")
+    public List<ReportAccountByYear> getMonth() {
+
+        return accountDAO.getMonthOfCreateDate();
+    }
 
 }
