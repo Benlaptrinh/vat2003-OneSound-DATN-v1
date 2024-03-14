@@ -45,6 +45,11 @@ public class PlaylistController {
         return PlaylistService.findByName(name);
     }
 
+    @GetMapping("/Playlist/id/{id}")
+    public Optional<Playlist> getAllSingers3(@PathVariable Long id) {
+        return PlaylistService.findById(id);
+    }
+
     @GetMapping("/Playlist/user/{userId}")
     public ResponseEntity<List<Playlist>> getPlaylistsByUserId(@PathVariable Long userId) {
         List<Playlist> playlists = PlaylistService.findByUser_id(userId);
