@@ -1,11 +1,13 @@
 package com.project.shopapp.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.annotation.Generated;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +16,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -36,5 +40,9 @@ public class Playlist {
 	@JsonIgnore
 	@OneToMany(mappedBy = "playlist")
 	private List<PlaylistSong> playlistSong;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "Createdate")
+	private Date likeDate = new Date();
 
 }
