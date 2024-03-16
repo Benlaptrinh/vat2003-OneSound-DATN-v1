@@ -34,6 +34,7 @@ public class Singer {
     private String fullname;
     private String description;
     private String image;
+    private boolean active;
 
     @JsonIgnore
     @OneToMany(mappedBy = "singer", cascade = CascadeType.ALL)

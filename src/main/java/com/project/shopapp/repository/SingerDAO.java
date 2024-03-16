@@ -19,4 +19,7 @@ public interface SingerDAO extends JpaRepository<Singer, Long> {
 
     @Query("SELECT a FROM Singer a WHERE LOWER(a.fullname) LIKE LOWER(CONCAT('%', :fullname, '%'))")
     Page<Singer> findByFullnamePage(String fullname, Pageable pageable);
+
+    List<Singer> findByActiveTrue();
+
 }

@@ -32,6 +32,8 @@ public class Genre {
 	private String image;
 	private String description;
 
+	private boolean active;
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "genre")
 	private List<SongGenre> songGenres;

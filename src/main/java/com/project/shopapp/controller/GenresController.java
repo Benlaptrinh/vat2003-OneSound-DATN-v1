@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.shopapp.Service.GenreService;
 import com.project.shopapp.entity.Album;
 import com.project.shopapp.entity.Genre;
+import com.project.shopapp.entity.Singer;
 
 /**
  * GenresController
@@ -46,12 +47,18 @@ public class GenresController {
         return GenreService.getAllGenre(pageable);
     }
 
+    @GetMapping("/Genre/getAllGenreActive")
+    public List<Genre> getAllSingerByAlbumId1() {
+        List<Genre> Genre = GenreService.findAllGenreActive();
+        return Genre;
+    }
+
     @PostMapping("/Genre")
     public Genre createEmployee(@RequestBody Genre Genre) {
         System.out.println(Genre);
         return GenreService.createGenre(Genre);
     }
-    
+
     @GetMapping("/Genre/name/{name}")
     public List<Genre> getGenreByName(@PathVariable String name) {
         return GenreService.findByTitleContainingIgnoreCase(name);

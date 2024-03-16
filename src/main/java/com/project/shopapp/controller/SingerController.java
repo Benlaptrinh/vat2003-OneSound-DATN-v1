@@ -84,6 +84,12 @@ public class SingerController {
         return singers;
     }
 
+    @GetMapping("/Singer/getAllSingerActive")
+    public List<Singer> getAllSingerByAlbumId1() {
+        List<Singer> singers = singerService.findAllSingerActive();
+        return singers;
+    }
+
     @PostMapping("/Singer")
     public Singer createEmployee(@RequestBody Singer Singer) {
         System.out.println(Singer);

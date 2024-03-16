@@ -60,7 +60,9 @@ public class PlaylistSongController {
 
     @GetMapping("/PlaylistSong/playlist/{playlistId}")
     public ResponseEntity<?> getAllSongsInPlaylist(@PathVariable Long playlistId) {
+
         try {
+
             List<PlaylistSong> songsInPlaylist = PlaylistSongService.findSongsByPlaylistId(playlistId);
 
             if (!songsInPlaylist.isEmpty()) {

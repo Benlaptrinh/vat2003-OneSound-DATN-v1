@@ -22,19 +22,19 @@ public class GenreServiceimpl implements GenreService {
     public List<Genre> getAllGenre() {
         return dao.findAll();
     }
+
     @Override
     public List<Genre> findByTitleContainingIgnoreCase(String title) {
         return dao.findByNameContainingIgnoreCase(title);
     }
+
     @Override
     public Genre getGenreById(Long id) {
-        // TODO Auto-generated method stub
         return dao.findById(id).orElse(null);
     }
 
     @Override
     public Genre createGenre(Genre Genre) {
-        // TODO Auto-generated method stub
         return dao.save(Genre);
     }
 
@@ -44,19 +44,23 @@ public class GenreServiceimpl implements GenreService {
         employeeToUpdate.setName(Genre.getName());
         employeeToUpdate.setDescription(Genre.getDescription());
         employeeToUpdate.setImage(Genre.getImage());
+        employeeToUpdate.setActive(Genre.isActive());
         return dao.save(employeeToUpdate); // Handle not found case
     }
 
     @Override
     public void deleteGenre(Long id) {
-        // TODO Auto-generated method stub
         dao.deleteById(id);
     }
 
     @Override
     public Page<Genre> getAllGenre(Pageable pageable) {
-        // TODO Auto-generated method stub
         return dao.findAll(pageable);
+    }
+
+    @Override
+    public List<Genre> findAllGenreActive() {
+        return dao.findByActiveTrue();
     }
 
 }
