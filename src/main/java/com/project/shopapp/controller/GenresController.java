@@ -75,5 +75,9 @@ public class GenresController {
         Map<String, Boolean> response = Map.of("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
-
+    @GetMapping("/Genre/getAllGenreActive")
+    public List<Genre> getAllSingerByAlbumId1() {
+        List<Genre> Genre = GenreService.findAllGenreActive();
+        return Genre;
+    }
 }

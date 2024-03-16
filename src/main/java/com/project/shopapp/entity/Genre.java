@@ -31,6 +31,7 @@ public class Genre {
 	private String name;
 	private String image;
 	private String description;
+	private boolean active;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "genre")

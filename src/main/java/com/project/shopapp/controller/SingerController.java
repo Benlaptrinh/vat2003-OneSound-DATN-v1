@@ -103,4 +103,10 @@ public class SingerController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/Singer/getAllSingerActive")
+    public List<Singer> getAllSingerByAlbumId1() {
+        List<Singer> singers = singerService.findAllSingerActive();
+        return singers;
+    }
+
 }

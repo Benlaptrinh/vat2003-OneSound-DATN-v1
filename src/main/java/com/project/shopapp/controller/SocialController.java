@@ -84,7 +84,7 @@ public class SocialController {
         Account user = new Account();
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(password));
-        Role roles = roledao.findById(2L).get();
+        Role roles = roledao.findById(1L).get();
         user.setAccountRole(roles);
         return dao.save(user);
     }

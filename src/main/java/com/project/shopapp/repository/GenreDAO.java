@@ -12,4 +12,5 @@ import com.project.shopapp.entity.Genre;
  */
 public interface GenreDAO extends JpaRepository<Genre, Long> {
 	  List<Genre> findByNameContainingIgnoreCase(String title);
+	List<Genre> findByActiveTrue();
 }

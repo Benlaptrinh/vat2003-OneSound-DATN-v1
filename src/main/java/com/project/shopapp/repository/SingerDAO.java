@@ -11,7 +11,7 @@ import com.project.shopapp.entity.Author;
 import com.project.shopapp.entity.Singer;
 
 public interface SingerDAO extends JpaRepository<Singer, Long> {
-
+    List<Singer> findByActiveTrue();
     Singer findByFullnameIgnoreCaseContaining(String firstName);
 
     @Query("select s from Singer s join s.singerAlbums sa join sa.album a where a.id = :albumId")

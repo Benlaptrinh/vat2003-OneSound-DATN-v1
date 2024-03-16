@@ -28,5 +28,5 @@ public interface SingerService {
     List<Singer> findAllSingerByAlbumId(Long albumId);
 
     SingerFullInfoDTO getSingerFullInfoById(Long id);
-
+    List<Singer> findAllSingerActive();
 }
