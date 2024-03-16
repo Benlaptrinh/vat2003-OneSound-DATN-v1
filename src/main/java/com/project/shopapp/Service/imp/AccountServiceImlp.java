@@ -132,7 +132,7 @@ public class AccountServiceImlp implements AccountService {
 //<<<<<<< HEAD
 //            Role userRole = RoleDAO.findById(1L).orElseThrow();
 //=======
-            Role userRole = RoleDAO.findById(2L).orElseThrow();
+            Role userRole = RoleDAO.findById(1L).orElseThrow();
             account.setAccountRole(userRole);
         }
         String password = account.getPassword();

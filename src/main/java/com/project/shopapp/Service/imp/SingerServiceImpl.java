@@ -35,6 +35,7 @@ public class SingerServiceImpl implements SingerService {
         employeeToUpdate.setFullname(singer.getFullname());
         employeeToUpdate.setDescription(singer.getDescription());
         employeeToUpdate.setImage(singer.getImage());
+        employeeToUpdate.setActive(singer.isActive());
         return singerRepository.save(employeeToUpdate); // Handle not found case
     }
 
@@ -83,5 +84,8 @@ public class SingerServiceImpl implements SingerService {
 
         return singerFullInfoDTO;
     }
-
+    @Override
+    public List<Singer> findAllSingerActive() {
+        return singerRepository.findByActiveTrue();
+    }
 }

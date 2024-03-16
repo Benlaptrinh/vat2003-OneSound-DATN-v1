@@ -44,6 +44,7 @@ public class GenreServiceimpl implements GenreService {
         employeeToUpdate.setName(Genre.getName());
         employeeToUpdate.setDescription(Genre.getDescription());
         employeeToUpdate.setImage(Genre.getImage());
+        employeeToUpdate.setActive(Genre.isActive());
         return dao.save(employeeToUpdate); // Handle not found case
     }
 
@@ -58,5 +59,8 @@ public class GenreServiceimpl implements GenreService {
         // TODO Auto-generated method stub
         return dao.findAll(pageable);
     }
-
+    @Override
+    public List<Genre> findAllGenreActive() {
+        return dao.findByActiveTrue();
+    }
 }
