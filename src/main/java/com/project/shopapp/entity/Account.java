@@ -36,7 +36,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "Accounts")
-@ToString(exclude = { "accountRole", "passwordResetTokens" })
+// @ToString(exclude = { "accountRole", "passwordResetTokens" })
+@ToString(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs",
+		"favoriteSingers", "favoriteGenres", "followUsers", "following" })
+
 public class Account implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,16 +68,6 @@ public class Account implements UserDetails {
 
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
 	private List<PasswordResetToken> passwordResetTokens;
-
-//	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-//	private PasswordResetToken passwordResetToken;
-//=======
-//	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-//	@JoinColumn(name = "passwordResetToken")
-//	private PasswordResetToken passwordResetToken;
-//>>>>>>> ceci_22/02/2024
-	// @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-	// private PasswordResetToken passwordResetToken;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
