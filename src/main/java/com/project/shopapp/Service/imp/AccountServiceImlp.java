@@ -59,7 +59,6 @@ public class AccountServiceImlp implements AccountService {
         }
     }
 
-
     @Override
     public Account updateAccount(Long id, UpdateUserDTO updateUserDTO) {
         Account existingUser = AccountDAO.findById(id)
@@ -129,9 +128,9 @@ public class AccountServiceImlp implements AccountService {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
         if (account.getAccountRole() == null) {
-//<<<<<<< HEAD
-//            Role userRole = RoleDAO.findById(1L).orElseThrow();
-//=======
+            // <<<<<<< HEAD
+            // Role userRole = RoleDAO.findById(1L).orElseThrow();
+            // =======
             Role userRole = RoleDAO.findById(1L).orElseThrow();
             account.setAccountRole(userRole);
         }
@@ -144,7 +143,6 @@ public class AccountServiceImlp implements AccountService {
         System.out.println(savedAccount);
         return savedAccount;
     }
-
 
     @Override
     public Account createAccountadmin(Account account) {
@@ -345,7 +343,8 @@ public class AccountServiceImlp implements AccountService {
             String resetLink = generateResetToken(user);
             String emailContent = "Hello, This is a reset password mail from ONESOUND <br/><br/>"
                     + "<div style='border: 2px solid #007bff; border-radius: 8px; background-color: #f8f9fa; padding: 20px; width: 40%; margin: 20px auto; font-family: Arial, sans-serif;'>"
-                    + "<p style='margin: 10px 0; line-height: 1.4;'>Xin chào <span style='color: #007bff; font-weight: bold;'>Việt</span>,</p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Xin chào <span style='color: #007bff; font-weight: bold;'>"
+                    + user.getFullname() + "</span>,</p>"
                     + "<p style='margin: 10px 0; line-height: 1.4;'>Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu Facebook của bạn.</p>"
                     + "<p style='margin: 10px 0; line-height: 1.4;'>Nhập mã đặt lại mật khẩu sau đây:</p>"
                     + "<p style='margin: 10px 0; line-height: 1.4;'>Ngoài ra, bạn có thể thay đổi trực tiếp mật khẩu của mình.</p>"
@@ -354,6 +353,25 @@ public class AccountServiceImlp implements AccountService {
                     + "<p style='margin: 10px 0; line-height: 1.4;'><b>Bạn đã không yêu cầu thay đổi này?</b></p>"
                     + "<p style='margin: 10px 0; line-height: 1.4;'>Nếu bạn không yêu cầu mật khẩu mới, <span style='color: #007bff; font-weight: bold;'>hãy cho chúng tôi biết</span></p>"
                     + "</div>";
+
+            MimeMessage message = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+            helper.setTo(user.getEmail());
+            helper.setSubject("RESET PASSWORD FOR ONESOUND ACCOUNT");
+            helper.setText(emailContent, true);
+
+            javaMailSender.send(message);
+            return "success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "error";
+        }
+    }
+
+    public String sendEmaildoimk(Account user) {
+        try {
+            String resetLink = generateResetToken(user);
+            String emailContent = "doimk thanh cong " + user.getFullname();
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
