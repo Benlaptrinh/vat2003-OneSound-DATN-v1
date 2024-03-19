@@ -20,6 +20,8 @@ import com.project.shopapp.Service.SingerAlbumService;
 import com.project.shopapp.composite.SingerAlbumId;
 import com.project.shopapp.entity.Album;
 import com.project.shopapp.entity.SingerAlbum;
+import com.project.shopapp.entity.SongSinger;
+import com.project.shopapp.repository.SingerAlbumDAO;
 
 @CrossOrigin("*")
 @RestController
@@ -27,6 +29,9 @@ import com.project.shopapp.entity.SingerAlbum;
 public class SingerAlbumController {
 
     private final SingerAlbumService SingerAlbumService;
+    
+    @Autowired
+    SingerAlbumDAO dao;
 
     @Autowired
     public SingerAlbumController(SingerAlbumService SingerAlbumService) {
@@ -37,6 +42,19 @@ public class SingerAlbumController {
     public List<SingerAlbum> getAlbum() {
         return SingerAlbumService.getAllSingerAlbums();
     }
+    
+	@GetMapping("singerAlbum/get-by-singer/{id}")
+	public List<SingerAlbum> getByAlbumSingerID(@PathVariable("id") Long SongSingerId) {
+		List<SingerAlbum> ss = dao.findBySingerId(SongSingerId);
+		return ss;
+	}
+	
+
+	@GetMapping("singerAlbum/get-by-album/{id}")
+	public List<SingerAlbum> getByAlbumID(@PathVariable("id") Long SongSingerId) {
+		List<SingerAlbum> ss = dao.findByAlbumId(SongSingerId);
+		return ss;
+	}
 
     // @PostMapping("/singerAlbum/create")
     // public SingerAlbum createAlbum(@RequestBody SingerAlbumId singerAlbumId) {

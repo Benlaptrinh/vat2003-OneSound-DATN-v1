@@ -181,6 +181,13 @@ public class AccountController {
         }
     }
 
+    @GetMapping(value = "/user")
+	public List<Account> getMethodName() {
+    	Role role =RoleDAO.findById(1).get();
+		return AccountDAO.findByAccountRole(role);
+	}
+
+    
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(
             @Valid @RequestBody UserLoginDTO userLoginDTO) {

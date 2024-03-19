@@ -15,10 +15,13 @@ import com.project.shopapp.entity.Account;
 import com.project.shopapp.entity.Singer;
 import com.project.shopapp.entity.CountAccountDTO;
 import com.project.shopapp.entity.ReportAccountByYear;
+import com.project.shopapp.entity.Role;
+
 
 public interface AccountDAO extends JpaRepository<Account, Long> {
     Optional<Account> findByEmail(String email);
-
+    List<Account> findByAccountRole(Role accountRole);
+    
     boolean existsByEmail(String email);
 
     @Query("SELECT a FROM Account a WHERE LOWER(a.fullname) LIKE LOWER(CONCAT('%', :fullname, '%'))")

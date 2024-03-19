@@ -77,6 +77,12 @@ public class SongSingerController {
 		List<SongSinger> ss = dao.findBySongId(SongSingerId);
 		return ss;
 	}
+	
+	@GetMapping("SongSinger/get-by-singer/{id}")
+	public List<SongSinger> getBySongSingerID(@PathVariable("id") Long SongSingerId) {
+		List<SongSinger> ss = dao.findBySingerId(SongSingerId);
+		return ss;
+	}
 
 	@DeleteMapping("SongSinger/delete-by-song/{id}")
 	public void deleteBySong(@PathVariable("id") Long SongSingerId) {
