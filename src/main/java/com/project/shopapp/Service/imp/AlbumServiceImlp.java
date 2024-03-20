@@ -25,10 +25,10 @@ public class AlbumServiceImlp implements AlbumService {
     public Page<Album> findAllAlbums(Pageable pageable) {
         return albumDAO.findAll(pageable);
     }
-    
+
     @Override
     public List<Album> getAll() {
-        return albumDAO.findAll();
+        return albumDAO.findAllInactiveAlbums();
     }
 
     @Override
@@ -55,7 +55,10 @@ public class AlbumServiceImlp implements AlbumService {
     @Override
     public void deleteAlbum(Long id) {
         Album Album = getAlbumById(id);
-        albumDAO.delete(Album);
+        if (Album != null) {
+            Album.setActive(false);
+            albumDAO.save(Album);
+        }
 
     }
 
@@ -74,9 +77,9 @@ public class AlbumServiceImlp implements AlbumService {
         return albumDAO.searchByTitle(title, pageable);
     }
 
-	@Override
-	public List<Album> findAlbumByTitle(String title) {
-		return albumDAO.searchByTitle(title);
-	}
+    @Override
+    public List<Album> findAlbumByTitle(String title) {
+        return albumDAO.searchByTitle(title);
+    }
 
 }

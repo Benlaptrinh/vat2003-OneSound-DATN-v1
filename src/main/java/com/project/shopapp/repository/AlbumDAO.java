@@ -16,10 +16,11 @@ public interface AlbumDAO extends JpaRepository<Album, Long> {
 
     @Query("SELECT a FROM Album a WHERE LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%'))")
     Page<Album> searchByTitle(String title, Pageable pageable);
-    
+
     @Query("SELECT a FROM Album a WHERE LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%'))")
     List<Album> searchByTitle(String title);
-    
-    
+
+    @Query("SELECT a FROM Album a WHERE a.active = true")
+    List<Album> findAllInactiveAlbums();
 
 }

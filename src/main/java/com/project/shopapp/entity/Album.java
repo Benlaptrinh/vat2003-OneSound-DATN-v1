@@ -32,6 +32,7 @@ public class Album {
 	@Temporal(TemporalType.DATE)
 	private Date albumCreateDate = new Date();
 	private String description;
+	private Boolean active;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "album")

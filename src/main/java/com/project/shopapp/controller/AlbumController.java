@@ -69,7 +69,9 @@ public class AlbumController {
 
     @PostMapping("album/create")
     public Album createAlbum(@RequestBody Album album) {
-        return albumService.createAlbum(album);
+        Album a = album;
+        a.setActive(true);
+        return albumService.createAlbum(a);
 
     }
 
