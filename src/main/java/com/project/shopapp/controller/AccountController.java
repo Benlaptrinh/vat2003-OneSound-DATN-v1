@@ -91,7 +91,7 @@ public class AccountController {
             // if (acc != null) {
             System.out.println("THIS ACCOUNT ALREADY EXIST!");
             System.out.println(acc.get());
-            return new RedirectView("http://localhost:4200/onesound/home");
+            return new RedirectView("http://localhost:4200/onesound/home/explore");
 
         } else {
             try {
@@ -102,6 +102,7 @@ public class AccountController {
                 newAcc.setFullname(fullname);
                 newAcc.setAccountRole(userRole);
                 newAcc.setAvatar_url(picture);
+                newAcc.setActive(true);
 
                 if (method.equalsIgnoreCase("google")) {
                     newAcc.setProvider(AuthProvider.GOOGLE);

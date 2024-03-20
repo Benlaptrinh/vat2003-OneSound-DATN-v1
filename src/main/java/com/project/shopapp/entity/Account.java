@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,19 +27,17 @@ import jakarta.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "Accounts")
 // @ToString(exclude = { "accountRole", "passwordResetTokens" })
-@ToString(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs",
-		"favoriteSingers", "favoriteGenres", "followUsers", "following" })
+//@ToString(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs",
+//		"favoriteSingers", "favoriteGenres", "followUsers", "following" })
+
+@EqualsAndHashCode(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs", "favoriteSingers", "favoriteGenres", "followUsers", "following" })
+@ToString(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs", "favoriteSingers", "favoriteGenres", "followUsers", "following" })
 
 public class Account implements UserDetails {
 	@Id

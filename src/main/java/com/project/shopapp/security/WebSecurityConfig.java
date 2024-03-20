@@ -95,7 +95,7 @@ public class WebSecurityConfig {
                             .permitAll()
                             .requestMatchers(GET,
                                     String.format("%s/Genre/**", apiPrefix))
-                            .hasAnyRole(Role.ADMIN)
+                            .permitAll()
                             .requestMatchers(POST,
                                     String.format("%s/Genre**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
@@ -114,9 +114,6 @@ public class WebSecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/Author**", apiPrefix))
                             .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/Author/**", apiPrefix))
-                            .hasAnyRole(Role.ADMIN)
                             .requestMatchers(POST,
                                     String.format("%s/Author**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
@@ -137,10 +134,6 @@ public class WebSecurityConfig {
                                     String.format("%s/Singer**", apiPrefix))
                             .permitAll()
 
-                            .requestMatchers(GET,
-                                    String.format("%s/Singer/**", apiPrefix))
-                            .hasAnyRole(Role.ADMIN)
-
                             .requestMatchers(POST,
                                     String.format("%s/Singer**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
@@ -160,10 +153,6 @@ public class WebSecurityConfig {
                                     String.format("%s/Role/**", apiPrefix))
                             .permitAll()
 
-                            .requestMatchers(POST,
-                                    String.format("%s/Role**", apiPrefix))
-                            .hasAnyRole(Role.ADMIN)
-
                             .requestMatchers(DELETE,
                                     String.format("%s/Role/**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
@@ -172,7 +161,7 @@ public class WebSecurityConfig {
                                     String.format("%s/Role**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
 
-                            .requestMatchers(GET,
+                            .requestMatchers(POST,
                                     String.format("%s/Role/**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
 
@@ -185,14 +174,13 @@ public class WebSecurityConfig {
                             .requestMatchers(POST,
                                     String.format("%s/album**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
+
                             .requestMatchers(DELETE,
                                     String.format("%s/album/**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
-                            .requestMatchers(GET,
+
+                            .requestMatchers(PUT,
                                     String.format("%s/album**", apiPrefix))
-                            .hasAnyRole(Role.ADMIN)
-                            .requestMatchers(GET,
-                                    String.format("%s/album/**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
 
                             // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
@@ -203,21 +191,224 @@ public class WebSecurityConfig {
                             .permitAll()
 
                             .requestMatchers(POST,
-                                    String.format("%s/Song**", apiPrefix))
+                                    String.format("%s/Song/**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
 
                             .requestMatchers(DELETE,
                                     String.format("%s/Song/**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
 
-                            .requestMatchers(GET,
-                                    String.format("%s/Song**", apiPrefix))
-                            .hasAnyRole(Role.ADMIN)
-
-                            .requestMatchers(GET,
+                            .requestMatchers(PUT,
                                     String.format("%s/Song/**", apiPrefix))
                             .hasAnyRole(Role.ADMIN)
 
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------SONG-GENRE--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/SongGenre/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/SongGenre**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/SongGenre/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/SongGenre**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------SONG-SINGER--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/SongSinger/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/SongSinger**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/SongSinger/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/SongSinger**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------SONG-AUTHOR--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/SongAuthor/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/SongAuthor**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/SongAuthor/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/SongAuthor**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------SINGER-ALBUM--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/singerAlbum/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/singerAlbum**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/singerAlbum/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/singerAlbum**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------FAVORITE-ALBUM--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/favoriteAlbum/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/favoriteAlbum**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/favoriteAlbum/**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/favoriteAlbum**", apiPrefix))
+                            .hasAnyRole(Role.ADMIN)
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------FAVORITE-SONG--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/favoriteSong/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/favoriteSong**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/favoriteSong/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/favoriteSong**", apiPrefix))
+                            .permitAll()
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------FAVORITE-YOUTUBE--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/favoriteYoutube/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/favoriteYoutube**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/favoriteYoutube/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/favoriteYoutube**", apiPrefix))
+                            .permitAll()
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------PLAYLIST--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/Playlist/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/Playlist**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/Playlist/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/Playlist**", apiPrefix))
+                            .permitAll()
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------PLAYLIST-SONG--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/PlaylistSong/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/PlaylistSong**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/PlaylistSong/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/PlaylistSong**", apiPrefix))
+                            .permitAll()
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------PLAYLIST-SONG--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/PlaylistYoutube/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/PlaylistYoutube**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/PlaylistYoutube/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/PlaylistYoutube**", apiPrefix))
+                            .permitAll()
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------STATICTICAL--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/statictical/**", apiPrefix))
+                            .permitAll()                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------VISIT--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/count/**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(POST,
+                                    String.format("%s/record/**", apiPrefix))
+                            .permitAll()
+                            // ------------------------YOUTUBE--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/youtube/**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(POST,
+                                    String.format("%s/youtube/**", apiPrefix))
+                            .permitAll()
+                            // ------------------------REST--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(POST,
+                                    String.format("%s/rest/**", apiPrefix))
+                            .permitAll()
                             // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
                             // ------------------------album---------------------//
                             // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
@@ -261,8 +452,8 @@ public class WebSecurityConfig {
 
         return http.build();
     }
-//
-//}
+
+}
 
 
 //        private final JwtTokenFilter jwtTokenFilter;
@@ -296,4 +487,4 @@ public class WebSecurityConfig {
 //
 //                return http.build();
 //        }
-}
+//}

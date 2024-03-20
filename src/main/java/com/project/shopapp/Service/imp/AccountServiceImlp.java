@@ -371,7 +371,7 @@ public class AccountServiceImlp implements AccountService {
     public String sendEmaildoimk(Account user) {
         try {
             String resetLink = generateResetToken(user);
-            String emailContent = "doimk thanh cong " + user.getFullname();
+            String emailContent = "Your password has been changed!! -- " + user.getFullname();
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
