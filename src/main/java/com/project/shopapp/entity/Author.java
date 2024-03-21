@@ -28,6 +28,7 @@ public class Author {
 	    private String fullname;
 	    private String description;
 	    private String image;
+	    private boolean active;
 	    @JsonIgnore
 	    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
 	    private List<SongAuthor> songAuthor;

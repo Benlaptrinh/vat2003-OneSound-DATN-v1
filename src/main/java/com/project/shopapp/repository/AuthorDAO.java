@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface AuthorDAO extends JpaRepository<Author, Long> {
 	List<Author> findByFullnameIgnoreCase(String fullname);
-	
+	List<Author> findByActive(boolean active);
 	@Query("SELECT a FROM Author a WHERE LOWER(a.fullname) LIKE LOWER(CONCAT('%', :fullname, '%'))")
     Page<Author> findByFullnamePage(String fullname,Pageable pageable);
 }

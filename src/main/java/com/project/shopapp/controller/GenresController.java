@@ -38,7 +38,7 @@ public class GenresController {
 
     @GetMapping("/Genre")
     public List<Genre> getAllSingers() {
-        return GenreService.getAllGenre();
+        return GenreService.findAllGenreActive();
     }
 
     @GetMapping("/Genre/Genree")

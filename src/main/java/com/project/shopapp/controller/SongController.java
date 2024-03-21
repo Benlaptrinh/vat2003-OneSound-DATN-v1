@@ -39,10 +39,15 @@ public class SongController {
 	public Page<Song> getSong (Pageable pageable) {
 		return songDAO.findAll(pageable);
 	}
+	
+	@GetMapping("Song/findAll")
+	public List<Song> getSongNonePage(){
+		return songDAO.findAll();
+	}
 
 	@GetMapping("Song")
 	public List<Song>getAll(){
-		return songDAO.findAll();
+		return songDAO.findByActiveTrue();
 	}
 
 	@GetMapping("Song/getbyid/{id}")

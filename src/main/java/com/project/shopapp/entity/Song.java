@@ -40,6 +40,7 @@ public class Song {
 	private Date Release;
 	//	@Lob
 	private String lyrics;
+	private boolean active;
 
 	@ManyToOne
 	@JoinColumn(name = "album_id")
