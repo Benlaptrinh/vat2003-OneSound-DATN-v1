@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="DATN_OneSound@localhost" uuid="e8948f3f-7af8-40b6-9fd6-6829fc470bbd">
+    <data-source source="LOCAL" name="DATN_OneSound@localhost" uuid="f25b8979-8f26-410f-8926-5ca3cced8634">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <imported>true</imported>
-      <remarks>$PROJECT_DIR$/src/main/resources/application.properties</remarks>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
       <jdbc-url>jdbc:sqlserver://localhost:1433;databaseName=DATN_OneSound;encrypt=true;trustServerCertificate=true</jdbc-url>
       <jdbc-additional-properties>
