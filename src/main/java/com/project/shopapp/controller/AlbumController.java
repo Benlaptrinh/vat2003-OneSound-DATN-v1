@@ -47,6 +47,11 @@ public class AlbumController {
         return albumService.getAll();
     }
 
+    @GetMapping("album/getAllInactive")
+    public List<Album> getAllInactive() {
+        return albumService.getAllInactive();
+    }
+
     @GetMapping("album/getbyid/{id}")
     public Album getAlbumById(@PathVariable Long id) {
         return albumService.getAlbumById(id);
@@ -80,11 +85,21 @@ public class AlbumController {
         return albumService.updateAlbum(id, album);
     }
 
-    @DeleteMapping("album/delete/{id}")
-    public ResponseEntity<?> delAlbum(@PathVariable Long id) {
-        albumService.deleteAlbum(id);
-        Map<String, Boolean> response = Map.of("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+    @PutMapping("album/inactive/{id}")
+    public Album inactiveAlbum(@PathVariable Long id) {
+        return albumService.inactiveAlbum(id);
     }
+
+    @PutMapping("album/restore/{id}")
+    public Album restoreAlbum(@PathVariable Long id) {
+        return albumService.restoreAlbum(id);
+    }
+
+    // @DeleteMapping("album/delete/{id}")
+    // public ResponseEntity<?> delAlbum(@PathVariable Long id) {
+    // albumService.deleteAlbum(id);
+    // Map<String, Boolean> response = Map.of("deleted", Boolean.TRUE);
+    // return ResponseEntity.ok(response);
+    // }
 
 }

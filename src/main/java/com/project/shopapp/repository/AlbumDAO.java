@@ -21,6 +21,9 @@ public interface AlbumDAO extends JpaRepository<Album, Long> {
     List<Album> searchByTitle(String title);
 
     @Query("SELECT a FROM Album a WHERE a.active = true")
+    List<Album> findAllActiveAlbums();
+
+    @Query("SELECT a FROM Album a WHERE a.active = false")
     List<Album> findAllInactiveAlbums();
 
 }

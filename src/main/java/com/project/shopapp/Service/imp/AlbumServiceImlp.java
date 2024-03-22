@@ -28,6 +28,11 @@ public class AlbumServiceImlp implements AlbumService {
 
     @Override
     public List<Album> getAll() {
+        return albumDAO.findAllActiveAlbums();
+    }
+
+    @Override
+    public List<Album> getAllInactive() {
         return albumDAO.findAllInactiveAlbums();
     }
 
@@ -53,12 +58,22 @@ public class AlbumServiceImlp implements AlbumService {
     }
 
     @Override
-    public void deleteAlbum(Long id) {
+    public Album inactiveAlbum(Long id) {
         Album Album = getAlbumById(id);
-        if (Album != null) {
-            Album.setActive(false);
-            albumDAO.save(Album);
-        }
+
+        Album.setActive(false);
+        albumDAO.save(Album);
+        return Album;
+
+    }
+
+    @Override
+    public Album restoreAlbum(Long id) {
+        Album Album = getAlbumById(id);
+
+        Album.setActive(true);
+        albumDAO.save(Album);
+        return Album;
 
     }
 
