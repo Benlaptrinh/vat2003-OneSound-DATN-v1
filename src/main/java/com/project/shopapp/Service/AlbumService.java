@@ -11,8 +11,10 @@ import com.project.shopapp.entity.Genre;
 public interface AlbumService {
 
     Page<Album> findAllAlbums(Pageable pageable);
-    
+
     List<Album> getAll();
+
+    List<Album> getAllInactive();
 
     Album getAlbumById(Long id);
 
@@ -20,13 +22,15 @@ public interface AlbumService {
 
     Album updateAlbum(Long id, Album Album);
 
-    void deleteAlbum(Long id);
+    Album inactiveAlbum(Long id);
+
+    Album restoreAlbum(Long id);
 
     List<Album> findByTitleContaining(String title);
 
     Page<Album> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
     Page<Album> searchByTitle(String title, Pageable pageable);
-    
+
     List<Album> findAlbumByTitle(String title);
 }
