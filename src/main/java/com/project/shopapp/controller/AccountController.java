@@ -4,6 +4,7 @@ package com.project.shopapp.controller;
 import com.project.shopapp.entity.*;
 import com.project.shopapp.repository.RoleDAO;
 import com.project.shopapp.utils.UpdateUserDTO;
+import com.project.shopapp.utils.localizationUtils;
 import com.project.shopapp.utils.thongbao;
 
 import jakarta.mail.internet.MimeMessage;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.Authentication;
@@ -20,21 +22,22 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.social.facebook.api.Facebook;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import com.project.shopapp.Service.AccountService;
+import com.project.shopapp.Service.EmailService;
 import com.project.shopapp.Service.PasswordResetTokenService;
 import com.project.shopapp.Service.imp.AccountServiceImlp;
-import com.project.shopapp.entity.Account;
-import com.project.shopapp.entity.FeedRequest;
-import com.project.shopapp.entity.PasswordResetToken;
-import com.project.shopapp.entity.Genre;
-import com.project.shopapp.entity.UserLoginDTO;
+import com.project.shopapp.dto.MessageKeys;
+import com.project.shopapp.dto.RegisterUserResponse;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.SingerDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
+import com.project.shopapp.security.JwtTokenUtil;
+import com.project.shopapp.utils.CheckSocialAccountResponse;
 import com.project.shopapp.utils.LoginResponse;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -68,66 +71,32 @@ public class AccountController {
     private AccountDAO AccountDAO;
 
     @Autowired
-    private RoleDAO RoleDAO;
+    private EmailService EmailService;
 
     @Autowired
     private TokenRepositoryDAO TokenRepositoryDAO;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @GetMapping("/oauth2/login/success")
-    public RedirectView success(OAuth2AuthenticationToken oauth) throws IOException, URISyntaxException {
-        String method = oauth.getAuthorizedClientRegistrationId();
-        String email = oauth.getPrincipal().getAttribute("email");
-        String fullname = oauth.getPrincipal().getAttribute("name");
-        String picture = oauth.getPrincipal().getAttribute("picture");
-        System.out.println("EMAIL" + email);
-        System.out.println("FULLNAME" + fullname);
-        System.out.println("PICTURE" + picture);
-        System.out.println("METHOD ==> " + method);
-        String url = "http://localhost:4200/onesound/signin";
-
-//        Optional<Account> acc = Optional.of(AccountDAO.findByEmail(email).orElse(null));
-        Optional<Account> acc = AccountDAO.findByEmail(email);
-//        Account acc = accountService.getAccountByEmail(email);
-        if (acc.isPresent()) {
-//        if (acc != null) {
-            System.out.println("THIS ACCOUNT ALREADY EXIST!");
-            System.out.println(acc.get());
-            return new RedirectView("http://localhost:4200/onesound/home");
-
-        } else {
-            try {
-                System.out.println("THIS ACCOUNT NOT EXIST!");
-                Account newAcc = new Account();
-                Role userRole = RoleDAO.findById(1).get();
-                newAcc.setEmail(email);
-                newAcc.setFullname(fullname);
-                newAcc.setAccountRole(userRole);
-                newAcc.setAvatar_url(picture);
-
-                if (method.equalsIgnoreCase("google")) {
-                    newAcc.setProvider(AuthProvider.GOOGLE);
-                } else if (method.equalsIgnoreCase("facebook")) {
-                    newAcc.setProvider(AuthProvider.FACEBOOK);
-                } else if (method.equalsIgnoreCase("github")) {
-                    newAcc.setProvider(AuthProvider.GITHUB);
-                }
-
-
-                accountService.createAccountfb(newAcc);
-                System.out.println("Create account successfully ==> " + newAcc.getFullname());
-            } catch (Exception e) {
-                System.err.println("****ERROR*****" + e);
-                // Trả về một giá trị nếu xảy ra ngoại lệ
-//                return "error" + e; // Ví dụ: Trả về trang lỗi
-            }
+    @GetMapping("/login/oauth2")
+    public ResponseEntity<?> loginOAuth2(
+            @RequestParam("email") String email,
+            @RequestParam("phone_number") String phoneNumber) {
+        try {
+            return ResponseEntity.ok(
+                    CheckSocialAccountResponse.builder()
+                            .message(this.accountService.loginByOAuth2(phoneNumber, email))
+                            .build());
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(LoginResponse.builder()
+                    .message(e.getMessage())
+                    .build());
         }
-
-        return new RedirectView("http://localhost:4200/onesound/home/explore");
     }
 
+    @GetMapping("/login/google")
+    public Map<String, Object> currentUserGoogle(
+            OAuth2AuthenticationToken oAuth2AuthenticationToken) {
+        return oAuth2AuthenticationToken.getPrincipal().getAttributes();
+    }
 
     @PostMapping("/feed")
     public ResponseEntity<?> hello1(@RequestBody FeedRequest request) {
@@ -145,27 +114,70 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
+    // @PostMapping("/register")
+    // public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
+    // BindingResult result) {
+    // if (result.hasErrors()) {
+    // Map<String, String> errors = new HashMap<>();
+    // for (FieldError error : result.getFieldErrors()) {
+    // errors.put(error.getField(), error.getDefaultMessage());
+    // }
+    // return ResponseEntity.badRequest().body(errors);
+    // }
+    // try {
+    // accountService.createAccount(Account);
+    // return ResponseEntity.ok().build();
+    // } catch (Exception e) {
+    // return ResponseEntity.badRequest().body(e.getMessage());
+    // }
+    // }
+
     @PostMapping("/register")
-    public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
-                                        BindingResult result) {
-        if (result.hasErrors()) {
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : result.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
-            return ResponseEntity.badRequest().body(errors);
-        }
+    public ResponseEntity<?> createUser1(
+            @RequestBody Account Account,
+            BindingResult result) {
         try {
-            accountService.createAccount(Account);
+            if (result.hasErrors()) {
+                List<String> errorMessages = result.getFieldErrors()
+                        .stream()
+                        .map(FieldError::getDefaultMessage)
+                        .toList();
+                return ResponseEntity.badRequest().body(errorMessages);
+            }
+            if (Account.getFullname() == "" || Account.getFullname().length() <= 0) {
+                if (Account.getFacebookAccountId() == 1) {
+                    System.out.println(
+                            "Account.getFacebookAccountId() == 1 <------------------------------------------------------------");
+                } else {
+                    if (Account.getGoogleAccountId() == 1) {
+                        Email email = this.EmailService.getUserByEmail(Account.getEmail());
+                        // List<UserResponse> userList = this.userService.getAllUsers();
+                        // for (UserResponse clone: userList){
+                        // if (clone.getEmail().equals(userDTO.getEmail())){
+                        // throw new DataNotFoundException("Can not create new account");
+                        // }
+                        // }
+                        Account.setFullname(email.getName());
+                    }
+                }
+            }
+
+            Account user = accountService.createAccount(Account);
+
+            // return ResponseEntity.ok().build();
+
             return ResponseEntity.ok().build();
+
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            // return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+            return ResponseEntity.badRequest().body(e);
+
         }
     }
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody Account Account,
-                                    BindingResult result) {
+            BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -297,7 +309,6 @@ public class AccountController {
         }
     }
 
-
     // @GetMapping("/email")
     // public ResponseEntity<Account> getUserByEmail(@RequestParam String mail) {
     // Account account = accountService.getAccountByEmail(mail);
@@ -416,6 +427,24 @@ public class AccountController {
     @GetMapping("/users/getaccountByName/{title}")
     public Page<Account> getAlbumByTitle(@PathVariable String title, Pageable pageable) {
         return AccountDAO.findByFullnamePage(title, pageable);
+    }
+
+    @PostMapping("/checkactive")
+    public ResponseEntity<?> hello1(@RequestBody UserIdDTO userIdDTO) {
+        String id = userIdDTO.getEmail();
+        Account a = accountService.getAccountByEmail(id);
+
+        if (!isActiveAccount(a)) {
+            System.out.println(a);
+
+            return ResponseEntity.ok().body(a);
+        } else {
+            return ResponseEntity.ok().body(null);
+        }
+    }
+
+    private boolean isActiveAccount(Account account) {
+        return account.isActive();
     }
 }
 // <!-- <h2>Feedback Form</h2>

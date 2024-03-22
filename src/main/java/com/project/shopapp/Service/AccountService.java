@@ -15,6 +15,8 @@ import com.project.shopapp.entity.CountAccountDTO;
 
 public interface AccountService {
 
+    String loginByOAuth2(String phoneNumber, String email) throws Exception;
+
     List<Account> getAllAccount();
 
     Account getUserDetailsFromToken(String token) throws Exception;

@@ -11,6 +11,7 @@ import java.util.UUID;
 import com.project.shopapp.entity.*;
 import com.project.shopapp.security.DataNotFoundException;
 import com.project.shopapp.utils.UpdateUserDTO;
+import com.project.shopapp.utils.localizationUtils;
 
 import jakarta.mail.internet.MimeMessage;
 
@@ -28,11 +29,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.AccountService;
-import com.project.shopapp.entity.Account;
-import com.project.shopapp.entity.FeedRequest;
-import com.project.shopapp.entity.PasswordResetToken;
-import com.project.shopapp.entity.Role;
-import com.project.shopapp.entity.UserLoginDTO;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.RoleDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
@@ -58,7 +54,6 @@ public class AccountServiceImlp implements AccountService {
             return "error";
         }
     }
-
 
     @Override
     public Account updateAccount(Long id, UpdateUserDTO updateUserDTO) {
@@ -123,15 +118,32 @@ public class AccountServiceImlp implements AccountService {
     @Autowired
     private JavaMailSender javaMailSender;
 
+    @Autowired
+    private localizationUtils localizationUtils;
+
+    @Override
+    public String loginByOAuth2(String phoneNumber, String email) throws Exception {
+        Optional<Account> optionalUser = AccountDAO.findByEmail(email);
+
+        Account existingUser = optionalUser.get();
+        if (email.equals(existingUser.getEmail())) {
+            if (!optionalUser.get().isActive()) {
+                throw new DataNotFoundException(localizationUtils.getLocalizedMessage("block"));
+            }
+            return jwtTokenUtil.generateToken(existingUser);
+        }
+        return "";
+    }
+
     @Override
     public Account createAccount(Account account) {
         if (AccountDAO.existsByEmail(account.getEmail())) {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
         if (account.getAccountRole() == null) {
-//<<<<<<< HEAD
-//            Role userRole = RoleDAO.findById(1L).orElseThrow();
-//=======
+            // <<<<<<< HEAD
+            // Role userRole = RoleDAO.findById(1L).orElseThrow();
+            // =======
             Role userRole = RoleDAO.findById(1L).orElseThrow();
             account.setAccountRole(userRole);
         }
@@ -144,7 +156,6 @@ public class AccountServiceImlp implements AccountService {
         System.out.println(savedAccount);
         return savedAccount;
     }
-
 
     @Override
     public Account createAccountadmin(Account account) {
@@ -284,13 +295,6 @@ public class AccountServiceImlp implements AccountService {
         Account existingUser = optionalUser.get();
         Long userIdLong = existingUser.getId();
 
-        // Optional<Role> optionalRole = RoleDAO.findById(userIdLong);
-
-        // if (existingUser.getAccountRole() == null || !optionalRole.isPresent() ||
-        // !optionalRole.get().getId().equals(existingUser.getAccountRole().getId())) {
-        // throw new DataNotFoundException("Không tìm thấy role");
-        // }
-
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
                 mail, password,
                 existingUser.getAuthorities());
@@ -345,8 +349,9 @@ public class AccountServiceImlp implements AccountService {
             String resetLink = generateResetToken(user);
             String emailContent = "Hello, This is a reset password mail from ONESOUND <br/><br/>"
                     + "<div style='border: 2px solid #007bff; border-radius: 8px; background-color: #f8f9fa; padding: 20px; width: 40%; margin: 20px auto; font-family: Arial, sans-serif;'>"
-                    + "<p style='margin: 10px 0; line-height: 1.4;'>Xin chào <span style='color: #007bff; font-weight: bold;'>Việt</span>,</p>"
-                    + "<p style='margin: 10px 0; line-height: 1.4;'>Chúng tôi đã nhận được yêu cầu đặt lại mật khẩu Facebook của bạn.</p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Xin chào <span style='color: #007bff; font-weight: bold;'>"
+                    + user.getFullname() + "</span>,</p>"
+                    + "<p style='margin: 10px 0; line-height: 1.4;'>Chúng tôi đã nhận được yêu cầu đặt lại  của bạn.</p>"
                     + "<p style='margin: 10px 0; line-height: 1.4;'>Nhập mã đặt lại mật khẩu sau đây:</p>"
                     + "<p style='margin: 10px 0; line-height: 1.4;'>Ngoài ra, bạn có thể thay đổi trực tiếp mật khẩu của mình.</p>"
                     + "<a href='" + resetLink

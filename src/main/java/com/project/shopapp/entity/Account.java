@@ -66,15 +66,11 @@ public class Account implements UserDetails {
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
 	private List<PasswordResetToken> passwordResetTokens;
 
-//	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-//	private PasswordResetToken passwordResetToken;
-//=======
-//	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-//	@JoinColumn(name = "passwordResetToken")
-//	private PasswordResetToken passwordResetToken;
-//>>>>>>> ceci_22/02/2024
-	// @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-	// private PasswordResetToken passwordResetToken;
+	@Column(name = "facebook_account_id")
+	private int facebookAccountId;
+
+	@Column(name = "google_account_id")
+	private int googleAccountId;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
