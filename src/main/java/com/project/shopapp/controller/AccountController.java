@@ -76,6 +76,9 @@ public class AccountController {
     @Autowired
     private TokenRepositoryDAO TokenRepositoryDAO;
 
+    // @Autowired
+    // private localizationUtils localizationUtils;
+
     @GetMapping("/login/oauth2")
     public ResponseEntity<?> loginOAuth2(
             @RequestParam("email") String email,
@@ -114,24 +117,6 @@ public class AccountController {
         return ResponseEntity.ok().build();
     }
 
-    // @PostMapping("/register")
-    // public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
-    // BindingResult result) {
-    // if (result.hasErrors()) {
-    // Map<String, String> errors = new HashMap<>();
-    // for (FieldError error : result.getFieldErrors()) {
-    // errors.put(error.getField(), error.getDefaultMessage());
-    // }
-    // return ResponseEntity.badRequest().body(errors);
-    // }
-    // try {
-    // accountService.createAccount(Account);
-    // return ResponseEntity.ok().build();
-    // } catch (Exception e) {
-    // return ResponseEntity.badRequest().body(e.getMessage());
-    // }
-    // }
-
     @PostMapping("/register")
     public ResponseEntity<?> createUser1(
             @RequestBody Account Account,
@@ -151,25 +136,21 @@ public class AccountController {
                 } else {
                     if (Account.getGoogleAccountId() == 1) {
                         Email email = this.EmailService.getUserByEmail(Account.getEmail());
-                        // List<UserResponse> userList = this.userService.getAllUsers();
-                        // for (UserResponse clone: userList){
-                        // if (clone.getEmail().equals(userDTO.getEmail())){
-                        // throw new DataNotFoundException("Can not create new account");
-                        // }
-                        // }
+
                         Account.setFullname(email.getName());
                     }
                 }
             }
 
-            Account user = accountService.createAccount(Account);
+            if (!Account.getPassword().equals(Account.getPassword())) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("k khop");
+            }
 
-            // return ResponseEntity.ok().build();
+            Account user = accountService.createAccount(Account);
 
             return ResponseEntity.ok().build();
 
         } catch (Exception e) {
-            // return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
             return ResponseEntity.badRequest().body(e);
 
         }
