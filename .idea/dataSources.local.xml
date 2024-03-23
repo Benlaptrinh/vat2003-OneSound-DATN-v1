@@ -17,5 +17,20 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="DATN_OneSound_2@localhost" uuid="3dae2baa-ffc5-40d9-8d31-e6b3032f3b59">
+      <database-info product="Microsoft SQL Server" version="16.00.1110" jdbc-version="4.2" driver-name="Microsoft JDBC Driver 12.2 for SQL Server" driver-version="12.2.0.0" dbms="MSSQL" exact-version="16.0.1110" exact-driver-version="12.2">
+        <extra-name-characters>$#@</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <user-name>sa</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="@">
+            <node kind="schema" qname="@" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
   </component>
 </project>
