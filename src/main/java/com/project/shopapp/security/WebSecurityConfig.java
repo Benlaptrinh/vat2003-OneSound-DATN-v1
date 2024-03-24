@@ -43,105 +43,105 @@ import java.util.List;
 @EnableWebMvc
 @RequiredArgsConstructor
 public class WebSecurityConfig {
-        private final JwtTokenFilter jwtTokenFilter;
-        private final EmailServiceImlp EmailServiceImlp;
-        @Value("${api.prefix}")
-        private String apiPrefix;
+    private final JwtTokenFilter jwtTokenFilter;
+    private final EmailServiceImlp EmailServiceImlp;
+    @Value("${api.prefix}")
+    private String apiPrefix;
 
-        @Bean
-        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-                http
-                                .csrf(AbstractHttpConfigurer::disable)
-                                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                                .authorizeHttpRequests(requests -> {
-                                        requests
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                .authorizeHttpRequests(requests -> {
+                    requests
 
-                                                        .requestMatchers(
-                                                                        String.format("%s/users/register", apiPrefix),
-                                                                        String.format("%s/users/login", apiPrefix),
-                                                                        String.format("%s/users/login/oauth2**",
-                                                                                        apiPrefix))
-                                                        .permitAll()
+                            .requestMatchers(
+                                    String.format("%s/users/register", apiPrefix),
+                                    String.format("%s/users/login", apiPrefix),
+                                    String.format("%s/users/login/oauth2**",
+                                            apiPrefix))
+                            .permitAll()
 
-                                                        .requestMatchers(HttpMethod.GET,
-                                                                        String.format("%s/users**", apiPrefix))
-                                                        .permitAll()
-                                                        .requestMatchers(HttpMethod.GET,
-                                                                        String.format("%s/Role**", apiPrefix))
-                                                        .permitAll()
+                            .requestMatchers(HttpMethod.GET,
+                                    String.format("%s/users**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(HttpMethod.GET,
+                                    String.format("%s/Role**", apiPrefix))
+                            .permitAll()
 
-                                                        .requestMatchers(String
-                                                                        .format("%s/oauth2/login/google", apiPrefix))
-                                                        .permitAll()
-                                                        .requestMatchers(String.format("%s/oauth2/login/facebook",
-                                                                        apiPrefix))
-                                                        .permitAll()
+                            .requestMatchers(String
+                                    .format("%s/oauth2/login/google", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(String.format("%s/oauth2/login/facebook",
+                                    apiPrefix))
+                            .permitAll()
 
-                                                        .requestMatchers(String.format("%s/emails/users/**",
-                                                                        apiPrefix))
-                                                        .permitAll()
-                                                        .requestMatchers(String.format("%s/emails/users", apiPrefix))
-                                                        .permitAll()
+                            .requestMatchers(String.format("%s/emails/users/**",
+                                    apiPrefix))
+                            .permitAll()
+                            .requestMatchers(String.format("%s/emails/users", apiPrefix))
+                            .permitAll()
 
-                                                        .anyRequest().authenticated();
+                            .anyRequest().authenticated();
 
-                                })
-                                .csrf(AbstractHttpConfigurer::disable)
-                                .oauth2Login(Customizer.withDefaults());
-                http.cors(Customizer.withDefaults());
-                http.oauth2Login(oauth2 -> oauth2.successHandler(authenticationSuccessHandler()));
-                http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
-                        @Override
-                        public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
-                                CorsConfiguration configuration = new CorsConfiguration();
-                                configuration.setAllowedOrigins(List.of("*"));
-                                configuration.setAllowedMethods(
-                                                Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-                                configuration.setAllowedHeaders(Arrays.asList("Origin", "Authorization",
-                                                "content-type",
-                                                "x-auth-token"));
-                                configuration.setExposedHeaders(List.of("x-auth-token"));
-                                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-                                source.registerCorsConfiguration("/**", configuration);
-                                httpSecurityCorsConfigurer.configurationSource(source);
-                        }
-                });
-                return http.build();
-        }
+                })
+                .csrf(AbstractHttpConfigurer::disable)
+                .oauth2Login(Customizer.withDefaults());
+        http.cors(Customizer.withDefaults());
+        http.oauth2Login(oauth2 -> oauth2.successHandler(authenticationSuccessHandler()));
+        http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
+            @Override
+            public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
+                CorsConfiguration configuration = new CorsConfiguration();
+                configuration.setAllowedOrigins(List.of("*"));
+                configuration.setAllowedMethods(
+                        Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+                configuration.setAllowedHeaders(Arrays.asList("Origin", "Authorization",
+                        "content-type",
+                        "x-auth-token"));
+                configuration.setExposedHeaders(List.of("x-auth-token"));
+                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                source.registerCorsConfiguration("/**", configuration);
+                httpSecurityCorsConfigurer.configurationSource(source);
+            }
+        });
+        return http.build();
+    }
 
-        @Bean
-        public AuthenticationSuccessHandler authenticationSuccessHandler() {
-                return (request, response, authentication) -> {
-                        Long id = 0L;
-                        String type = "";
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return (request, response, authentication) -> {
+            Long id = 0L;
+            String type = "";
 
-                        Object principal = authentication.getPrincipal();
-                        if (principal instanceof OidcUser) {
-                                OidcUser oidcUser = (OidcUser) principal;
-                                String name = oidcUser.getFullName();
-                                String email = oidcUser.getEmail();
-                                String picture = oidcUser.getPicture();
-                                EmailServiceImlp.createUser(EmailDTO.builder()
-                                                .email(email)
-                                                .name(name)
-                                                .picture(picture)
-                                                .build());
+            Object principal = authentication.getPrincipal();
+            if (principal instanceof OidcUser) {
+                OidcUser oidcUser = (OidcUser) principal;
+                String name = oidcUser.getFullName();
+                String email = oidcUser.getEmail();
+                String picture = oidcUser.getPicture();
+                EmailServiceImlp.createUser(EmailDTO.builder()
+                        .email(email)
+                        .name(name)
+                        .picture(picture)
+                        .build());
 
-                                id = this.EmailServiceImlp.getUserByEmail(email).getId();
-                                type = "email";
-                        }
+                id = this.EmailServiceImlp.getUserByEmail(email).getId();
+                type = "email";
+            }
 
-                        if (id != 0) {
-                                response.sendRedirect("http://localhost:4200/onesound/home/users/update?id="
-                                                + id
-                                                + "&type=" + type);
+            if (id != 0) {
+                response.sendRedirect("http://localhost:4200/onesound/home/users/update?id="
+                        + id
+                        + "&type=" + type);
 
-                        } else {
-                                response.sendRedirect("http://localhost:4200");
+            } else {
+                response.sendRedirect("http://localhost:4200");
 
-                        }
-                };
-        }
+            }
+        };
+    }
 
 }
 

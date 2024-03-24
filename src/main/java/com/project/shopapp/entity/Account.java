@@ -67,10 +67,10 @@ public class Account implements UserDetails {
 	private List<PasswordResetToken> passwordResetTokens;
 
 	@Column(name = "facebook_account_id")
-	private int facebookAccountId;
+	private Integer facebookAccountId;
 
 	@Column(name = "google_account_id")
-	private int googleAccountId;
+	private Integer googleAccountId;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
