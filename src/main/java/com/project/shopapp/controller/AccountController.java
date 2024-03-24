@@ -364,18 +364,6 @@ public class AccountController {
         return accountService.getAllAccount(pageable);
     }
 
-    // <<<<<<< HEAD
-    // @PutMapping("/details/{userId}")
-    // public ResponseEntity<Account> updateUserDetails(
-    // @PathVariable Long userId,
-    // @RequestBody UpdateUserDTO updatedUserDTO) {
-    // try {
-    // Account updatedUser = accountService.updateAccount(userId, updatedUserDTO);
-    // return ResponseEntity.ok().build();
-    // } catch (Exception e) {
-    // return ResponseEntity.badRequest().build();
-    // =======
-
     @PutMapping("/update/admin/{id}")
     public ResponseEntity<?> updateUserr(
             @PathVariable Long id,

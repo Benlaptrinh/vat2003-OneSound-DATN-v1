@@ -128,15 +128,15 @@ public class AccountServiceImlp implements AccountService {
             throw new IllegalArgumentException("An account with this email already exists.");
         }
         if (account.getAccountRole() == null) {
-            // <<<<<<< HEAD
-            // Role userRole = RoleDAO.findById(1L).orElseThrow();
-            // =======
+
             Role userRole = RoleDAO.findById(1L).orElseThrow();
             account.setAccountRole(userRole);
         }
         String password = account.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
         account.setPassword(encodedPassword);
+        account.setActive(true);
+
         // account.setAccountRole(userRole);
 
         Account savedAccount = AccountDAO.save(account);
