@@ -9,4 +9,6 @@ public interface PasswordResetTokenService {
 
     List<PasswordResetToken> getAllPasswordResetToken();
 
+    void DeletePasswordResetToken(int id);
+
 }

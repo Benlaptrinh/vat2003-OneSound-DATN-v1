@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.Service.PasswordResetTokenService;
+import com.project.shopapp.Service.TokenService;
 import com.project.shopapp.Service.imp.AccountServiceImlp;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.SingerDAO;
@@ -67,6 +68,9 @@ public class AccountController {
 
     @Autowired
     private TokenRepositoryDAO TokenRepositoryDAO;
+
+    @Autowired
+    private PasswordResetTokenService passwordResetTokenService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -195,12 +199,11 @@ public class AccountController {
     }
 
     @GetMapping(value = "/user")
-	public List<Account> getMethodName() {
-    	Role role =RoleDAO.findById(1).get();
-		return AccountDAO.findByAccountRole(role);
-	}
+    public List<Account> getMethodName() {
+        Role role = RoleDAO.findById(1).get();
+        return AccountDAO.findByAccountRole(role);
+    }
 
-    
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(
             @Valid @RequestBody UserLoginDTO userLoginDTO) {
@@ -285,7 +288,7 @@ public class AccountController {
                 return ResponseEntity.badRequest().body("Token not found");
             }
 
-            TokenRepositoryDAO.deleteById(reset.getId());
+            passwordResetTokenService.DeletePasswordResetToken(reset.getId());
             return ResponseEntity.ok(thongbao.builder().message(reset.getAccount().getEmail()).build());
 
         } catch (Exception e) {
@@ -298,12 +301,10 @@ public class AccountController {
         try {
 
             Account updatedAccount = accountService.UpdatePassUser(email, UpdateUserDTO);
-            AccountServiceImlp.sendEmaildoimk(updatedAccount);
+            // AccountServiceImlp.sendEmaildoimk(updatedAccount);
             return ResponseEntity.ok(updatedAccount);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -323,6 +324,7 @@ public class AccountController {
     // Account account = accountService.getAccountByEmail(mail);
     // return ResponseEntity.ok(account);
     // }
+
     @GetMapping("/email/{email}")
     public ResponseEntity<Boolean> checkIfUserExistsByEmail(@PathVariable String email) {
         try {
@@ -439,17 +441,3 @@ public class AccountController {
         return AccountDAO.findByFullnamePage(title, pageable);
     }
 }
-// <!-- <h2>Feedback Form</h2>
-// <form (ngSubmit)="submitFeedback()" method="post">
-// <label for="name">Your Name:</label>
-// <input type="text" id="name" name="name" [(ngModel)]="email" required>
-
-// <label for="reason">Your reason:</label>
-// <input type="text" id="reason" name="reason" [(ngModel)]="reason" required>
-
-// <label for="feedback">Feedback:</label>
-// <textarea id="feedback" name="feedback" cols="30" rows="10"
-// [(ngModel)]="feedbackContent" required></textarea>
-
-// <button type="submit">Submit Feedback</button>
-// </form> -->

@@ -20,4 +20,9 @@ public class PasswordResetTokenServiceimlp implements PasswordResetTokenService 
         return TokenRepositoryDAO.findAll();
     }
 
+    @Override
+    public void DeletePasswordResetToken(int id) {
+        TokenRepositoryDAO.DeletePasswordResetToken(id);
+    }
+
 }
