@@ -27,11 +27,6 @@ import org.springframework.web.bind.annotation.*;
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.Service.PasswordResetTokenService;
 import com.project.shopapp.Service.imp.AccountServiceImlp;
-import com.project.shopapp.entity.Account;
-import com.project.shopapp.entity.FeedRequest;
-import com.project.shopapp.entity.PasswordResetToken;
-import com.project.shopapp.entity.Genre;
-import com.project.shopapp.entity.UserLoginDTO;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.SingerDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
@@ -88,14 +83,15 @@ public class AccountController {
         System.out.println("METHOD ==> " + method);
         String url = "http://localhost:4200/onesound/signin";
 
-//        Optional<Account> acc = Optional.of(AccountDAO.findByEmail(email).orElse(null));
+        // Optional<Account> acc =
+        // Optional.of(AccountDAO.findByEmail(email).orElse(null));
         Optional<Account> acc = AccountDAO.findByEmail(email);
-//        Account acc = accountService.getAccountByEmail(email);
+        // Account acc = accountService.getAccountByEmail(email);
         if (acc.isPresent()) {
-//        if (acc != null) {
+            // if (acc != null) {
             System.out.println("THIS ACCOUNT ALREADY EXIST!");
             System.out.println(acc.get());
-            return new RedirectView("http://localhost:4200/onesound/home");
+            return new RedirectView("http://localhost:4200/onesound/home/explore");
 
         } else {
             try {
@@ -106,6 +102,7 @@ public class AccountController {
                 newAcc.setFullname(fullname);
                 newAcc.setAccountRole(userRole);
                 newAcc.setAvatar_url(picture);
+                newAcc.setActive(true);
 
                 if (method.equalsIgnoreCase("google")) {
                     newAcc.setProvider(AuthProvider.GOOGLE);
@@ -115,19 +112,35 @@ public class AccountController {
                     newAcc.setProvider(AuthProvider.GITHUB);
                 }
 
-
                 accountService.createAccountfb(newAcc);
                 System.out.println("Create account successfully ==> " + newAcc.getFullname());
             } catch (Exception e) {
                 System.err.println("****ERROR*****" + e);
                 // Trả về một giá trị nếu xảy ra ngoại lệ
-//                return "error" + e; // Ví dụ: Trả về trang lỗi
+                // return "error" + e; // Ví dụ: Trả về trang lỗi
             }
         }
 
         return new RedirectView("http://localhost:4200/onesound/home/explore");
     }
 
+    @PostMapping("/checkactive")
+    public ResponseEntity<?> hello1(@RequestBody UserIdDTO userIdDTO) {
+        String id = userIdDTO.getEmail();
+        Account a = accountService.getAccountByEmail(id);
+
+        if (isActiveAccount(a)) {
+            System.out.println(a);
+
+            return ResponseEntity.ok().body(a);
+        } else {
+            return ResponseEntity.ok().body(null);
+        }
+    }
+
+    private boolean isActiveAccount(Account account) {
+        return account.isActive();
+    }
 
     @PostMapping("/feed")
     public ResponseEntity<?> hello1(@RequestBody FeedRequest request) {
@@ -147,7 +160,7 @@ public class AccountController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
-                                        BindingResult result) {
+            BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -165,7 +178,7 @@ public class AccountController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody Account Account,
-                                    BindingResult result) {
+            BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -278,6 +291,7 @@ public class AccountController {
         try {
 
             Account updatedAccount = accountService.UpdatePassUser(email, UpdateUserDTO);
+            AccountServiceImlp.sendEmaildoimk(updatedAccount);
             return ResponseEntity.ok(updatedAccount);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -296,7 +310,6 @@ public class AccountController {
             return ResponseEntity.badRequest().build();
         }
     }
-
 
     // @GetMapping("/email")
     // public ResponseEntity<Account> getUserByEmail(@RequestParam String mail) {
@@ -330,6 +343,7 @@ public class AccountController {
 
         try {
             accountService.updateAccount(id, updatedAccount);
+
             return ResponseEntity.ok("User updated successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
