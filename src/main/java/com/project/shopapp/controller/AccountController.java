@@ -13,11 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.validation.BindingResult;
@@ -26,19 +22,15 @@ import org.springframework.web.bind.annotation.*;
 
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.Service.PasswordResetTokenService;
+
 import com.project.shopapp.Service.imp.AccountServiceImlp;
 import com.project.shopapp.repository.AccountDAO;
-import com.project.shopapp.repository.SingerDAO;
+
 import com.project.shopapp.repository.TokenRepositoryDAO;
 import com.project.shopapp.utils.LoginResponse;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +59,9 @@ public class AccountController {
 
     @Autowired
     private TokenRepositoryDAO TokenRepositoryDAO;
+
+    @Autowired
+    private PasswordResetTokenService passwordResetTokenService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -195,12 +190,11 @@ public class AccountController {
     }
 
     @GetMapping(value = "/user")
-	public List<Account> getMethodName() {
-    	Role role =RoleDAO.findById(1).get();
-		return AccountDAO.findByAccountRole(role);
-	}
+    public List<Account> getMethodName() {
+        Role role = RoleDAO.findById(1).get();
+        return AccountDAO.findByAccountRole(role);
+    }
 
-    
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(
             @Valid @RequestBody UserLoginDTO userLoginDTO) {
@@ -285,7 +279,7 @@ public class AccountController {
                 return ResponseEntity.badRequest().body("Token not found");
             }
 
-            TokenRepositoryDAO.deleteById(reset.getId());
+            passwordResetTokenService.DeletePasswordResetToken(reset.getId());
             return ResponseEntity.ok(thongbao.builder().message(reset.getAccount().getEmail()).build());
 
         } catch (Exception e) {
@@ -298,12 +292,10 @@ public class AccountController {
         try {
 
             Account updatedAccount = accountService.UpdatePassUser(email, UpdateUserDTO);
-            AccountServiceImlp.sendEmaildoimk(updatedAccount);
+            // AccountServiceImlp.sendEmaildoimk(updatedAccount);
             return ResponseEntity.ok(updatedAccount);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+            return ResponseEntity.badRequest().body(e);
         }
     }
 
@@ -323,6 +315,7 @@ public class AccountController {
     // Account account = accountService.getAccountByEmail(mail);
     // return ResponseEntity.ok(account);
     // }
+
     @GetMapping("/email/{email}")
     public ResponseEntity<Boolean> checkIfUserExistsByEmail(@PathVariable String email) {
         try {
@@ -361,18 +354,6 @@ public class AccountController {
     public Page<Account> getAllAccounts(Pageable pageable) {
         return accountService.getAllAccount(pageable);
     }
-
-    // <<<<<<< HEAD
-    // @PutMapping("/details/{userId}")
-    // public ResponseEntity<Account> updateUserDetails(
-    // @PathVariable Long userId,
-    // @RequestBody UpdateUserDTO updatedUserDTO) {
-    // try {
-    // Account updatedUser = accountService.updateAccount(userId, updatedUserDTO);
-    // return ResponseEntity.ok().build();
-    // } catch (Exception e) {
-    // return ResponseEntity.badRequest().build();
-    // =======
 
     @PutMapping("/update/admin/{id}")
     public ResponseEntity<?> updateUserr(
@@ -439,17 +420,3 @@ public class AccountController {
         return AccountDAO.findByFullnamePage(title, pageable);
     }
 }
-// <!-- <h2>Feedback Form</h2>
-// <form (ngSubmit)="submitFeedback()" method="post">
-// <label for="name">Your Name:</label>
-// <input type="text" id="name" name="name" [(ngModel)]="email" required>
-
-// <label for="reason">Your reason:</label>
-// <input type="text" id="reason" name="reason" [(ngModel)]="reason" required>
-
-// <label for="feedback">Feedback:</label>
-// <textarea id="feedback" name="feedback" cols="30" rows="10"
-// [(ngModel)]="feedbackContent" required></textarea>
-
-// <button type="submit">Submit Feedback</button>
-// </form> -->
