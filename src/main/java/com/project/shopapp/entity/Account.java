@@ -33,11 +33,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 @Table(name = "Accounts")
 // @ToString(exclude = { "accountRole", "passwordResetTokens" })
-//@ToString(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs",
-//		"favoriteSingers", "favoriteGenres", "followUsers", "following" })
+// @ToString(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums",
+// "favoriteSongs",
+// "favoriteSingers", "favoriteGenres", "followUsers", "following" })
 
-@EqualsAndHashCode(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs", "favoriteSingers", "favoriteGenres", "followUsers", "following" })
-@ToString(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs", "favoriteSingers", "favoriteGenres", "followUsers", "following" })
+@EqualsAndHashCode(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs",
+		"favoriteSingers", "favoriteGenres", "followUsers", "following" })
+@ToString(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs", "favoriteSingers",
+		"favoriteGenres", "followUsers", "following" })
 
 public class Account implements UserDetails {
 	@Id
@@ -60,6 +63,12 @@ public class Account implements UserDetails {
 
 	@Enumerated(EnumType.STRING)
 	private AuthProvider provider;
+
+	@Column(name = "facebook_account_id")
+	private int facebookAccountId;
+
+	@Column(name = "google_account_id")
+	private int googleAccountId;
 
 	@ManyToOne
 	@JoinColumn(name = "role_id")

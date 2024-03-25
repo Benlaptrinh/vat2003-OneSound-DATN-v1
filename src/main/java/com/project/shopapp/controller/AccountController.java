@@ -13,11 +13,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.validation.BindingResult;
@@ -26,20 +22,15 @@ import org.springframework.web.bind.annotation.*;
 
 import com.project.shopapp.Service.AccountService;
 import com.project.shopapp.Service.PasswordResetTokenService;
-import com.project.shopapp.Service.TokenService;
+
 import com.project.shopapp.Service.imp.AccountServiceImlp;
 import com.project.shopapp.repository.AccountDAO;
-import com.project.shopapp.repository.SingerDAO;
+
 import com.project.shopapp.repository.TokenRepositoryDAO;
 import com.project.shopapp.utils.LoginResponse;
 import org.springframework.web.servlet.view.RedirectView;
-
-import java.awt.*;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.security.Principal;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
