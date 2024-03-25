@@ -63,62 +63,6 @@ public class AccountController {
     @Autowired
     private PasswordResetTokenService passwordResetTokenService;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @GetMapping("/oauth2/login/success")
-    public RedirectView success(OAuth2AuthenticationToken oauth) throws IOException, URISyntaxException {
-        String method = oauth.getAuthorizedClientRegistrationId();
-        String email = oauth.getPrincipal().getAttribute("email");
-        String fullname = oauth.getPrincipal().getAttribute("name");
-        String picture = oauth.getPrincipal().getAttribute("picture");
-        System.out.println("EMAIL" + email);
-        System.out.println("FULLNAME" + fullname);
-        System.out.println("PICTURE" + picture);
-        System.out.println("METHOD ==> " + method);
-        String url = "http://localhost:4200/onesound/signin";
-
-        // Optional<Account> acc =
-        // Optional.of(AccountDAO.findByEmail(email).orElse(null));
-        Optional<Account> acc = AccountDAO.findByEmail(email);
-        // Account acc = accountService.getAccountByEmail(email);
-        if (acc.isPresent()) {
-            // if (acc != null) {
-            System.out.println("THIS ACCOUNT ALREADY EXIST!");
-            System.out.println(acc.get());
-            return new RedirectView("http://localhost:4200/onesound/home/explore");
-
-        } else {
-            try {
-                System.out.println("THIS ACCOUNT NOT EXIST!");
-                Account newAcc = new Account();
-                Role userRole = RoleDAO.findById(1).get();
-                newAcc.setEmail(email);
-                newAcc.setFullname(fullname);
-                newAcc.setAccountRole(userRole);
-                newAcc.setAvatar_url(picture);
-                newAcc.setActive(true);
-
-                if (method.equalsIgnoreCase("google")) {
-                    newAcc.setProvider(AuthProvider.GOOGLE);
-                } else if (method.equalsIgnoreCase("facebook")) {
-                    newAcc.setProvider(AuthProvider.FACEBOOK);
-                } else if (method.equalsIgnoreCase("github")) {
-                    newAcc.setProvider(AuthProvider.GITHUB);
-                }
-
-                accountService.createAccountfb(newAcc);
-                System.out.println("Create account successfully ==> " + newAcc.getFullname());
-            } catch (Exception e) {
-                System.err.println("****ERROR*****" + e);
-                // Trả về một giá trị nếu xảy ra ngoại lệ
-                // return "error" + e; // Ví dụ: Trả về trang lỗi
-            }
-        }
-
-        return new RedirectView("http://localhost:4200/onesound/home/explore");
-    }
-
     @PostMapping("/checkactive")
     public ResponseEntity<?> hello1(@RequestBody UserIdDTO userIdDTO) {
         String id = userIdDTO.getEmail();
@@ -239,12 +183,20 @@ public class AccountController {
         return accountService.getAllAccount(pageable);
     }
 
+    // @DeleteMapping("/{id}")
+    // public ResponseEntity<?> deleteUsere(@PathVariable long id) {
+    // Account employeeToDelete = accountService.getAccountById(id);
+    // accountService.deleteAccount(employeeToDelete.getId());
+    // return ResponseEntity.ok().build();
+    // }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUsere(@PathVariable long id) {
-        Account employeeToDelete = accountService.getAccountById(id);
-        accountService.deleteAccount(employeeToDelete.getId());
-        Map<String, Boolean> response = Map.of("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> deleteUser(@PathVariable long id) {
+
+        Account accountToDelete = accountService.getAccountById(id);
+        accountService.deleteAccount(accountToDelete.getId());
+        return ResponseEntity.ok().build(); // Trả về 200 OK
+
     }
 
     @GetMapping("/{id}")
