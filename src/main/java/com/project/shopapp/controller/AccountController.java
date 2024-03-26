@@ -240,11 +240,12 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteUsere(@PathVariable long id) {
-        Account employeeToDelete = accountService.getAccountById(id);
-        accountService.deleteAccount(employeeToDelete.getId());
-        Map<String, Boolean> response = Map.of("deleted", Boolean.TRUE);
-        return ResponseEntity.ok(response);
+    public ResponseEntity<?> deleteUser(@PathVariable long id) {
+
+        Account accountToDelete = accountService.getAccountById(id);
+        accountService.deleteAccount(accountToDelete.getId());
+        return ResponseEntity.ok().build(); // Trả về 200 OK
+
     }
 
     @GetMapping("/{id}")
