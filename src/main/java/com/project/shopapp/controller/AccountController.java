@@ -281,6 +281,18 @@ public class AccountController {
         }
     }
 
+    @GetMapping("/emailUser/{email}")
+    public ResponseEntity<?> checkIfUserExistsByEmai1l(@PathVariable String email) {
+        try {
+            Account account = accountService.getAccountByEmail(email);
+
+            return ResponseEntity.ok(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(null);
+        }
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(
             @PathVariable Long id,
