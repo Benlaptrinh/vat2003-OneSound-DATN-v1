@@ -29,6 +29,7 @@ import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
 import com.project.shopapp.utils.LoginResponse;
 import org.springframework.web.servlet.view.RedirectView;
+
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
@@ -133,6 +134,18 @@ public class AccountController {
         }
     }
 
+    @GetMapping("/emailUser/{email}")
+    public ResponseEntity<?> checkIfUserExistsByEmai1l(@PathVariable String email) {
+        try {
+            Account account = accountService.getAccountByEmail(email);
+
+            return ResponseEntity.ok(account);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.ok(null);
+        }
+    }
+
     private boolean isActiveAccount(Account account) {
         return account.isActive();
     }
@@ -155,7 +168,7 @@ public class AccountController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
-            BindingResult result) {
+                                        BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -173,7 +186,7 @@ public class AccountController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody Account Account,
-            BindingResult result) {
+                                    BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
