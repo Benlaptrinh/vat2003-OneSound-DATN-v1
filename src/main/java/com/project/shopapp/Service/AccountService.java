@@ -35,6 +35,8 @@ public interface AccountService {
 
     Account updateAccountadmin(Long id, Account account);
 
+    Account updateAccountActive(Long id, Account account);
+
     void deleteAccount(Long accountId);
 
     Account getAccountById(Long accountId);

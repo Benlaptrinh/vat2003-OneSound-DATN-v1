@@ -8,8 +8,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.GenreService;
+import com.project.shopapp.entity.Account;
 import com.project.shopapp.entity.Album;
 import com.project.shopapp.entity.Genre;
+import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.GenreDAO;
 
 @Service
@@ -22,10 +24,12 @@ public class GenreServiceimpl implements GenreService {
     public List<Genre> getAllGenre() {
         return dao.findAll();
     }
+
     @Override
     public List<Genre> findByTitleContainingIgnoreCase(String title) {
         return dao.findByNameContainingIgnoreCase(title);
     }
+
     @Override
     public Genre getGenreById(Long id) {
         // TODO Auto-generated method stub
@@ -59,8 +63,21 @@ public class GenreServiceimpl implements GenreService {
         // TODO Auto-generated method stub
         return dao.findAll(pageable);
     }
+
     @Override
     public List<Genre> findAllGenreActive() {
         return dao.findByActiveTrue();
+    }
+
+    @Override
+    public Genre updateGenreActive(Long id, Genre Genre) {
+        Genre existingAccount = dao.findById(id).orElse(null);
+
+        if (existingAccount == null) {
+            throw new IllegalArgumentException("Account not found with id: " + id);
+        }
+        existingAccount.setActive(true);
+        Genre updatedAccountEntity = dao.save(existingAccount);
+        return updatedAccountEntity;
     }
 }

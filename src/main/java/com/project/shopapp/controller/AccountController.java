@@ -112,8 +112,6 @@ public class AccountController {
                 System.out.println("Create account successfully ==> " + newAcc.getFullname());
             } catch (Exception e) {
                 System.err.println("****ERROR*****" + e);
-                // Trả về một giá trị nếu xảy ra ngoại lệ
-                // return "error" + e; // Ví dụ: Trả về trang lỗi
             }
         }
 
@@ -168,7 +166,7 @@ public class AccountController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
-                                        BindingResult result) {
+            BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -186,7 +184,7 @@ public class AccountController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody Account Account,
-                                    BindingResult result) {
+            BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -361,6 +359,20 @@ public class AccountController {
             return ResponseEntity.ok("User updated successfully");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/UpdateActive/{id}")
+    public ResponseEntity<?> updateUser1(
+            @PathVariable Long id,
+            @RequestBody Account updatedAccount) {
+
+        try {
+            accountService.updateAccountActive(id, updatedAccount);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
         }
     }
 

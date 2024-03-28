@@ -51,7 +51,7 @@ public class GenresController {
         System.out.println(Genre);
         return GenreService.createGenre(Genre);
     }
-    
+
     @GetMapping("/Genre/name/{name}")
     public List<Genre> getGenreByName(@PathVariable String name) {
         return GenreService.findByTitleContainingIgnoreCase(name);
@@ -68,6 +68,20 @@ public class GenresController {
         return GenreService.updateGenre(id, Genre);
     }
 
+    @PutMapping("/Genre/UpdateActive/{id}")
+    public ResponseEntity<?> updateUser1(
+            @PathVariable Long id,
+            @RequestBody Genre updatedAccount) {
+
+        try {
+            GenreService.updateGenreActive(id, updatedAccount);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @DeleteMapping("/Genre/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable long id) {
         Genre employeeToDelete = GenreService.getGenreById(id);
@@ -75,6 +89,7 @@ public class GenresController {
         Map<String, Boolean> response = Map.of("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/Genre/getAllGenreActive")
     public List<Genre> getAllSingerByAlbumId1() {
         List<Genre> Genre = GenreService.findAllGenreActive();

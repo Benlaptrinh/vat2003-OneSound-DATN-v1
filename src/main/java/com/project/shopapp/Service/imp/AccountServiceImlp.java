@@ -517,9 +517,16 @@ public class AccountServiceImlp implements AccountService {
         return AccountDAO.getUserByOptionDate(day, month, year);
     }
 
-    // @Override
-    // public List<CountAccountByMonthDTO> getCountAccountByYear(Integer year) {
-    // return AccountDAO.getCountAccountByYear(year);
-    // }
+    @Override
+    public Account updateAccountActive(Long id, Account account) {
+        Account existingAccount = AccountDAO.findById(id).orElse(null);
+
+        if (existingAccount == null) {
+            throw new IllegalArgumentException("Account not found with id: " + id);
+        }
+        existingAccount.setActive(true);
+        Account updatedAccountEntity = AccountDAO.save(existingAccount);
+        return updatedAccountEntity;
+    }
 
 }
