@@ -374,6 +374,10 @@ public class AccountServiceImlp implements AccountService {
         if (existingAccount == null) {
             throw new IllegalArgumentException("Account not found with id: " + id);
         }
+        String newEmail = account.getEmail();
+        if (newEmail != null && !newEmail.equals(existingAccount.getEmail()) && AccountDAO.existsByEmail(newEmail)) {
+            throw new IllegalArgumentException("An account with this email already exists.");
+        }
         existingAccount.setActive(true);
         Account updatedAccountEntity = AccountDAO.save(existingAccount);
         return updatedAccountEntity;

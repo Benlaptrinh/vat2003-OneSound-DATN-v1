@@ -25,6 +25,6 @@ public class Role {
 	@OneToMany(mappedBy = "accountRole")
 	List<Account> accounts;
 
-	public static String ADMIN = "ADMIN";
-	public static String USER = "USER";
+//	public static String ADMIN = "ADMIN";
+//	public static String USER = "USER";
 }
