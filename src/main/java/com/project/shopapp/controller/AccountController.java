@@ -252,7 +252,6 @@ public class AccountController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable long id) {
-
         Account accountToDelete = accountService.getAccountById(id);
         accountService.deleteAccount(accountToDelete.getId());
         return ResponseEntity.ok().build(); // Trả về 200 OK
