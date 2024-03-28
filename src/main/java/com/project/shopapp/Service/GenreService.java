@@ -10,7 +10,7 @@ import com.project.shopapp.entity.Genre;
 
 public interface GenreService {
     List<Genre> getAllGenre();
-    
+    Genre updateGenreActive(Long id, Genre Genre);
     List<Genre> findByTitleContainingIgnoreCase(String title);
     Genre getGenreById(Long id);
 

@@ -67,7 +67,19 @@ public class GenresController {
     public Genre updateEmployee(@PathVariable long id, @RequestBody Genre Genre) {
         return GenreService.updateGenre(id, Genre);
     }
+    @PutMapping("/Genre/UpdateActive/{id}")
+    public ResponseEntity<?> updateUser1(
+            @PathVariable Long id,
+            @RequestBody Genre updatedAccount) {
 
+        try {
+            GenreService.updateGenreActive(id, updatedAccount);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
     @DeleteMapping("/Genre/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable long id) {
         Genre employeeToDelete = GenreService.getGenreById(id);

@@ -37,7 +37,17 @@ public class GenreServiceimpl implements GenreService {
         // TODO Auto-generated method stub
         return dao.save(Genre);
     }
+    @Override
+    public Genre updateGenreActive(Long id, Genre Genre) {
+        Genre existingAccount = dao.findById(id).orElse(null);
 
+        if (existingAccount == null) {
+            throw new IllegalArgumentException("Account not found with id: " + id);
+        }
+        existingAccount.setActive(true);
+        Genre updatedAccountEntity = dao.save(existingAccount);
+        return updatedAccountEntity;
+    }
     @Override
     public Genre updateGenre(Long id, Genre Genre) {
         Genre employeeToUpdate = dao.findById(id).orElse(null);

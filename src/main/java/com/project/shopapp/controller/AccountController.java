@@ -131,7 +131,19 @@ public class AccountController {
             return ResponseEntity.ok().body(null);
         }
     }
+    @PutMapping("/UpdateActive/{id}")
+    public ResponseEntity<?> updateUser1(
+            @PathVariable Long id,
+            @RequestBody Account updatedAccount) {
 
+        try {
+            accountService.updateAccountActive(id, updatedAccount);
+
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
     @GetMapping("/emailUser/{email}")
     public ResponseEntity<?> checkIfUserExistsByEmai1l(@PathVariable String email) {
         try {
