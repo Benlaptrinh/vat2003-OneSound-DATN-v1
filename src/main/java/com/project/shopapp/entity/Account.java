@@ -70,6 +70,9 @@ public class Account implements UserDetails {
 	@Column(name = "google_account_id")
 	private Integer googleAccountId;
 
+	@Column(name = "github_account_id")
+	private Integer githubAccountId;
+
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role accountRole;
