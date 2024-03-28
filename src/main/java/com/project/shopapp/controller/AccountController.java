@@ -112,8 +112,6 @@ public class AccountController {
                 System.out.println("Create account successfully ==> " + newAcc.getFullname());
             } catch (Exception e) {
                 System.err.println("****ERROR*****" + e);
-                // Trả về một giá trị nếu xảy ra ngoại lệ
-                // return "error" + e; // Ví dụ: Trả về trang lỗi
             }
         }
 
