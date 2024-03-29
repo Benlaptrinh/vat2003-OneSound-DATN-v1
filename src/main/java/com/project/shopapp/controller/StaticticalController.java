@@ -23,7 +23,10 @@ import com.project.shopapp.entity.CountAccountDTO;
 import com.project.shopapp.entity.ListeningStats;
 import com.project.shopapp.entity.ReportAccountByYear;
 import com.project.shopapp.repository.AccountDAO;
+import com.project.shopapp.repository.AlbumDAO;
+import com.project.shopapp.repository.GenreDAO;
 import com.project.shopapp.repository.ListeningStatsDAO;
+import com.project.shopapp.repository.SongDAO;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,6 +47,15 @@ public class StaticticalController {
 
     @Autowired
     ListeningStatsDAO listeningDao;
+
+    @Autowired
+    GenreDAO genreDao;
+
+    @Autowired
+    AlbumDAO albumDAO;
+
+    @Autowired
+    SongDAO songDAO;
 
     @GetMapping("/statictical/get-user-by-date/{sort}")
     public List<CountAccountDTO> getMethodName(@PathVariable("sort") int sort) {
@@ -185,6 +197,21 @@ public class StaticticalController {
             top10Listens = top10Listens.subList(0, 10);
         }
         return top10Listens;
+    }
+
+    @GetMapping("/statictical/get-song")
+    public List<Integer> getSong() {
+        return songDAO.staticSong();
+    }
+
+    @GetMapping("/statictical/get-album")
+    public List<Integer> getAlbum() {
+        return albumDAO.staticAlbum();
+    }
+
+    @GetMapping("/statictical/get-genres")
+    public List<Integer> getGenre() {
+        return genreDao.staticGenres();
     }
 
 }

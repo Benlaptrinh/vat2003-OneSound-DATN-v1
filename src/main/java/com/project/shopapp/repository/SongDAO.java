@@ -18,4 +18,7 @@ public interface SongDAO extends JpaRepository<Song, Long> {
 	@Query("SELECT s FROM Song s WHERE s.album.id = :albumId")
 	List<Song> findSongsByAlbumId(@Param("albumId") Long albumId);
 
+	@Query("select COUNT(s) from Song s")
+	List<Integer> staticSong();
+
 }

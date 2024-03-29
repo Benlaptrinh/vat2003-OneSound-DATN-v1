@@ -26,4 +26,6 @@ public interface AlbumDAO extends JpaRepository<Album, Long> {
     @Query("SELECT a FROM Album a WHERE a.active = false")
     List<Album> findAllInactiveAlbums();
 
+    @Query("select COUNT(a) from Album a")
+    List<Integer> staticAlbum();
 }
