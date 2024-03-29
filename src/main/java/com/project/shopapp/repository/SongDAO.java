@@ -11,12 +11,15 @@ import org.springframework.data.repository.query.Param;
 import com.project.shopapp.entity.Song;
 
 public interface SongDAO extends JpaRepository<Song, Long> {
-	Page<Song> findByNameIgnoreCase(String id, Pageable pageable);
+    Page<Song> findByNameIgnoreCase(String id, Pageable pageable);
 
-	List<Song> findByName(String id);
-	List<Song> findByActiveTrue();
+    List<Song> findByName(String id);
 
-	@Query("SELECT s FROM Song s WHERE s.album.id = :albumId")
-	List<Song> findSongsByAlbumId(@Param("albumId") Long albumId);
+    List<Song> findByActiveTrue();
 
+    @Query("SELECT s FROM Song s WHERE s.album.id = :albumId")
+    List<Song> findSongsByAlbumId(@Param("albumId") Long albumId);
+
+    @Query("select COUNT(s) from Song s")
+    List<Integer> staticSong();
 }

@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="2572b773-f8d1-48be-ae0f-c85eb9c4476a" name="Changes" comment="merge PhuongGenre">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/StaticticalController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/StaticticalController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/AlbumDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/AlbumDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/GenreDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/GenreDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/SongDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/SongDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/StaticticalController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/StaticticalController.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
