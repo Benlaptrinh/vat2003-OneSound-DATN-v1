@@ -1,5 +1,8 @@
 package com.project.shopapp.controller;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -19,10 +22,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.shopapp.Service.ListeningStatsServevic;
+import com.project.shopapp.Service.ListeningStatsYtbServevic;
 import com.project.shopapp.entity.Album;
 import com.project.shopapp.entity.Author;
 import com.project.shopapp.entity.Song;
 import com.project.shopapp.repository.AlbumDAO;
+import com.project.shopapp.repository.ListeningStatsDAO;
 import com.project.shopapp.repository.SongDAO;
 
 @CrossOrigin(origins = "*")
@@ -35,13 +41,19 @@ public class SongController {
 	@Autowired
 	AlbumDAO albumDAO;
 
+	@Autowired
+	ListeningStatsServevic lisDao;
+
+	@Autowired
+	ListeningStatsYtbServevic lisYtbDao;
+
 	@GetMapping("Song/getall")
-	public Page<Song> getSong (Pageable pageable) {
+	public Page<Song> getSong(Pageable pageable) {
 		return songDAO.findAll(pageable);
 	}
 
 	@GetMapping("Song")
-	public List<Song>getAll(){
+	public List<Song> getAll() {
 		return songDAO.findAll();
 	}
 
@@ -61,7 +73,6 @@ public class SongController {
 		return ResponseEntity.ok(song);
 	}
 
-
 	@GetMapping("/Song/Name/{name}")
 	public List<Song> getSongByName1(@PathVariable("name") String name) {
 		return songDAO.findByName(name);
@@ -69,32 +80,49 @@ public class SongController {
 
 	@PostMapping("Song/create")
 	public ResponseEntity<Song> createAuthor(@RequestBody Song songRequest) {
-//	        // Validate author data before saving
+		// // Validate author data before saving
 		Song song = new Song();
-//	    	 Album al = new Album();
+		// Album al = new Album();
 		song.setName(songRequest.getName());
 		song.setImage(songRequest.getImage());
 		song.setPath(songRequest.getPath());
 		song.setRelease(songRequest.getRelease());
-//	         song.setLyrics(songRequest.getLyrics());
+		// song.setLyrics(songRequest.getLyrics());
 		song.setAlbum(songRequest.getAlbum());
-//	         // Cài đặt logic khác nếu cần
+		// // Cài đặt logic khác nếu cần
 
 		songDAO.save(song);
 		return ResponseEntity.status(HttpStatus.CREATED).body(song);
 	}
 
-
 	@PutMapping("Song/update/{id}")
-	public Song  updateSong (@PathVariable Long id, @RequestBody Song  Song ) {
+	public Song updateSong(@PathVariable Long id, @RequestBody Song Song) {
 		return songDAO.save(Song);
 	}
 
 	@DeleteMapping("Song/delete/{id}")
-	public ResponseEntity<?> delSong (@PathVariable Long id) {
+	public ResponseEntity<?> delSong(@PathVariable Long id) {
 		songDAO.deleteById(id);
 		Map<String, Boolean> response = Map.of("deleted", Boolean.TRUE);
 		return ResponseEntity.ok(response);
+	}
+
+	@PostMapping("song/{songId}/play")
+	public ResponseEntity<?> playSong(@PathVariable Long songId) {
+		LocalDate todayLocalDate = LocalDate.now();
+		// Chuyển đổi từ LocalDate sang Date
+		Date todayDate = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		lisDao.incrementPlayCount(songId, todayDate);
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("song/ytb/{songId}/play")
+	public ResponseEntity<?> increaseListenYtb(@PathVariable String ytbId) {
+		LocalDate todayLocalDate = LocalDate.now();
+		// Chuyển đổi từ LocalDate sang Date
+		Date todayDate = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+		lisYtbDao.incrementPlayCount(ytbId, todayDate);
+		return ResponseEntity.ok().build();
 	}
 
 }

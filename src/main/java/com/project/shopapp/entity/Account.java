@@ -3,6 +3,7 @@ package com.project.shopapp.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -66,13 +67,13 @@ public class Account implements UserDetails {
 	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
 	private List<PasswordResetToken> passwordResetTokens;
 
-//	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-//	private PasswordResetToken passwordResetToken;
-//=======
-//	@OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
-//	@JoinColumn(name = "passwordResetToken")
-//	private PasswordResetToken passwordResetToken;
-//>>>>>>> ceci_22/02/2024
+	// @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+	// private PasswordResetToken passwordResetToken;
+	// =======
+	// @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+	// @JoinColumn(name = "passwordResetToken")
+	// private PasswordResetToken passwordResetToken;
+	// >>>>>>> ceci_22/02/2024
 	// @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
 	// private PasswordResetToken passwordResetToken;
 

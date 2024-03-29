@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.function.EntityResponse;
 
 import com.project.shopapp.Service.AccountService;
+import com.project.shopapp.Service.ListeningStatsServevic;
 import com.project.shopapp.entity.Account;
 import com.project.shopapp.entity.CountAccountDTO;
+import com.project.shopapp.entity.ListeningStats;
 import com.project.shopapp.entity.ReportAccountByYear;
 import com.project.shopapp.repository.AccountDAO;
+import com.project.shopapp.repository.ListeningStatsDAO;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,6 +38,12 @@ public class StaticticalController {
 
     @Autowired
     private AccountDAO accountDAO;
+
+    @Autowired
+    ListeningStatsServevic lisDao;
+
+    @Autowired
+    ListeningStatsDAO listeningDao;
 
     @GetMapping("/statictical/get-user-by-date/{sort}")
     public List<CountAccountDTO> getMethodName(@PathVariable("sort") int sort) {
@@ -150,6 +159,32 @@ public class StaticticalController {
     public List<ReportAccountByYear> getMonth() {
 
         return accountDAO.getMonthOfCreateDate();
+    }
+
+    @GetMapping("/statictical/listens")
+    public List<ListeningStats> getListens() {
+        return listeningDao.getAllListens();
+    }
+
+    @GetMapping("/statictical/listens/between/{formDate}/{toDate}")
+    public List<ListeningStats> getListensBetWeenDateLis(@PathVariable("formDate") Long formDate,
+            @PathVariable("toDate") Long toDate) {
+        Date date1 = new Date(formDate);
+        Date date2 = new Date(toDate);
+
+        return listeningDao.getAllListensBetweenDateLis(date1, date2);
+    }
+
+    @GetMapping("/statictical/listens/get-top10")
+    public List<ListeningStats> getTop10Listens() {
+
+        // List<ListeningStats> l = listeningDao.getTop10Listens();
+
+        List<ListeningStats> top10Listens = listeningDao.getTop10Listens();
+        if (top10Listens.size() > 10) {
+            top10Listens = top10Listens.subList(0, 10);
+        }
+        return top10Listens;
     }
 
 }

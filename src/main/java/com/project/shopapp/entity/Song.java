@@ -1,5 +1,6 @@
 package com.project.shopapp.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class Song {
 	private String path;
 	@Temporal(TemporalType.DATE)
 	private Date Release;
-	//	@Lob
+	// @Lob
 	private String lyrics;
 
 	@ManyToOne
@@ -60,4 +61,9 @@ public class Song {
 	@JsonIgnore
 	@OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
 	private List<FavoriteSong> favoriteSong;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "song")
+	private List<ListeningStats> listeningStats;
+
 }
