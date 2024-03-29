@@ -15,6 +15,7 @@ public interface SongDAO extends JpaRepository<Song, Long> {
 
     List<Song> findByName(String id);
 
+    List<Song> findByActiveFalse();
     List<Song> findByActiveTrue();
 
     @Query("SELECT s FROM Song s WHERE s.album.id = :albumId")
