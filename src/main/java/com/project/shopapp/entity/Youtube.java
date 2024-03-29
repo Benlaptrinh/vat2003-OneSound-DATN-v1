@@ -1,7 +1,12 @@
 package com.project.shopapp.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,5 +26,9 @@ public class Youtube {
     private String thumbnails;
     private String channelTitle;
     private String publishTime;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "youtube")
+    private List<ListeningStatsYtb> listeningStatsYtb;
 
 }
