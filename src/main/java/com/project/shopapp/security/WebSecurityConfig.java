@@ -98,6 +98,36 @@ public class WebSecurityConfig {
                                                         .requestMatchers(GET,
                                                                         String.format("%s/Role**", apiPrefix))
                                                         .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Author/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Author**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Song/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Song**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/album/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/album**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Singer/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Singer**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Genre/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Genre**", apiPrefix))
+                                                        .permitAll()
 
                                                         .requestMatchers(String
                                                                         .format("%s/oauth2/login/google", apiPrefix))
