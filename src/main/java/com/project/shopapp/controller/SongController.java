@@ -49,6 +49,11 @@ public class SongController {
 	public List<Song>getAll(){
 		return songDAO.findByActiveTrue();
 	}
+	
+	@GetMapping("Song/activeFalse")
+	public List<Song>getAllActiveFalse(){
+		return songDAO.findByActiveFalse();
+	}
 
 	@GetMapping("Song/getbyid/{id}")
 	public Song getSongById(@PathVariable Long id) {
