@@ -110,6 +110,82 @@ public class WebSecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/Song**", apiPrefix))
                             .permitAll()
+
+
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------SONG-GENRE--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/SongGenre/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/SongGenre**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/SongGenre/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/SongGenre**", apiPrefix))
+                            .permitAll()
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------SONG-SINGER--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/SongSinger/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/SongSinger**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/SongSinger/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/SongSinger**", apiPrefix))
+                            .permitAll()
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------SONG-AUTHOR--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/SongAuthor/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/SongAuthor**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/SongAuthor/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/SongAuthor**", apiPrefix))
+                            .permitAll()
+                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                            // ------------------------SINGER-ALBUM--------------------//
+                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                            .requestMatchers(GET,
+                                    String.format("%s/singerAlbum/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(POST,
+                                    String.format("%s/singerAlbum**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(DELETE,
+                                    String.format("%s/singerAlbum/**", apiPrefix))
+                            .permitAll()
+
+                            .requestMatchers(PUT,
+                                    String.format("%s/singerAlbum**", apiPrefix))
+                            .permitAll()
+
+
                             .requestMatchers(GET,
                                     String.format("%s/album/**", apiPrefix))
                             .permitAll()
@@ -177,6 +253,7 @@ public class WebSecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/users/email/**", apiPrefix))
                             .permitAll()
+
 
                             .anyRequest().authenticated();
 
