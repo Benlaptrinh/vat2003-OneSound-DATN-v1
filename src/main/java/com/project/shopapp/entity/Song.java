@@ -38,7 +38,7 @@ public class Song {
 	private String path;
 	@Temporal(TemporalType.DATE)
 	private Date Release;
-	//	@Lob
+	// @Lob
 	private String lyrics;
 	private boolean active;
 
@@ -61,4 +61,8 @@ public class Song {
 	@JsonIgnore
 	@OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
 	private List<FavoriteSong> favoriteSong;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
+	private List<CommentSong> commentSong;
 }

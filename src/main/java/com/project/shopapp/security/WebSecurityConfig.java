@@ -99,6 +99,15 @@ public class WebSecurityConfig {
                                                                         String.format("%s/Role**", apiPrefix))
                                                         .permitAll()
                                                         .requestMatchers(GET,
+                                                                        String.format("%s/comments**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/comments**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/comments/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
                                                                         String.format("%s/Author/**", apiPrefix))
                                                         .permitAll()
                                                         .requestMatchers(GET,

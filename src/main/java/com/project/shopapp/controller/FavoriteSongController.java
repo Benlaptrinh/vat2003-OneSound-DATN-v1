@@ -51,6 +51,7 @@ public class FavoriteSongController {
 
             Song song = new Song();
             song.setId(songId);
+
             favoriteSongService.addFavoriteSong(account, song);
 
             return ResponseEntity.ok("Song added to FavoriteSong successfully.");

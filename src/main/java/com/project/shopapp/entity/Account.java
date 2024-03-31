@@ -32,10 +32,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @NoArgsConstructor
 @Entity
 @Table(name = "Accounts")
-// @ToString(exclude = { "accountRole", "passwordResetTokens" })
-// @ToString(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums",
-// "favoriteSongs",
-// "favoriteSingers", "favoriteGenres", "followUsers", "following" })
 
 @EqualsAndHashCode(exclude = { "accountRole", "passwordResetTokens", "favoriteAlbums", "favoriteSongs",
 		"favoriteSingers", "favoriteGenres", "followUsers", "following" })
@@ -73,6 +69,11 @@ public class Account implements UserDetails {
 	@Column(name = "github_account_id")
 	private Integer githubAccountId;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "user")
+	@JsonManagedReference
+	List<CommentSong> commentSong;
+
 	@ManyToOne
 	@JoinColumn(name = "role_id")
 	private Role accountRole;
@@ -106,19 +107,10 @@ public class Account implements UserDetails {
 	@OneToMany(mappedBy = "following")
 	List<FollowUser> following;
 
-	// @Override
-	// public Collection<? extends GrantedAuthority> getAuthorities() {
-	// List<SimpleGrantedAuthority> roles = new ArrayList<>();
-	// roles.add(new SimpleGrantedAuthority("ROLE_" +
-	// getAccountRole().getName().toUpperCase()));
-	// return roles;
-	// }
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> roles = new ArrayList<>();
 
-		// Kiểm tra nếu accountRole không phải là null trước khi thêm vào danh sách
 		if (getAccountRole() != null) {
 			roles.add(new SimpleGrantedAuthority("ROLE_" +
 					getAccountRole().getName().toUpperCase()));
