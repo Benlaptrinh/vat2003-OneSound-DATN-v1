@@ -26,7 +26,7 @@ public interface ComemtSongService {
 
     void deleteComment(Long commentId);
 
-    void deletePlaylistAndSongsalong(Long commentId);
+    void DeleteRelatedComments(Long commentId);
 
     boolean isCommentBelongsToUser(Long commentId, Long userId);
 

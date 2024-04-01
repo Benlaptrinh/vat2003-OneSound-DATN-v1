@@ -79,7 +79,7 @@ public class ComemtSongServiceImlp implements ComemtSongService {
     }
 
     @Override
-    public void deletePlaylistAndSongsalong(Long commentId) {
+    public void DeleteRelatedComments(Long commentId) {
         comemtSongDao.DeleteRelatedComments(commentId);
     }
 
