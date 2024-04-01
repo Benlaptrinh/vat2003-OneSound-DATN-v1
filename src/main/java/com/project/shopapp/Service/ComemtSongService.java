@@ -12,6 +12,10 @@ import com.project.shopapp.entity.CommentSong;
 public interface ComemtSongService {
     List<CommentSong> findAll();
 
+    CommentSong findById(Long commentId);
+
+    CommentSong updateComment(CommentSong comment);
+
     List<CommentSong> findBySongId(Long songId);
 
     List<CommentSong> findBySongIdAndRepCommentId(Long songId, Long commentId);
@@ -20,6 +24,10 @@ public interface ComemtSongService {
 
     CommentSong addComment(CommentSong comment, Long songId, Long accountId);
 
-    CommentSong addComment1(CommentSongDTO CommentSongDTO);
+    void deleteComment(Long commentId);
+
+    void deletePlaylistAndSongsalong(Long commentId);
+
+    boolean isCommentBelongsToUser(Long commentId, Long userId);
 
 }

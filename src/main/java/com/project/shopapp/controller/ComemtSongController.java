@@ -3,20 +3,24 @@ package com.project.shopapp.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.shopapp.Service.ComemtSongService;
+import com.project.shopapp.Service.PlaylistService;
 import com.project.shopapp.dto.CommentReplyDTO;
 import com.project.shopapp.dto.CommentSongDTO;
 import com.project.shopapp.entity.CommentSong;
@@ -69,7 +73,8 @@ public class ComemtSongController {
     public ResponseEntity<CommentSong> addComment(@RequestBody CommentSong comment, @RequestParam("songId") Long songId,
             @RequestParam("userId") Long userId) {
         try {
-            CommentSong addedComment = ComemtSongService.addComment(comment, songId, userId);
+            CommentSong addedComment = ComemtSongService.addComment(comment, songId,
+                    userId);
             return ResponseEntity.ok(addedComment);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
@@ -77,16 +82,61 @@ public class ComemtSongController {
         }
 
     }
-    // @PostMapping("/comments")
-    // public ResponseEntity<CommentSong> addComment(@RequestBody CommentSongDTO
-    // commentSongDTO) {
-    // try {
-    // CommentSong addedComment = ComemtSongService.addComment1(commentSongDTO);
-    // return ResponseEntity.status(HttpStatus.CREATED).body(addedComment);
-    // } catch (Exception e) {
-    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-    // .body(null); // Bạn có thể trả về một thông báo lỗi khác nếu cần thiết
-    // }
-    // }
+
+    @PutMapping("/comments/{commentId}")
+    public ResponseEntity<?> updateComment(@PathVariable Long commentId,
+            @RequestParam("songId") Long songId,
+            @RequestParam("userId") Long userId,
+            @RequestBody CommentSong comment) {
+        try {
+
+            CommentSong existingComment = ComemtSongService.findById(commentId);
+            if (existingComment == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            if (!existingComment.getUser().getId().equals(userId)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+
+            }
+            if (!existingComment.getSong().getId().equals(songId)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+
+            }
+
+            existingComment.setText(comment.getText());
+            existingComment.setActive(comment.isActive());
+            CommentSong updated = ComemtSongService.updateComment(existingComment);
+
+            return ResponseEntity.ok(updated);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/comments/{commentId}/{userId}")
+    public ResponseEntity<?> deleteComment(@PathVariable Long commentId, @PathVariable Long userId) {
+        try {
+            boolean isCommentBelongsToUser = ComemtSongService.isCommentBelongsToUser(commentId, userId);
+            if (!isCommentBelongsToUser) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("This comment does not belong to the user.");
+            }
+            ComemtSongService.deleteComment(commentId);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("comments/byidandcommentid/{id}/{userId}")
+    public ResponseEntity<?> delAlbum(@PathVariable Long id, @PathVariable Long userId) {
+        boolean isCommentBelongsToUser = ComemtSongService.isCommentBelongsToUser(id, userId);
+        if (!isCommentBelongsToUser) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("This comment does not belong to the user.");
+        }
+        ComemtSongService.deletePlaylistAndSongsalong(id);
+        Map<String, Boolean> response = Map.of("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
 
 }

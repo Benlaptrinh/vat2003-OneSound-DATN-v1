@@ -104,6 +104,12 @@ public class WebSecurityConfig {
                                                         .requestMatchers(POST,
                                                                         String.format("%s/comments**", apiPrefix))
                                                         .permitAll()
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/comments/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/comments/**", apiPrefix))
+                                                        .permitAll()
                                                         .requestMatchers(GET,
                                                                         String.format("%s/comments/**", apiPrefix))
                                                         .permitAll()

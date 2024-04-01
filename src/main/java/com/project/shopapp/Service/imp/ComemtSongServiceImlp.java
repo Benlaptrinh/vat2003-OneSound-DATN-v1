@@ -44,8 +44,6 @@ public class ComemtSongServiceImlp implements ComemtSongService {
         return comemtSongDao.findBySongIdAndRepCommentId(songId, commentId);
     }
 
-    //
-
     @Override
     public List<CommentSong> findBySongIdAndRepCommentIdIsNull(Long songId) {
         return comemtSongDao.findBySongIdAndRepCommentIdIsNull(songId);
@@ -54,10 +52,8 @@ public class ComemtSongServiceImlp implements ComemtSongService {
     @Override
     public CommentSong addComment(CommentSong comment, Long songId, Long accountId) {
 
-        // Thiết lập mối quan hệ với Account (User)
         Account user = AccountDAO.findById(accountId).get();
 
-        // Thiết lập mối quan hệ với Song
         Song song = SongDAO.findById(songId).get();
 
         comment.setSong(song);
@@ -66,60 +62,34 @@ public class ComemtSongServiceImlp implements ComemtSongService {
         return comemtSongDao.save(comment);
     }
 
-    // @Override
-    // public CommentSong addComment1(CommentSongDTO CommentSongDTO) {
-    // CommentSong commentSong = new CommentSong();
-
-    // Optional<Account> optionalAccount =
-    // AccountDAO.findById(CommentSongDTO.getUser());
-
-    // if (optionalAccount.isPresent()) {
-    // commentSong.setUser(optionalAccount.get());
-    // } else {
-
-    // throw new RuntimeException("Account not found with ID: " +
-    // CommentSongDTO.getUser());
-    // }
-
-    // Optional<Song> optionalSong = SongDAO.findById(CommentSongDTO.getSong());
-    // if (optionalSong.isPresent()) {
-    // commentSong.setSong(optionalSong.get());
-    // } else {
-
-    // throw new RuntimeException("Song not found with ID: " +
-    // CommentSongDTO.getSong());
-    // }
-
-    // commentSong.setLikeDate(CommentSongDTO.getLikeDate());
-    // commentSong.setText(CommentSongDTO.getText());
-    // commentSong.setActive(CommentSongDTO.isActive());
-    // commentSong.setRepCommentId(CommentSongDTO.getRepCommentId());
-
-    // return comemtSongDao.save(commentSong);
-
-    // }
+    @Override
+    public CommentSong findById(Long commentId) {
+        Optional<CommentSong> commentOptional = comemtSongDao.findById(commentId);
+        return commentOptional.orElse(null);
+    }
 
     @Override
-    public CommentSong addComment1(CommentSongDTO commentSongDTO) {
-        CommentSong commentSong = new CommentSong();
+    public CommentSong updateComment(CommentSong comment) {
+        return comemtSongDao.save(comment);
+    }
 
-        // Thiết lập mối quan hệ với Account (User)
-        Account user = AccountDAO.findById(commentSongDTO.getUser())
-                .orElseThrow(() -> new RuntimeException("Account not found with ID: " + commentSongDTO.getUser()));
-        commentSong.setUser(user);
+    @Override
+    public void deleteComment(Long commentId) {
+        comemtSongDao.deleteById(commentId);
+    }
 
-        // Thiết lập mối quan hệ với Song
-        Song song = SongDAO.findById(commentSongDTO.getSong())
-                .orElseThrow(() -> new RuntimeException("Song not found with ID: " + commentSongDTO.getSong()));
-        commentSong.setSong(song);
+    @Override
+    public void deletePlaylistAndSongsalong(Long commentId) {
+        comemtSongDao.DeleteRelatedComments(commentId);
+    }
 
-        // Thiết lập các trường khác
-        commentSong.setLikeDate(commentSongDTO.getLikeDate());
-        commentSong.setText(commentSongDTO.getText());
-        commentSong.setActive(commentSongDTO.isActive());
-        commentSong.setRepCommentId(commentSongDTO.getRepCommentId());
-
-        return comemtSongDao.save(commentSong);
+    @Override
+    public boolean isCommentBelongsToUser(Long commentId, Long userId) {
+        CommentSong comment = comemtSongDao.findById(commentId).orElse(null);
+        if (comment != null && comment.getUser().getId().equals(userId)) {
+            return true;
+        }
+        return false;
     }
 
 }
