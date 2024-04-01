@@ -18,7 +18,7 @@ public interface ComemtSongService {
 
     List<CommentSong> findBySongIdAndRepCommentIdIsNull(Long songId);
 
-    CommentSong addComment(CommentSong comment);
+    CommentSong addComment(CommentSong comment, Long songId, Long accountId);
 
     CommentSong addComment1(CommentSongDTO CommentSongDTO);
 

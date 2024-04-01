@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.shopapp.Service.ComemtSongService;
@@ -64,27 +65,28 @@ public class ComemtSongController {
         return ResponseEntity.ok(comments);
     }
 
-    // @PostMapping("/comments")
-    // public ResponseEntity<CommentSong> addComment(@RequestBody CommentSong
-    // comment) {
-    // try {
-    // CommentSong addedComment = ComemtSongService.addComment(comment);
-    // return ResponseEntity.ok(addedComment);
-    // } catch (Exception e) {
-    // return ResponseEntity.badRequest().build();
-
-    // }
-
-    // }
     @PostMapping("/comments")
-    public ResponseEntity<CommentSong> addComment(@RequestBody CommentSongDTO commentSongDTO) {
+    public ResponseEntity<CommentSong> addComment(@RequestBody CommentSong comment, @RequestParam("songId") Long songId,
+            @RequestParam("userId") Long userId) {
         try {
-            CommentSong addedComment = ComemtSongService.addComment1(commentSongDTO);
-            return ResponseEntity.status(HttpStatus.CREATED).body(addedComment);
+            CommentSong addedComment = ComemtSongService.addComment(comment, songId, userId);
+            return ResponseEntity.ok(addedComment);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(null); // Bạn có thể trả về một thông báo lỗi khác nếu cần thiết
+            return ResponseEntity.badRequest().build();
+
         }
+
     }
+    // @PostMapping("/comments")
+    // public ResponseEntity<CommentSong> addComment(@RequestBody CommentSongDTO
+    // commentSongDTO) {
+    // try {
+    // CommentSong addedComment = ComemtSongService.addComment1(commentSongDTO);
+    // return ResponseEntity.status(HttpStatus.CREATED).body(addedComment);
+    // } catch (Exception e) {
+    // return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+    // .body(null); // Bạn có thể trả về một thông báo lỗi khác nếu cần thiết
+    // }
+    // }
 
 }

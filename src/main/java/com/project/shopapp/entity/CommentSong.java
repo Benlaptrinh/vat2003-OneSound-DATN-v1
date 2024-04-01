@@ -29,11 +29,11 @@ public class CommentSong {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "accountId", insertable = false, updatable = false)
+    @JoinColumn(name = "accountId")
     private Account user;
 
     @ManyToOne
-    @JoinColumn(name = "songId", insertable = false, updatable = false)
+    @JoinColumn(name = "songId")
     private Song song;
 
     @Temporal(TemporalType.DATE)

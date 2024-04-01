@@ -71,7 +71,6 @@ public class Account implements UserDetails {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
-	@JsonManagedReference
 	List<CommentSong> commentSong;
 
 	@ManyToOne
