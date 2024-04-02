@@ -23,4 +23,9 @@ public class CommentYoutubeServiceImlp implements CommentYoutubeService {
         return dao.findAll();
     }
 
+    // @Override
+    // public List<CommentYoutube> findByYoutubeId(Long YoutubeId) {
+    // return dao.findAllById(YoutubeId);
+    // }
+
 }

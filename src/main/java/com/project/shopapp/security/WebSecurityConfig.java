@@ -113,6 +113,23 @@ public class WebSecurityConfig {
                                                         .requestMatchers(GET,
                                                                         String.format("%s/comments/**", apiPrefix))
                                                         .permitAll()
+
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Comemtyt/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Comemtyt**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/Comemtyt**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/Comemtyt/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/Comemtyt/**", apiPrefix))
+                                                        .permitAll()
+
                                                         .requestMatchers(GET,
                                                                         String.format("%s/Author/**", apiPrefix))
                                                         .permitAll()

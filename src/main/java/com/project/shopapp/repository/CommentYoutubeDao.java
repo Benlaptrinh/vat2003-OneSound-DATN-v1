@@ -8,5 +8,6 @@ import com.project.shopapp.entity.CommentSong;
 import com.project.shopapp.entity.CommentYoutube;
 
 public interface CommentYoutubeDao extends JpaRepository<CommentYoutube, Long> {
+    List<CommentYoutube> findByYoutubeId(String youtubeId);
 
 }
