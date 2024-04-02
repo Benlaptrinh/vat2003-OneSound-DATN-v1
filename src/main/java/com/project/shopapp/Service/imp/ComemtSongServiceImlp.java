@@ -1,6 +1,7 @@
 
 package com.project.shopapp.Service.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.ComemtSongService;
+import com.project.shopapp.dto.CommentDTO;
 import com.project.shopapp.dto.CommentSongDTO;
 import com.project.shopapp.entity.Account;
 import com.project.shopapp.entity.CommentSong;
@@ -74,13 +76,8 @@ public class ComemtSongServiceImlp implements ComemtSongService {
     }
 
     @Override
-    public void deleteComment(Long commentId) {
-        comemtSongDao.deleteById(commentId);
-    }
-
-    @Override
     public void DeleteRelatedComments(Long commentId) {
-        comemtSongDao.DeleteRelatedComments(commentId);
+        comemtSongDao.DeleteRelatedComments10(commentId);
     }
 
     @Override
@@ -90,6 +87,53 @@ public class ComemtSongServiceImlp implements ComemtSongService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Account findAccountByCommentId(Long commentId) {
+        return comemtSongDao.findAccountByCommentId(commentId);
+    }
+
+    @Override
+    public List<CommentDTO> getCommentsWithReplies(Long songId) {
+        List<CommentSong> topLevelComments = comemtSongDao.findBySongIdAndRepCommentIdIsNull(songId);
+        List<CommentDTO> commentsWithReplies = new ArrayList<>();
+
+        for (CommentSong topLevelComment : topLevelComments) {
+            CommentDTO topLevelDTO = convertToDTO(topLevelComment);
+
+            List<CommentDTO> replyDTOs = new ArrayList<>();
+
+            // Lấy danh sách các bình luận nhỏ của bình luận cấp độ 1
+            List<CommentSong> level2Comments = comemtSongDao.findBySongIdAndRepCommentId(songId,
+                    topLevelComment.getId());
+            for (CommentSong level2Comment : level2Comments) {
+                CommentDTO level2DTO = convertToDTO(level2Comment);
+                List<CommentSong> level3Comments = comemtSongDao.findBySongIdAndRepCommentId(songId,
+                        level2Comment.getId());
+                List<CommentDTO> level3DTOs = new ArrayList<>();
+                for (CommentSong level3Comment : level3Comments) {
+                    level3DTOs.add(convertToDTO(level3Comment));
+                }
+                level2DTO.setReplies(level3DTOs);
+                replyDTOs.add(level2DTO);
+            }
+
+            topLevelDTO.setReplies(replyDTOs);
+            commentsWithReplies.add(topLevelDTO);
+        }
+
+        return commentsWithReplies;
+    }
+
+    private CommentDTO convertToDTO(CommentSong comment) {
+        CommentDTO dto = new CommentDTO();
+        dto.setId(comment.getId());
+        dto.setUser(comment.getUser());
+        dto.setSong(comment.getSong());
+        dto.setText(comment.getText());
+        dto.setActive(comment.isActive());
+        return dto;
     }
 
 }
