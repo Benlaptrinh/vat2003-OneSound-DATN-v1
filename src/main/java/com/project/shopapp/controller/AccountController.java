@@ -21,6 +21,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import com.project.shopapp.Service.AccountService;
+import com.project.shopapp.Service.HistoryListenServeice;
 import com.project.shopapp.Service.PasswordResetTokenService;
 
 import com.project.shopapp.Service.imp.AccountServiceImlp;
@@ -32,6 +33,9 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,6 +70,9 @@ public class AccountController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private HistoryListenServeice historyListenServeice;
 
     @GetMapping("/oauth2/login/success")
     public RedirectView success(OAuth2AuthenticationToken oauth) throws IOException, URISyntaxException {
@@ -131,6 +138,7 @@ public class AccountController {
             return ResponseEntity.ok().body(null);
         }
     }
+
     @PutMapping("/UpdateActive/{id}")
     public ResponseEntity<?> updateUser1(
             @PathVariable Long id,
@@ -144,6 +152,7 @@ public class AccountController {
             return ResponseEntity.badRequest().build();
         }
     }
+
     @GetMapping("/emailUser/{email}")
     public ResponseEntity<?> checkIfUserExistsByEmai1l(@PathVariable String email) {
         try {
@@ -178,7 +187,7 @@ public class AccountController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
-                                        BindingResult result) {
+            BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -196,7 +205,7 @@ public class AccountController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody Account Account,
-                                    BindingResult result) {
+            BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -443,4 +452,14 @@ public class AccountController {
     public Page<Account> getAlbumByTitle(@PathVariable String title, Pageable pageable) {
         return AccountDAO.findByFullnamePage(title, pageable);
     }
+
+    @PostMapping("listen/add/{songId}/{userId}")
+    public ResponseEntity<?> addHis(@PathVariable("songId") Long songId, @PathVariable("userId") Long userId) {
+        LocalDate todayLocalDate = LocalDate.now();
+        // Chuyển đổi từ LocalDate sang Date
+        Date todayDate = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        historyListenServeice.addHistory(songId, userId, todayDate);
+        return ResponseEntity.ok().build();
+    }
+
 }

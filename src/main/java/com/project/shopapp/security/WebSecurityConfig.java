@@ -43,294 +43,297 @@ import static org.springframework.http.HttpMethod.*;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
-    private final JwtTokenFilter jwtTokenFilter;
+        private final JwtTokenFilter jwtTokenFilter;
 
-    private final EmailService EmailService;
+        private final EmailService EmailService;
 
-    private final FacebookService FacebookService;
+        private final FacebookService FacebookService;
 
-    private final GithubService GithubService;
+        private final GithubService GithubService;
 
-    @Value("${api.prefix}")
-    private String apiPrefix;
+        @Value("${api.prefix}")
+        private String apiPrefix;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(requests -> {
-                    requests
-                            // ------------------------users--------------------//
-                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+        @Bean
+        public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                http
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
+                                .authorizeHttpRequests(requests -> {
+                                        requests
+                                                        // ------------------------users--------------------//
+                                                        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
 
-                            .requestMatchers(
-                                    String.format("%s/users/register", apiPrefix),
-                                    String.format("%s/users/login", apiPrefix),
-                                    String.format("%s/users/login/oauth2**",
-                                            apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(
+                                                                        String.format("%s/users/register", apiPrefix),
+                                                                        String.format("%s/users/login", apiPrefix),
+                                                                        String.format("%s/users/login/oauth2**",
+                                                                                        apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(PUT,
-                                    String.format("%s/users/update/pass/**",
-                                            apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/users/update/pass/**",
+                                                                                        apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(POST,
-                                    String.format("%s/users/checkactive",
-                                            apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/users/checkactive",
+                                                                                        apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(GET,
-                                    String.format("%s/users**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/users/**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/users/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/users**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/users/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/users/**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(DELETE,
-                                    String.format("%s/users/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/users/**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(GET,
-                                    String.format("%s/Role**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/Author/**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/Author**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/Song/**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/Song**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Role**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Author/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Author**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Song/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Song**", apiPrefix))
+                                                        .permitAll()
 
+                                                        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                                                        // ------------------------SONG-GENRE--------------------//
+                                                        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/SongGenre/**", apiPrefix))
+                                                        .permitAll()
 
-                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
-                            // ------------------------SONG-GENRE--------------------//
-                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
-                            .requestMatchers(GET,
-                                    String.format("%s/SongGenre/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/SongGenre**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(POST,
-                                    String.format("%s/SongGenre**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/SongGenre/**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(DELETE,
-                                    String.format("%s/SongGenre/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/SongGenre**", apiPrefix))
+                                                        .permitAll()
+                                                        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                                                        // ------------------------SONG-SINGER--------------------//
+                                                        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/SongSinger/**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(PUT,
-                                    String.format("%s/SongGenre**", apiPrefix))
-                            .permitAll()
-                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
-                            // ------------------------SONG-SINGER--------------------//
-                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
-                            .requestMatchers(GET,
-                                    String.format("%s/SongSinger/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/SongSinger**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(POST,
-                                    String.format("%s/SongSinger**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/SongSinger/**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(DELETE,
-                                    String.format("%s/SongSinger/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/SongSinger**", apiPrefix))
+                                                        .permitAll()
+                                                        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                                                        // ------------------------SONG-AUTHOR--------------------//
+                                                        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/SongAuthor/**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(PUT,
-                                    String.format("%s/SongSinger**", apiPrefix))
-                            .permitAll()
-                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
-                            // ------------------------SONG-AUTHOR--------------------//
-                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
-                            .requestMatchers(GET,
-                                    String.format("%s/SongAuthor/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/SongAuthor**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(POST,
-                                    String.format("%s/SongAuthor**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/SongAuthor/**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(DELETE,
-                                    String.format("%s/SongAuthor/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/SongAuthor**", apiPrefix))
+                                                        .permitAll()
+                                                        // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
+                                                        // ------------------------SINGER-ALBUM--------------------//
+                                                        // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/singerAlbum/**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(PUT,
-                                    String.format("%s/SongAuthor**", apiPrefix))
-                            .permitAll()
-                            // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
-                            // ------------------------SINGER-ALBUM--------------------//
-                            // vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv//
-                            .requestMatchers(GET,
-                                    String.format("%s/singerAlbum/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/singerAlbum**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(POST,
-                                    String.format("%s/singerAlbum**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(DELETE,
+                                                                        String.format("%s/singerAlbum/**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(DELETE,
-                                    String.format("%s/singerAlbum/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(PUT,
+                                                                        String.format("%s/singerAlbum**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(PUT,
-                                    String.format("%s/singerAlbum**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/album/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/album**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Singer/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Singer**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Genre/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/Genre**", apiPrefix))
+                                                        .permitAll()
 
+                                                        .requestMatchers(String
+                                                                        .format("%s/oauth2/login/google", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(String.format("%s/oauth2/login/facebook",
+                                                                        apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(GET,
-                                    String.format("%s/album/**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/album**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/Singer/**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/Singer**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/Genre/**", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/Genre**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(String.format("%s/emails/users/**",
+                                                                        apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(String.format("%s/emails/users", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(String
-                                    .format("%s/oauth2/login/google", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(String.format("%s/oauth2/login/facebook",
-                                    apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(String.format("%s/facebooks/users/**",
+                                                                        apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(String.format("%s/facebooks/users", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(String.format("%s/githubs/users/**",
+                                                                        apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(String.format("%s/githubs/users", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(String.format("%s/emails/users/**",
-                                    apiPrefix))
-                            .permitAll()
-                            .requestMatchers(String.format("%s/emails/users", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(GET, String.format("%s/facebooks/users/**",
+                                                                        apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/facebooks/users", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET, String.format("%s/githubs/users/**",
+                                                                        apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/githubs/users", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(String.format("%s/facebooks/users/**",
-                                    apiPrefix))
-                            .permitAll()
-                            .requestMatchers(String.format("%s/facebooks/users", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(String.format("%s/githubs/users/**",
-                                    apiPrefix))
-                            .permitAll()
-                            .requestMatchers(String.format("%s/githubs/users", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/emails/users/**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(GET, String.format("%s/facebooks/users/**",
-                                    apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/facebooks/users", apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET, String.format("%s/githubs/users/**",
-                                    apiPrefix))
-                            .permitAll()
-                            .requestMatchers(GET,
-                                    String.format("%s/githubs/users", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/emails/users", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(GET,
-                                    String.format("%s/emails/users/**", apiPrefix))
-                            .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/users/email/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/users/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/users**", apiPrefix))
+                                                        .permitAll()
 
-                            .requestMatchers(GET,
-                                    String.format("%s/emails/users", apiPrefix))
-                            .permitAll()
+                                                        .anyRequest().authenticated();
 
-                            .requestMatchers(GET,
-                                    String.format("%s/users/email/**", apiPrefix))
-                            .permitAll()
+                                })
+                                .csrf(AbstractHttpConfigurer::disable)
+                                .oauth2Login(Customizer.withDefaults());
+                http.cors(Customizer.withDefaults());
+                http.oauth2Login(oauth2 -> oauth2.successHandler(authenticationSuccessHandler()));
+                http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
+                        @Override
+                        public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
+                                CorsConfiguration configuration = new CorsConfiguration();
+                                configuration.setAllowedOrigins(List.of("*"));
+                                configuration.setAllowedMethods(
+                                                Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
+                                configuration.setAllowedHeaders(Arrays.asList("Origin", "Authorization",
+                                                "content-type",
+                                                "x-auth-token"));
+                                configuration.setExposedHeaders(List.of("x-auth-token"));
+                                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+                                source.registerCorsConfiguration("/**", configuration);
+                                httpSecurityCorsConfigurer.configurationSource(source);
+                        }
+                });
+                return http.build();
+        }
 
+        @Bean
+        public AuthenticationSuccessHandler authenticationSuccessHandler() {
+                return (request, response, authentication) -> {
+                        Long id = 0L;
+                        String type = "";
 
-                            .anyRequest().authenticated();
+                        Object principal = authentication.getPrincipal();
 
-                })
-                .csrf(AbstractHttpConfigurer::disable)
-                .oauth2Login(Customizer.withDefaults());
-        http.cors(Customizer.withDefaults());
-        http.oauth2Login(oauth2 -> oauth2.successHandler(authenticationSuccessHandler()));
-        http.cors(new Customizer<CorsConfigurer<HttpSecurity>>() {
-            @Override
-            public void customize(CorsConfigurer<HttpSecurity> httpSecurityCorsConfigurer) {
-                CorsConfiguration configuration = new CorsConfiguration();
-                configuration.setAllowedOrigins(List.of("*"));
-                configuration.setAllowedMethods(
-                        Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-                configuration.setAllowedHeaders(Arrays.asList("Origin", "Authorization",
-                        "content-type",
-                        "x-auth-token"));
-                configuration.setExposedHeaders(List.of("x-auth-token"));
-                UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-                source.registerCorsConfiguration("/**", configuration);
-                httpSecurityCorsConfigurer.configurationSource(source);
-            }
-        });
-        return http.build();
-    }
+                        if (principal instanceof OidcUser) {
+                                OidcUser oidcUser = (OidcUser) principal;
+                                String name = oidcUser.getFullName();
+                                String email = oidcUser.getEmail();
+                                String picture = oidcUser.getPicture();
+                                EmailService.createUser(EmailDTO.builder()
+                                                .email(email)
+                                                .name(name)
+                                                .picture(picture)
+                                                .build());
 
-    @Bean
-    public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return (request, response, authentication) -> {
-            Long id = 0L;
-            String type = "";
+                                id = this.EmailService.getUserByEmail(email).getId();
+                                type = "email";
+                        } else {
+                                if (authentication.getPrincipal() instanceof OAuth2User) {
+                                        OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
+                                        String name = oauth2User.getAttribute("name");
+                                        String email = oauth2User.getAttribute("email");
+                                        Integer idg = oauth2User.getAttribute("id");
+                                        String idgit = idg + "";
+                                        type = "github";
 
-            Object principal = authentication.getPrincipal();
+                                        GithubService.createUser(GitDTO.builder()
+                                                        .githubId(idgit)
+                                                        .email(email)
+                                                        .name(name)
+                                                        .build());
+                                        id = this.GithubService.getGithubByEmail(email).getId();
+                                }
+                        }
 
-            if (principal instanceof OidcUser) {
-                OidcUser oidcUser = (OidcUser) principal;
-                String name = oidcUser.getFullName();
-                String email = oidcUser.getEmail();
-                String picture = oidcUser.getPicture();
-                EmailService.createUser(EmailDTO.builder()
-                        .email(email)
-                        .name(name)
-                        .picture(picture)
-                        .build());
+                        if (id != 0) {
+                                response.sendRedirect("http://localhost:4200/onesound/home/users/update?id="
+                                                + id
+                                                + "&type=" + type);
 
-                id = this.EmailService.getUserByEmail(email).getId();
-                type = "email";
-            } else {
-                if (authentication.getPrincipal() instanceof OAuth2User) {
-                    OAuth2User oauth2User = (OAuth2User) authentication.getPrincipal();
-                    String name = oauth2User.getAttribute("name");
-                    String email = oauth2User.getAttribute("email");
-                    Integer idg = oauth2User.getAttribute("id");
-                    String idgit = idg + "";
-                    type = "github";
+                        } else {
+                                response.sendRedirect("http://localhost:4200");
 
-                    GithubService.createUser(GitDTO.builder()
-                            .githubId(idgit)
-                            .email(email)
-                            .name(name)
-                            .build());
-                    id = this.GithubService.getGithubByEmail(email).getId();
-                }
-            }
-
-            if (id != 0) {
-                response.sendRedirect("http://localhost:4200/onesound/home/users/update?id="
-                        + id
-                        + "&type=" + type);
-
-            } else {
-                response.sendRedirect("http://localhost:4200");
-
-            }
-        };
-    }
+                        }
+                };
+        }
 
 }
 

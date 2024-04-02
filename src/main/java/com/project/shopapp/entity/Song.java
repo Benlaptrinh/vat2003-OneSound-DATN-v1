@@ -67,4 +67,8 @@ public class Song {
 	@OneToMany(mappedBy = "song")
 	private List<ListeningStats> listeningStats;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "song")
+	private List<HistoryListen> historyListen;
+
 }
