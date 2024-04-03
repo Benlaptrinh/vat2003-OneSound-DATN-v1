@@ -31,15 +31,8 @@ public class HistoryListenServeiceImlp implements HistoryListenServeice {
     public void addHistory(Long songId, Long userId, Date playDate) {
         Song s = songDao.findById(songId).get();
         Account u = userDao.findById(userId).get();
-        LocalDate todayLocalDate = LocalDate.now();
-        // Chuyển đổi từ LocalDate sang Date
-        Date todayDate = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        // ListeningStats playCount = playCountRepository.findBySongIdAndDateLis(songId,
-        // playDate)
-        // .orElse(new ListeningStats(0L, playDate, s));
-        // playCount.setListens(playCount.getListens() + 1);
-        // playCountRepository.save(playCount);
         HistoryListen hl = listenDAO.findBySongIdAndUserId(songId, userId).orElse(new HistoryListen(s, u, playDate));
+
         listenDAO.save(hl);
 
     }

@@ -71,9 +71,6 @@ public class AccountController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private HistoryListenServeice historyListenServeice;
-
     @GetMapping("/oauth2/login/success")
     public RedirectView success(OAuth2AuthenticationToken oauth) throws IOException, URISyntaxException {
         String method = oauth.getAuthorizedClientRegistrationId();
@@ -451,15 +448,6 @@ public class AccountController {
     @GetMapping("/users/getaccountByName/{title}")
     public Page<Account> getAlbumByTitle(@PathVariable String title, Pageable pageable) {
         return AccountDAO.findByFullnamePage(title, pageable);
-    }
-
-    @PostMapping("listen/add/{songId}/{userId}")
-    public ResponseEntity<?> addHis(@PathVariable("songId") Long songId, @PathVariable("userId") Long userId) {
-        LocalDate todayLocalDate = LocalDate.now();
-        // Chuyển đổi từ LocalDate sang Date
-        Date todayDate = Date.from(todayLocalDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-        historyListenServeice.addHistory(songId, userId, todayDate);
-        return ResponseEntity.ok().build();
     }
 
 }
