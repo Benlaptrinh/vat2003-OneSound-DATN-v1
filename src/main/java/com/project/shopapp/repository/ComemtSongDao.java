@@ -25,9 +25,6 @@ public interface ComemtSongDao extends JpaRepository<CommentSong, Long> {
     @Query("SELECT cs.user FROM CommentSong cs WHERE cs.id = :commentId")
     Account findAccountByCommentId(@Param("commentId") Long commentId);
 
-    @Transactional
-    void deleteById(Long commentId);
-
     @Procedure(name = "DeleteRelatedComments10")
     void DeleteRelatedComments10(@Param("commentId") Long playlistId);
 

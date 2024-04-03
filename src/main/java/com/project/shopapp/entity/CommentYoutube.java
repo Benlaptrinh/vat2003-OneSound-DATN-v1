@@ -38,8 +38,8 @@ public class CommentYoutube {
     private Account user;
 
     @ManyToOne
-    @JoinColumn(name = "youtubeId")
-    private Youtube Youtube;
+    @JoinColumn(name = "youtube_id")
+    private Youtube youtube;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "Createdate")

@@ -29,7 +29,7 @@ public class Youtube {
     private String publishTime;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "Youtube", cascade = CascadeType.ALL)
-    private List<CommentYoutube> CommentYoutube;
+    @OneToMany(mappedBy = "youtube", cascade = CascadeType.ALL)
+    private List<CommentYoutube> comments;
 
 }

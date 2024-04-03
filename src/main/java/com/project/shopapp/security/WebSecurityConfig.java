@@ -90,6 +90,12 @@ public class WebSecurityConfig {
                                                         .requestMatchers(GET,
                                                                         String.format("%s/users/**", apiPrefix))
                                                         .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/users/**", apiPrefix))
+                                                        .permitAll()
+                                                        .requestMatchers(POST,
+                                                                        String.format("%s/users**", apiPrefix))
+                                                        .permitAll()
 
                                                         .requestMatchers(DELETE,
                                                                         String.format("%s/users/**", apiPrefix))
