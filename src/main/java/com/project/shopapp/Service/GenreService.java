@@ -10,8 +10,9 @@ import com.project.shopapp.entity.Genre;
 
 public interface GenreService {
     List<Genre> getAllGenre();
-    
+
     List<Genre> findByTitleContainingIgnoreCase(String title);
+
     Genre getGenreById(Long id);
 
     Genre createGenre(Genre Genre);
@@ -21,5 +22,6 @@ public interface GenreService {
     void deleteGenre(Long id);
 
     Page<Genre> getAllGenre(Pageable pageable);
+
     List<Genre> findAllGenreActive();
 }
