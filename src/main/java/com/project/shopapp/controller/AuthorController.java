@@ -44,6 +44,11 @@ public class AuthorController {
     public ResponseEntity<List<Author>> getAllAuthors() {
         return ResponseEntity.ok(dao.findByActive(true));
     }
+    
+    @GetMapping("/Author/Inactive")
+    public ResponseEntity<List<Author>> getAllAuthorsFalse() {
+        return ResponseEntity.ok(dao.findByActive(false));
+    }
 
     
     @GetMapping("/Author/{id}")
