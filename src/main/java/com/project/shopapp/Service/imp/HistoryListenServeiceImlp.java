@@ -3,6 +3,7 @@ package com.project.shopapp.Service.imp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,10 +32,21 @@ public class HistoryListenServeiceImlp implements HistoryListenServeice {
     public void addHistory(Long songId, Long userId, Date playDate) {
         Song s = songDao.findById(songId).get();
         Account u = userDao.findById(userId).get();
-        HistoryListen hl = listenDAO.findBySongIdAndUserId(songId, userId).orElse(new HistoryListen(s, u, playDate));
+        HistoryListen hl = listenDAO.findBySongIdAndUserId(songId, userId, playDate)
+                .orElse(new HistoryListen(s, u, playDate));
 
         listenDAO.save(hl);
 
+    }
+
+    @Override
+    public List<HistoryListen> finfByUserId(Long userId) {
+        return listenDAO.finfByUserId(userId);
+    }
+
+    @Override
+    public List<HistoryListen> finfByListentime(Date date) {
+        return listenDAO.finfByListentime(date);
     }
 
 }
