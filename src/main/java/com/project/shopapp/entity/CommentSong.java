@@ -1,5 +1,6 @@
 package com.project.shopapp.entity;
 
+import java.time.LocalTime;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -36,9 +37,10 @@ public class CommentSong {
     @JoinColumn(name = "songId")
     private Song song;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "Createdate")
     private Date likeDate = new Date();
+
     private String text;
     private boolean active;
 

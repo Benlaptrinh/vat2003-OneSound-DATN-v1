@@ -41,9 +41,10 @@ public class CommentYoutube {
     @JoinColumn(name = "youtube_id")
     private Youtube youtube;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "Createdate")
     private Date likeDate = new Date();
+
     private String text;
     private boolean active;
 

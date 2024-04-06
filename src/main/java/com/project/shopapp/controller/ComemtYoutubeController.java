@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.shopapp.Service.ComemtSongService;
 import com.project.shopapp.Service.CommentYoutubeService;
 import com.project.shopapp.dto.CommentDTO;
+import com.project.shopapp.dto.CommentYoutubeDTO;
 import com.project.shopapp.entity.CommentSong;
 import com.project.shopapp.entity.CommentYoutube;
 
@@ -37,6 +38,12 @@ public class ComemtYoutubeController {
     @GetMapping("/Comemtyt")
     public List<CommentYoutube> findAllComments() {
         return CommentYoutubeService.findAll();
+    }
+
+    @GetMapping("/Comemtyt/{songId}/with-replies")
+    public ResponseEntity<List<CommentYoutubeDTO>> getCommentsWithReplies(@PathVariable String songId) {
+        List<CommentYoutubeDTO> commentsWithReplies = CommentYoutubeService.getCommentsWithReplies(songId);
+        return ResponseEntity.ok(commentsWithReplies);
     }
 
     @GetMapping("/Comemtyt/{youtubeid}")

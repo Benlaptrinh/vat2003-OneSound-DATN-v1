@@ -3,6 +3,7 @@ package com.project.shopapp.Service;
 import java.util.List;
 
 import com.project.shopapp.dto.CommentDTO;
+import com.project.shopapp.dto.CommentYoutubeDTO;
 import com.project.shopapp.entity.CommentSong;
 import com.project.shopapp.entity.CommentYoutube;
 
@@ -25,4 +26,5 @@ public interface CommentYoutubeService {
 
     boolean isCommentBelongsToUser(Long commentId, Long userId);
 
+    List<CommentYoutubeDTO> getCommentsWithReplies(String songId);
 }

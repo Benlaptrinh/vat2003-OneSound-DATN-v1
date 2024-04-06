@@ -2,6 +2,8 @@
 package com.project.shopapp.Service.imp;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,7 +79,7 @@ public class ComemtSongServiceImlp implements ComemtSongService {
 
     @Override
     public void DeleteRelatedComments(Long commentId) {
-        comemtSongDao.DeleteRelatedComments10(commentId);
+        comemtSongDao.DeleteRelatedComments11(commentId);
     }
 
     @Override
@@ -123,6 +125,14 @@ public class ComemtSongServiceImlp implements ComemtSongService {
             commentsWithReplies.add(topLevelDTO);
         }
 
+        // Sắp xếp mảng commentsWithReplies tăng dần theo thuộc tính likeDate
+        Collections.sort(commentsWithReplies, new Comparator<CommentDTO>() {
+            @Override
+            public int compare(CommentDTO c1, CommentDTO c2) {
+                return c2.getLikeDate().compareTo(c1.getLikeDate());
+            }
+        });
+
         return commentsWithReplies;
     }
 
@@ -132,6 +142,7 @@ public class ComemtSongServiceImlp implements ComemtSongService {
         dto.setUser(comment.getUser());
         dto.setSong(comment.getSong());
         dto.setText(comment.getText());
+        dto.setLikeDate(comment.getLikeDate());
         dto.setActive(comment.isActive());
         return dto;
     }
