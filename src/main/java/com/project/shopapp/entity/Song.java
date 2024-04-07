@@ -71,4 +71,7 @@ public class Song {
 	@OneToMany(mappedBy = "song")
 	private List<HistoryListen> historyListen;
 
+	@JsonIgnore
+	@OneToMany(mappedBy = "song", cascade = CascadeType.ALL)
+	private List<CommentSong> commentSong;
 }

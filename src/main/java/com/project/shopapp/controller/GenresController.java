@@ -51,7 +51,7 @@ public class GenresController {
         System.out.println(Genre);
         return GenreService.createGenre(Genre);
     }
-    
+
     @GetMapping("/Genre/name/{name}")
     public List<Genre> getGenreByName(@PathVariable String name) {
         return GenreService.findByTitleContainingIgnoreCase(name);
@@ -87,6 +87,7 @@ public class GenresController {
         Map<String, Boolean> response = Map.of("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/Genre/getAllGenreActive")
     public List<Genre> getAllSingerByAlbumId1() {
         List<Genre> Genre = GenreService.findAllGenreActive();

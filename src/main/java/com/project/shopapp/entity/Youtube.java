@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -30,5 +31,9 @@ public class Youtube {
     @JsonIgnore
     @OneToMany(mappedBy = "youtube")
     private List<ListeningStatsYtb> listeningStatsYtb;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "youtube", cascade = CascadeType.ALL)
+    private List<CommentYoutube> comments;
 
 }

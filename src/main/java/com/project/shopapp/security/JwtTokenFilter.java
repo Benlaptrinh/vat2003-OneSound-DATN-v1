@@ -67,6 +67,16 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private boolean isBypassToken(@NonNull HttpServletRequest request) {
         final List<Pair<String, String>> bypassTokens = Arrays.asList(
+                Pair.of(String.format("%s/comments", apiPrefix), "PUT"),
+                Pair.of(String.format("%s/comments", apiPrefix), "DELETE"),
+                Pair.of(String.format("%s/comments", apiPrefix), "GET"),
+                Pair.of(String.format("%s/comments", apiPrefix), "POST"),
+                Pair.of(String.format("%s/comments/", apiPrefix), "GET"),
+                Pair.of(String.format("%s/Comemtyt/", apiPrefix), "GET"),
+                Pair.of(String.format("%s/Comemtyt", apiPrefix), "DELETE"),
+                Pair.of(String.format("%s/Comemtyt", apiPrefix), "GET"),
+                Pair.of(String.format("%s/Comemtyt", apiPrefix), "POST"),
+                Pair.of(String.format("%s/Comemtyt/", apiPrefix), "PUT"),
                 Pair.of(String.format("%s/Role", apiPrefix), "GET"),
                 Pair.of(String.format("%s/Author", apiPrefix), "GET"),
                 Pair.of(String.format("%s/Song", apiPrefix), "GET"),
@@ -79,6 +89,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of(String.format("%s/Singer", apiPrefix), "GET"),
                 // Pair.of(String.format("%s/Genre/Genree", apiPrefix), "GET"),
                 Pair.of(String.format("%s/users", apiPrefix), "GET"),
+                Pair.of(String.format("%s/users", apiPrefix), "POST"),
                 Pair.of(String.format("%s/users/register", apiPrefix), "POST"),
                 Pair.of(String.format("%s/users/checkactive", apiPrefix), "POST"),
                 Pair.of(String.format("%s/users/update/pass", apiPrefix), "PUT"),
