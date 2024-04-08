@@ -10,6 +10,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,15 +29,14 @@ public class HistoryListen {
     @JoinColumn(name = "songId")
     private Song song;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private Account user;
+    private Long userId;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date listenTime;
 
-    public HistoryListen(Song song, Account user, Date listenTime) {
+    public HistoryListen(Song song, Long userId, Date listenTime) {
         this.song = song;
-        this.user = user;
+        this.userId = userId;
         this.listenTime = listenTime;
     }
 

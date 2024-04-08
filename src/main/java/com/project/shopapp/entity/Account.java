@@ -107,9 +107,9 @@ public class Account implements UserDetails {
 	@OneToMany(mappedBy = "following")
 	List<FollowUser> following;
 
-	@JsonIgnore
-	@OneToMany(mappedBy = "user")
-	List<HistoryListen> historyListen;
+	// @JsonIgnore
+	// @OneToMany(mappedBy = "user")
+	// List<HistoryListen> historyListen;
 
 	// @Override
 	// public Collection<? extends GrantedAuthority> getAuthorities() {
