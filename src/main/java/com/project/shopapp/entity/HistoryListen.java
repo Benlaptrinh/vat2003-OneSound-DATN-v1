@@ -3,7 +3,8 @@ package com.project.shopapp.entity;
 import java.util.Date;
 
 import com.google.api.client.util.DateTime;
-
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,15 +28,14 @@ public class HistoryListen {
     @JoinColumn(name = "songId")
     private Song song;
 
-    @ManyToOne
-    @JoinColumn(name = "userId")
-    private Account user;
+    private Long userId;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date listenTime;
 
-    public HistoryListen(Song song, Account user, Date listenTime) {
+    public HistoryListen(Song song, Long userId, Date listenTime) {
         this.song = song;
-        this.user = user;
+        this.userId = userId;
         this.listenTime = listenTime;
     }
 

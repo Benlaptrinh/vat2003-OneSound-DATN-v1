@@ -33,7 +33,7 @@ public class HistoryListenServeiceImlp implements HistoryListenServeice {
         Song s = songDao.findById(songId).get();
         Account u = userDao.findById(userId).get();
         HistoryListen hl = listenDAO.findBySongIdAndUserId(songId, userId, playDate)
-                .orElse(new HistoryListen(s, u, playDate));
+                .orElse(new HistoryListen(s, userId, playDate));
 
         listenDAO.save(hl);
 
