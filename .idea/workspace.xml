@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2572b773-f8d1-48be-ae0f-c85eb9c4476a" name="Changes" comment="merge PhuongGenre">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5bfa46ba-ea3e-4b0c-8f59-ed4045f67504.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5bfa46ba-ea3e-4b0c-8f59-ed4045f67504.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/HistoryListenServeiceImlp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/Service/imp/HistoryListenServeiceImlp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/entity/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/entity/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/entity/HistoryListen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/entity/HistoryListen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/HistoryListenDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/HistoryListenDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +133,8 @@
       <workItem from="1711765713267" duration="1106000" />
       <workItem from="1711768505258" duration="3100000" />
       <workItem from="1712539953745" duration="4576000" />
-      <workItem from="1712596880934" duration="410000" />
+      <workItem from="1712596880934" duration="1344000" />
+      <workItem from="1712625635341" duration="5807000" />
     </task>
     <task id="LOCAL-00001" summary="change a little">
       <option name="closed" value="true" />
