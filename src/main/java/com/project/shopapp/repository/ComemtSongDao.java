@@ -28,4 +28,6 @@ public interface ComemtSongDao extends JpaRepository<CommentSong, Long> {
     @Procedure(name = "DeleteRelatedComments10")
     void DeleteRelatedComments10(@Param("commentId") Long playlistId);
 
+    List<CommentSong> findByRepCommentId(Long repCommentId);
+
 }

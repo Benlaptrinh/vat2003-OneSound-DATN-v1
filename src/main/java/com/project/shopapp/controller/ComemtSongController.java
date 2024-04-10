@@ -61,6 +61,20 @@ public class ComemtSongController {
         return ResponseEntity.ok(commentsWithReplies);
     }
 
+    @PostMapping("/comments")
+    public ResponseEntity<CommentSong> addComment(@RequestBody CommentSong comment, @RequestParam("songId") Long songId,
+            @RequestParam("userId") Long userId) {
+        try {
+            CommentSong addedComment = ComemtSongService.addComment(comment, songId,
+                    userId);
+            return ResponseEntity.ok(addedComment);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+
+        }
+
+    }
+
     @GetMapping("/comments/{songId}/{commentId}/replies")
     public ResponseEntity<List<CommentSong>> findRepliesToComment(@PathVariable("songId") Long songId,
             @PathVariable("commentId") Long commentId) {

@@ -56,6 +56,7 @@ public class Account implements UserDetails {
 	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	private String phonenumber;
+	private String vip;
 
 	@Enumerated(EnumType.STRING)
 	private AuthProvider provider;

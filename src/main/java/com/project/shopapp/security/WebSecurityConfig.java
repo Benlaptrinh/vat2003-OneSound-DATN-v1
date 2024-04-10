@@ -215,6 +215,9 @@ public class WebSecurityConfig {
                                                         .requestMatchers(GET,
                                                                         String.format("%s/users/email/**", apiPrefix))
                                                         .permitAll()
+                                                        .requestMatchers(GET,
+                                                                        String.format("%s/SongSinger/**", apiPrefix))
+                                                        .permitAll()
 
                                                         .anyRequest().authenticated();
 

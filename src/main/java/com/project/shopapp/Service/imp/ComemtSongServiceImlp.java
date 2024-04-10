@@ -43,7 +43,18 @@ public class ComemtSongServiceImlp implements ComemtSongService {
 
     @Override
     public List<CommentSong> findBySongIdAndRepCommentId(Long songId, Long commentId) {
-        return comemtSongDao.findBySongIdAndRepCommentId(songId, commentId);
+
+        List<CommentSong> replies = new ArrayList<>();
+
+        List<CommentSong> directReplies = comemtSongDao.findByRepCommentId(commentId);
+        replies.addAll(directReplies);
+
+        for (CommentSong reply : directReplies) {
+            List<CommentSong> subReplies = findBySongIdAndRepCommentId(songId, reply.getId());
+            replies.addAll(subReplies);
+        }
+
+        return replies;
     }
 
     @Override
