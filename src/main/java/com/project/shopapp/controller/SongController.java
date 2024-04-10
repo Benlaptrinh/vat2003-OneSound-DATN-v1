@@ -56,6 +56,10 @@ public class SongController {
     public List<Song>getAllActiveFalse(){
         return songDAO.findByActiveFalse();
     }
+    @GetMapping("Song/activeTrue")
+    public List<Song>getAllActiveTrue(){
+        return songDAO.findByActiveTrue();
+    }
 
     @GetMapping("Song/findAll")
     public List<Song> getSongNonePage() {

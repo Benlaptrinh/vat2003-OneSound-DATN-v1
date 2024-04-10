@@ -353,7 +353,7 @@ public class AccountServiceImlp implements AccountService {
                     + "<p style='margin: 10px 0; line-height: 1.4;'><b>Bạn đã không yêu cầu thay đổi này?</b></p>"
                     + "<p style='margin: 10px 0; line-height: 1.4;'>Nếu bạn không yêu cầu mật khẩu mới, <span style='color: #007bff; font-weight: bold;'>hãy cho chúng tôi biết</span></p>"
                     + "</div>";
-
+            System.out.println(resetLink);
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
             helper.setTo(user.getEmail());
