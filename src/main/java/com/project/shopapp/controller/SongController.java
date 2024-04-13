@@ -100,7 +100,7 @@ public class SongController {
         song.setName(songRequest.getName());
         song.setImage(songRequest.getImage());
         song.setPath(songRequest.getPath());
-        song.setRelease(songRequest.getRelease());
+        song.setRelease_date(songRequest.getRelease_date());
         // song.setLyrics(songRequest.getLyrics());
         song.setAlbum(songRequest.getAlbum());
         // // Cài đặt logic khác nếu cần

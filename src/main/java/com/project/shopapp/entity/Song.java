@@ -38,7 +38,8 @@ public class Song {
 	private String image;
 	private String path;
 	@Temporal(TemporalType.DATE)
-	private Date Release;
+//	private Date Release;
+	private Date release_date;
 	// @Lob
 	private String lyrics;
 	private boolean active;
