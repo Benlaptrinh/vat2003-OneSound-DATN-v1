@@ -6,13 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2572b773-f8d1-48be-ae0f-c85eb9c4476a" name="Changes" comment="merge PhuongGenre">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/SongController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/SongController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/entity/Song.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/entity/Song.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/SongController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/SongController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Song.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Song.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
