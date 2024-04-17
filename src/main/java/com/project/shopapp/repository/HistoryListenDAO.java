@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.project.shopapp.entity.HistoryListen;
 import com.project.shopapp.entity.ListeningStats;
+
+import jakarta.transaction.Transactional;
 
 /**
  * HistoryListenDAO
@@ -25,5 +28,9 @@ public interface HistoryListenDAO extends JpaRepository<HistoryListen, Long> {
     @Query("SELECT ls FROM HistoryListen ls WHERE ls.listenTime = :listenTime")
     List<HistoryListen> finfByListentime(@Param("listenTime") Date date);
 
-    void deleteByUserId(Long userId);
+    // void deleteAllByUserId(Long userId);
+
+    @Transactional
+    void deleteAllByUserId(Long userId);
+
 }
