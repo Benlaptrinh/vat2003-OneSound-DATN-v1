@@ -14,4 +14,6 @@ public interface HistoryListenServeice {
     List<HistoryListen> finfByUserId(@Param("userId") Long userId);
 
     List<HistoryListen> finfByListentime(@Param("listenTime") Date date);
+
+    void deleteAllHisByUserId(Long userId);
 }

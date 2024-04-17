@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,6 +46,14 @@ public class HistoryController {
     @GetMapping("/listen/get-by-user-id/{userId}")
     public List<HistoryListen> getMethodName(@PathVariable("userId") Long userId) {
         return historyListenServeice.finfByUserId(userId);
+    }
+
+    @DeleteMapping("/listen/delete/{userId}")
+    public void deleteHistory(@PathVariable("userId") Long userId) {
+        System.out.println("-----------------------------------------------");
+
+        historyListenServeice.deleteAllHisByUserId(userId);
+
     }
 
 }

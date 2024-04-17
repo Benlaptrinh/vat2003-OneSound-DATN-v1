@@ -17,11 +17,13 @@ import com.project.shopapp.entity.ListeningStats;
 public interface HistoryListenDAO extends JpaRepository<HistoryListen, Long> {
     @Query("SELECT ls FROM HistoryListen ls WHERE ls.song.id = :songId AND ls.userId = :userId AND ls.listenTime = :listenTime")
     Optional<HistoryListen> findBySongIdAndUserId(@Param("songId") Long songId, @Param("userId") Long userId,
-                                                  @Param("listenTime") Date listenTime);
+            @Param("listenTime") Date listenTime);
 
     @Query("SELECT ls FROM HistoryListen ls WHERE ls.userId = :userId order by ls.listenTime desc")
     List<HistoryListen> finfByUserId(@Param("userId") Long userId);
 
     @Query("SELECT ls FROM HistoryListen ls WHERE ls.listenTime = :listenTime")
     List<HistoryListen> finfByListentime(@Param("listenTime") Date date);
+
+    void deleteByUserId(Long userId);
 }
