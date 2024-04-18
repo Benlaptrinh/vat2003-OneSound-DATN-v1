@@ -1,5 +1,9 @@
 package com.project.shopapp.controller;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -58,12 +62,18 @@ public class PlaylistController {
 
     @PostMapping("/Playlist")
     public ResponseEntity<?> createPlaylist(@RequestBody Map<String, Object> playlistData) {
+        LocalDateTime todayLocalDate = LocalDateTime.now();
+        // Chuyển đổi từ LocalDate sang Date
+        ZonedDateTime zonedDateTime = todayLocalDate.atZone(ZoneId.systemDefault());
+        System.out.println("------------------------->" + zonedDateTime);
+        // Chuyển đổi ZonedDateTime sang Instant và sau đó sang Date
+        Date todayDate = Date.from(zonedDateTime.toInstant());
         try {
             String name = (String) playlistData.get("name");
             Long userId = ((Number) ((Map<?, ?>) playlistData.get("user_id")).get("id")).longValue();
             Playlist playlist = new Playlist();
             playlist.setName(name);
-            Playlist createdPlaylist = PlaylistService.createPlaylist(playlist, userId);
+            Playlist createdPlaylist = PlaylistService.createPlaylist(playlist, userId, todayDate);
             return ResponseEntity.ok(createdPlaylist);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

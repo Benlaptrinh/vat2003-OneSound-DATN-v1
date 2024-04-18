@@ -29,6 +29,7 @@ public class Playlist {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
+	private Date likeDate;
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)

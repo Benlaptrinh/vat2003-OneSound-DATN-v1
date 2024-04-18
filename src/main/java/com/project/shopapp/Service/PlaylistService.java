@@ -1,5 +1,6 @@
 package com.project.shopapp.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +12,7 @@ import com.project.shopapp.entity.PlaylistSong;
 public interface PlaylistService {
     List<Playlist> getAllPlaylist();
 
-    Playlist createPlaylist(Playlist playlist, Long userId);
+    Playlist createPlaylist(Playlist playlist, Long userId, Date likeDate);
 
     Playlist updatePlaylist(Long id, Playlist playlist);
 

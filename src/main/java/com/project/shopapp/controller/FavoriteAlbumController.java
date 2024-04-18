@@ -72,11 +72,12 @@ public class FavoriteAlbumController {
         }
     }
 
-    @GetMapping("/favoriteAlbum/isAlbumLiked")
-    public ResponseEntity<?> isAlbumLikedByUser(@RequestBody Map<String, Long> requestBody) {
+    @GetMapping("/favoriteAlbum/isAlbumLiked/{accountId}/{albumId}")
+    public ResponseEntity<?> isAlbumLikedByUser(@PathVariable Long accountId, @PathVariable Long albumId) {
+//    public ResponseEntity<?> isAlbumLikedByUser(@RequestBody Map<String, Long> requestBody) {
         try {
-            Long accountId = requestBody.get("accountId");
-            Long albumId = requestBody.get("albumId");
+//            Long accountId = requestBody.get("accountId");
+//            Long albumId = requestBody.get("albumId");
 
             FavoriteAlbum favoriteAlbum = favoriteAlbumService.getFavoriteAlbumByUserAndAlbum(accountId, albumId);
 

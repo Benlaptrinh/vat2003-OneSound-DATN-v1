@@ -1,5 +1,6 @@
 package com.project.shopapp.Service.imp;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +28,12 @@ public class PlaylistIServicemlp implements PlaylistService {
     }
 
     @Override
-    public Playlist createPlaylist(Playlist playlist, Long userId) {
+    public Playlist createPlaylist(Playlist playlist, Long userId, Date likeDate) {
         Optional<Account> userOptional = AccountDAO.findById(userId);
         Account user = userOptional.orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         playlist.setUser_id(user);
+        playlist.setLikeDate(likeDate);
 
         return dao.save(playlist);
     }

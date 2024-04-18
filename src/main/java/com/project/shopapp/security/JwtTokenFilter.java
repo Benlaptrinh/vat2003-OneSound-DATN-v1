@@ -85,6 +85,13 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of(String.format("%s/SongAuthor", apiPrefix), "GET"),
                 Pair.of(String.format("%s/singerAlbum", apiPrefix), "GET"),
 
+                Pair.of(String.format("%s/favoriteAlbum", apiPrefix), "GET"),
+                Pair.of(String.format("%s/favoriteAlbum", apiPrefix), "PUT"),
+                Pair.of(String.format("%s/favoriteAlbum", apiPrefix), "DELETE"),
+                Pair.of(String.format("%s/favoriteAlbum/", apiPrefix), "GET"),
+                Pair.of(String.format("%s/favoriteAlbum/", apiPrefix), "PUT"),
+                Pair.of(String.format("%s/favoriteAlbum/", apiPrefix), "DELETE"),
+
                 Pair.of(String.format("%s/album", apiPrefix), "GET"),
                 Pair.of(String.format("%s/Genre", apiPrefix), "GET"),
                 Pair.of(String.format("%s/Singer", apiPrefix), "GET"),
