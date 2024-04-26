@@ -8,21 +8,14 @@
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/5bfa46ba-ea3e-4b0c-8f59-ed4045f67504.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5bfa46ba-ea3e-4b0c-8f59-ed4045f67504.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9e87ae90-50ea-4004-8eb9-c09e026a5390.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9e87ae90-50ea-4004-8eb9-c09e026a5390.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/JwtTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/JwtTokenFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/security/WebSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/TokenRepositoryDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/TokenRepositoryDAO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/JwtTokenFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/JwtTokenFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/WebSecurityConfig$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/WebSecurityConfig$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/WebSecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/security/WebSecurityConfig.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/shopapp-0.0.1-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/shopapp-0.0.1-SNAPSHOT.jar.original" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/AccountController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/AccountController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/SongController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/controller/SongController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Song.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/entity/Song.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/TokenRepositoryDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/TokenRepositoryDAO.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,6 +156,8 @@
       <workItem from="1713235436530" duration="4316000" />
       <workItem from="1713250512844" duration="4551000" />
       <workItem from="1713322330076" duration="284000" />
+      <workItem from="1714150630728" duration="120000" />
+      <workItem from="1708794019891" duration="112000" />
     </task>
     <task id="LOCAL-00001" summary="change a little">
       <option name="closed" value="true" />
@@ -225,14 +220,29 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/PlaylistSongController.java</url>
           <line>97</line>
-          <properties class="com.project.shopapp.controller.PlaylistSongController">
+          <properties class="com.project.shopapp.controller.PlaylistSongController" method="removeSongFromPlaylist">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/project/shopapp/controller/AccountController.java</url>
+          <line>303</line>
+          <properties class="com.project.shopapp.controller.AccountController" method="resetPasswordForm">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="((InvalidDataAccessApiUsageException)e).cause" custom="org.springframework.dao.InvalidDataAccessApiUsageException" />
+        <watch expression="((InvalidDataAccessApiUsageException)e).detailMessage" language="JAVA" custom="org.springframework.dao.InvalidDataAccessApiUsageException" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/vat2003_OneSound_DATN_v1$ShopappApplication.ic" NAME="ShopappApplication Coverage Results" MODIFIED="1710836108824" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

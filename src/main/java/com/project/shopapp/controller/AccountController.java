@@ -7,6 +7,7 @@ import com.project.shopapp.utils.UpdateUserDTO;
 import com.project.shopapp.utils.thongbao;
 
 import jakarta.mail.internet.MimeMessage;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -298,7 +299,7 @@ public class AccountController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
+    @Transactional
     @GetMapping("/resetPassword/token/{token}")
     public ResponseEntity<?> resetPasswordForm(@PathVariable String token) {
         try {
