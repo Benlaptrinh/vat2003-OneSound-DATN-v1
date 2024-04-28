@@ -177,6 +177,7 @@ public class AccountController {
         // Set the recipient's email to the desired one
         String recipientEmail = "danghuutai2923@gmail.com";
 
+        System.out.println("EMAIL == " + request.getEmail() + " Recipient == " + recipientEmail + " Request == " + request);
         // Call the method with the sender's email and the fixed recipient's email
         AccountServiceImlp.sendEmailFedd(request.getEmail(), recipientEmail, request);
 
@@ -185,7 +186,7 @@ public class AccountController {
 
     @PostMapping("/register")
     public ResponseEntity<?> createUser(@Valid @RequestBody Account Account,
-            BindingResult result) {
+                                        BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -203,7 +204,7 @@ public class AccountController {
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@Valid @RequestBody Account Account,
-            BindingResult result) {
+                                    BindingResult result) {
         if (result.hasErrors()) {
             Map<String, String> errors = new HashMap<>();
             for (FieldError error : result.getFieldErrors()) {
@@ -299,6 +300,7 @@ public class AccountController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
     @Transactional
     @GetMapping("/resetPassword/token/{token}")
     public ResponseEntity<?> resetPasswordForm(@PathVariable String token) {

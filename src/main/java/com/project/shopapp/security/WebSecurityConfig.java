@@ -151,6 +151,12 @@ public class WebSecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/Song**", apiPrefix))
                             .permitAll()
+                            .requestMatchers(POST,
+                                    String.format("%s/feed**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(PUT,
+                                    String.format("%s/feed**", apiPrefix))
+                            .permitAll()
 
                             // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^//
                             // ------------------------SONG-GENRE--------------------//
