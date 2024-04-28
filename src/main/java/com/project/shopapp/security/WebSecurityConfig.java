@@ -299,6 +299,13 @@ public class WebSecurityConfig {
                                     String.format("%s/listen/**", apiPrefix))
                             .permitAll()
 
+                            .requestMatchers(GET,
+                                    String.format("%s/listen/**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(DELETE,
+                                    String.format("%s/listen/**", apiPrefix))
+                            .permitAll()
+
                             .anyRequest().authenticated();
 
                 })
