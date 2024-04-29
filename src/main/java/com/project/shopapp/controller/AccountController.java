@@ -321,7 +321,6 @@ public class AccountController {
         try {
 
             Account updatedAccount = accountService.UpdatePassUser(email, UpdateUserDTO);
-            // AccountServiceImlp.sendEmaildoimk(updatedAccount);
             return ResponseEntity.ok(updatedAccount);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e);
@@ -339,11 +338,7 @@ public class AccountController {
         }
     }
 
-    // @GetMapping("/email")
-    // public ResponseEntity<Account> getUserByEmail(@RequestParam String mail) {
-    // Account account = accountService.getAccountByEmail(mail);
-    // return ResponseEntity.ok(account);
-    // }
+
 
     @GetMapping("/email/{email}")
     public ResponseEntity<Boolean> checkIfUserExistsByEmail(@PathVariable String email) {

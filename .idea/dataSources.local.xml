@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal" created-in="IU-233.13135.103">
+  <component name="dataSourceStorageLocal" created-in="IU-233.15026.9">
     <data-source name="DATN_OneSound@localhost" uuid="5bfa46ba-ea3e-4b0c-8f59-ed4045f67504">
       <database-info product="Microsoft SQL Server" version="16.00.1110" jdbc-version="4.2" driver-name="Microsoft JDBC Driver 12.2 for SQL Server" driver-version="12.2.0.0" dbms="MSSQL" exact-version="16.0.1110" exact-driver-version="12.2">
         <extra-name-characters>$#@</extra-name-characters>
@@ -17,8 +17,8 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="OneSound090424@localhost" uuid="9e87ae90-50ea-4004-8eb9-c09e026a5390">
-      <database-info product="Microsoft SQL Server" version="16.00.1110" jdbc-version="4.2" driver-name="Microsoft JDBC Driver 12.2 for SQL Server" driver-version="12.2.0.0" dbms="MSSQL" exact-version="16.0.1110" exact-driver-version="12.2">
+    <data-source name="DATN_OneSound@localhost [2]" uuid="ed013a02-2942-4520-94da-5e0aac6f45a0">
+      <database-info product="Microsoft SQL Server" version="15.00.2000" jdbc-version="4.2" driver-name="Microsoft JDBC Driver 12.2 for SQL Server" driver-version="12.2.0.0" dbms="MSSQL" exact-version="15.0.2000" exact-driver-version="12.2">
         <extra-name-characters>$#@</extra-name-characters>
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>

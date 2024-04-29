@@ -61,6 +61,7 @@ public class AccountServiceImlp implements AccountService {
 
     @Override
     public Account updateAccount(Long id, UpdateUserDTO updateUserDTO) {
+
         Account existingUser = AccountDAO.findById(id)
                 .orElseThrow();
 
@@ -78,9 +79,15 @@ public class AccountServiceImlp implements AccountService {
             existingUser.setAddress(updateUserDTO.getAddress());
         }
 
-        if (updateUserDTO.getCreatedDate() != null) {
-            existingUser.setCreatedDate(updateUserDTO.getCreatedDate());
-        }
+        // if (updateUserDTO.getCreatedDate() != null) {
+        // existingUser.setCreatedDate(updateUserDTO.getCreatedDate());
+        // }
+
+        // if (updateUserDTO.getBirthday() == null) {
+        // }
+
+        existingUser.setBirthday(updateUserDTO.getBirthday());
+
         if (updateUserDTO.getAvatar_url() != null) {
             existingUser.setAvatar_url(updateUserDTO.getAvatar_url());
         }
@@ -367,6 +374,7 @@ public class AccountServiceImlp implements AccountService {
             return "error";
         }
     }
+
     @Override
     public Account updateAccountActive(Long id, Account account) {
         Account existingAccount = AccountDAO.findById(id).orElse(null);
@@ -382,6 +390,7 @@ public class AccountServiceImlp implements AccountService {
         Account updatedAccountEntity = AccountDAO.save(existingAccount);
         return updatedAccountEntity;
     }
+
     public String sendEmaildoimk(Account user) {
         try {
             String resetLink = generateResetToken(user);
@@ -530,7 +539,6 @@ public class AccountServiceImlp implements AccountService {
     public List<Account> getUserByOptionDate(Integer day, Integer month, Integer year) {
         return AccountDAO.getUserByOptionDate(day, month, year);
     }
-
 
     // @Override
     // public List<CountAccountByMonthDTO> getCountAccountByYear(Integer year) {

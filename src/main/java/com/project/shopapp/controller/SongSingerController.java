@@ -48,17 +48,6 @@ public class SongSingerController {
 		return SongSingerService.getAllSongSingers();
 	}
 
-	// @PostMapping("/SongSinger/create")
-	// public SongSinger createAlbum(@RequestBody SongSingerId SongSingerId) {
-	// return SongSingerService.addSongSinger(SongSingerId);
-
-	// }
-
-//    @PostMapping("SongSinger/create")
-//    public SongSinger createAlbum(@RequestBody SongSingerId SongSingerId) {
-//        return SongSingerService.addSongSinger(SongSingerId);
-//    }
-
 	@PostMapping("SongSinger/create")
 	public SongSinger createAlbum(@RequestBody SongSingerId songSingerId) {
 		System.out.println("Singer: ------------------->" + songSingerId.getSingerId());
@@ -66,18 +55,18 @@ public class SongSingerController {
 		return SongSingerService.createSongSinger(songSingerId);
 	}
 
-//    @DeleteMapping("SongSinger/delete-by-singer/{id}")
-//    public void deleteBySinger(@PathVariable("id") Long SongSingerId) {
-//    	List<SongSinger> ss=SongSingerService.findById(SongSingerId);
-//        SongSingerService.deleteAll(ss);
-//    }
-//    
+	// @DeleteMapping("SongSinger/delete-by-singer/{id}")
+	// public void deleteBySinger(@PathVariable("id") Long SongSingerId) {
+	// List<SongSinger> ss=SongSingerService.findById(SongSingerId);
+	// SongSingerService.deleteAll(ss);
+	// }
+	//
 	@GetMapping("SongSinger/get-by-song/{id}")
 	public List<SongSinger> getBySongSinger(@PathVariable("id") Long SongSingerId) {
 		List<SongSinger> ss = dao.findBySongId(SongSingerId);
 		return ss;
 	}
-	
+
 	@GetMapping("SongSinger/get-by-singer/{id}")
 	public List<SongSinger> getBySongSingerID(@PathVariable("id") Long SongSingerId) {
 		List<SongSinger> ss = dao.findBySingerId(SongSingerId);
@@ -88,11 +77,5 @@ public class SongSingerController {
 	public void deleteBySong(@PathVariable("id") Long SongSingerId) {
 		SongSingerService.deleteBySongId(SongSingerId);
 	}
-
-	// Xóa singer album theo album id
-//    @DeleteMapping("SongSinger/deleteByAlbumId/{id}")
-//    public void deleteByAlbumId(@PsathVariable("id") Long AlbumId) {
-//        SongSingerService.removeSongSinger(AlbumId);
-//    }
 
 }

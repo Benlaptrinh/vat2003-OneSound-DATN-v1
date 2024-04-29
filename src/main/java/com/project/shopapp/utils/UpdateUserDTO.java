@@ -39,6 +39,6 @@ public class UpdateUserDTO {
     private Role accountRole;
 
     @Temporal(TemporalType.DATE)
-    private Date createdDate = new Date();
+    private Date birthday;
 
 }

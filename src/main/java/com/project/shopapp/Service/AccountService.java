@@ -18,7 +18,9 @@ public interface AccountService {
     List<Account> getAllAccount();
 
     Account getUserDetailsFromToken(String token) throws Exception;
+
     Account updateAccountActive(Long id, Account account);
+
     Page<Account> getAllAccount(Pageable pageable);
 
     Account createAccount(Account account);

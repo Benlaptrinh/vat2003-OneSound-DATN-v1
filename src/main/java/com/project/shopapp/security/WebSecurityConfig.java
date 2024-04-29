@@ -104,6 +104,7 @@ public class WebSecurityConfig {
                                                         .requestMatchers(GET,
                                                                         String.format("%s/Role**", apiPrefix))
                                                         .permitAll()
+
                                                         .requestMatchers(GET,
                                                                         String.format("%s/comments**", apiPrefix))
                                                         .permitAll()
