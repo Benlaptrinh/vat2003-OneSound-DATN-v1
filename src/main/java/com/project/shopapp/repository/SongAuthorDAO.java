@@ -9,7 +9,10 @@ import com.project.shopapp.entity.SongAuthor;
 import com.project.shopapp.entity.SongSinger;
 
 public interface SongAuthorDAO extends JpaRepository<SongAuthor, SongAuthorId> {
-	List<SongAuthor> findByAuthorId(Long singer);
-	List<SongAuthor> findBySongId(Long singer);
-	void deleteBySongId(long id);
+    List<SongAuthor> findByAuthorId(Long singer);
+
+    List<SongAuthor> findBySongId(Long singer);
+
+    //    void deleteBySongId(long id);
+    void deleteBySongId(Long albumId);
 }

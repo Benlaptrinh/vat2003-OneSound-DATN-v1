@@ -172,7 +172,11 @@ public class WebSecurityConfig {
                             .requestMatchers(DELETE,
                                     String.format("%s/SongGenre/**", apiPrefix))
                             .permitAll()
+                            ///-----------
 
+                            .requestMatchers(DELETE,
+                                    String.format("%s/SongSinger/delete-by-song/**", apiPrefix))
+                            .permitAll()
                             .requestMatchers(PUT,
                                     String.format("%s/SongGenre**", apiPrefix))
                             .permitAll()

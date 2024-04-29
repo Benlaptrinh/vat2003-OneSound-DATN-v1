@@ -2,6 +2,7 @@ package com.project.shopapp.Service.imp;
 
 import java.util.List;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,7 @@ public class SongSingerServiceImlp implements SongSingerService {
    
 
     @Override
+//    @Transactional
     public void removeSongSinger(Long SongId) {
 
         // // Tìm kiếm Song
@@ -54,9 +56,17 @@ public class SongSingerServiceImlp implements SongSingerService {
 
     }
 
+
+
+//    @Override
+//    public void deleteBySongId(Long SongId) {
+//        SongSingerDao.deleteBySongId(SongId);
+//    }
+
     @Override
-    public void deleteBySongId(Long SongId) {
-        SongSingerDao.deleteBySongId(SongId);
+    @Transactional
+    public void deleteBySongId(Long songId) {
+        SongSingerDao.deleteBySongId(songId);
     }
 
 	@Override

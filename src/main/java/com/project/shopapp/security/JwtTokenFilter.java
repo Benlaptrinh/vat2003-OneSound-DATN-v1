@@ -33,8 +33,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
-            @NonNull HttpServletResponse response,
-            @NonNull FilterChain filterChain)
+                                    @NonNull HttpServletResponse response,
+                                    @NonNull FilterChain filterChain)
             throws ServletException, IOException {
 
         try {
@@ -89,7 +89,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of(String.format("%s/album", apiPrefix), "GET"),
                 Pair.of(String.format("%s/Genre", apiPrefix), "GET"),
                 Pair.of(String.format("%s/Singer", apiPrefix), "GET"),
-                // Pair.of(String.format("%s/Genre/Genree", apiPrefix), "GET"),
                 Pair.of(String.format("%s/users", apiPrefix), "GET"),
                 Pair.of(String.format("%s/users", apiPrefix), "POST"),
                 Pair.of(String.format("%s/users/register", apiPrefix), "POST"),
@@ -100,7 +99,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 Pair.of(String.format("%s/users/", apiPrefix), "GET"),
                 Pair.of(String.format("https://www.googleapis.com/youtube/v3/search/**", apiPrefix), "GET"),
                 Pair.of(String.format("%s/users/feed", apiPrefix), "POST"),
-                // Pair.of(String.format("%s/users/login/oauth2", apiPrefix), "POST"),
                 Pair.of(String.format("%s/emails", apiPrefix), "GET"),
                 Pair.of(String.format("%s/facebooks", apiPrefix), "GET"),
                 Pair.of(String.format("%s/githubs", apiPrefix), "GET"),
@@ -110,11 +108,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
                 Pair.of(String.format("%s/listen/", apiPrefix), "POST"),
                 Pair.of(String.format("%s/listen/", apiPrefix), "GET"),
-                Pair.of(String.format("%s/listen/", apiPrefix), "DELETE")
-        // Pair.of(String.format("%s/oauth2/login/google", apiPrefix), "GET"),
-        // Pair.of(String.format("%s/oauth2/login/facebook", apiPrefix), "GET"),
-        // Pair.of(String.format("%s/users/login/google", apiPrefix), "GET"),
-        // Pair.of(String.format("%s/oauth2/get/info/google", apiPrefix), "GET")
+                Pair.of(String.format("%s/listen/", apiPrefix), "DELETE"),
+                Pair.of(String.format("%s/SongSinger/", apiPrefix), "DELETE"),
+                Pair.of(String.format("%s/SongAuthor/", apiPrefix), "DELETE"),
+                Pair.of(String.format("%s/SongGenre/", apiPrefix), "DELETE")
+                // Pair.of(String.format("%s/oauth2/login/google", apiPrefix), "GET"),
+                // Pair.of(String.format("%s/oauth2/login/facebook", apiPrefix), "GET"),
+                // Pair.of(String.format("%s/users/login/google", apiPrefix), "GET"),
+                // Pair.of(String.format("%s/oauth2/get/info/google", apiPrefix), "GET")
         );
 
         for (Pair<String, String> bypassToken : bypassTokens) {

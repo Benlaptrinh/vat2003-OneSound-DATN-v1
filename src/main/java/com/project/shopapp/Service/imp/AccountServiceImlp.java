@@ -78,9 +78,7 @@ public class AccountServiceImlp implements AccountService {
             existingUser.setAddress(updateUserDTO.getAddress());
         }
 
-        if (updateUserDTO.getCreatedDate() != null) {
-            existingUser.setCreatedDate(updateUserDTO.getCreatedDate());
-        }
+        existingUser.setBirthday(updateUserDTO.getBirthday());
         if (updateUserDTO.getAvatar_url() != null) {
             existingUser.setAvatar_url(updateUserDTO.getAvatar_url());
         }
@@ -327,7 +325,10 @@ public class AccountServiceImlp implements AccountService {
 
             helper.setFrom(senderEmail); // Set sender's email
             helper.setTo(recipientEmail); // Set fixed recipient's email
-            helper.setSubject(user.getReason());
+
+            String subject = "Feedback from '" + senderEmail + "' - '" + user.getReason() + "'";
+            helper.setSubject(subject);
+//            helper.setSubject(user.getReason());
             helper.setText(emailContent, true);
 
             javaMailSender.send(message);
@@ -367,6 +368,7 @@ public class AccountServiceImlp implements AccountService {
             return "error";
         }
     }
+
     @Override
     public Account updateAccountActive(Long id, Account account) {
         Account existingAccount = AccountDAO.findById(id).orElse(null);
@@ -382,6 +384,7 @@ public class AccountServiceImlp implements AccountService {
         Account updatedAccountEntity = AccountDAO.save(existingAccount);
         return updatedAccountEntity;
     }
+
     public String sendEmaildoimk(Account user) {
         try {
             String resetLink = generateResetToken(user);

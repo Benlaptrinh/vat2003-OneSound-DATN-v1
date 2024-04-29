@@ -2,6 +2,7 @@ package com.project.shopapp.Service.imp;
 
 import java.util.List;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class SongAuthorServiceImlp implements SongAuthorService {
 
     private final SongAuthorDAO SongAuthorDao;
 
+
     @Autowired
     AuthorDAO authorDAO;
 
@@ -38,7 +40,11 @@ public class SongAuthorServiceImlp implements SongAuthorService {
         return SongAuthorDao.findAll();
     }
 
-
+    @Override
+    @Transactional
+    public void deleteBySongId(Long songId) {
+        SongAuthorDao.deleteBySongId(songId);
+    }
 
     @Override
     public void removeSongAuthor(Long SongId) {
@@ -51,23 +57,23 @@ public class SongAuthorServiceImlp implements SongAuthorService {
 
     }
 
-    @Override
-    public void deleteBySongId(Long SongId) {
-        SongAuthorDao.deleteBySongId(SongId);
-    }
+//    @Override
+//    public void deleteBySongId(Long SongId) {
+//        SongAuthorDao.deleteBySongId(SongId);
+//    }
 
-	@Override
-	public SongAuthor createAuthor(SongAuthorId songAuthorId) {
-		SongAuthor sa = new SongAuthor();
-		
-		Song s = songDAO.findById(songAuthorId.getSongId()).get();
-		Author a = authorDAO.findById(songAuthorId.getAuthorId()).get();
-		
-		sa.setAuthor(a);
-		sa.setSong(s);
-		sa.setId(songAuthorId);
-		return SongAuthorDao.save(sa);
-		
-	}
+    @Override
+    public SongAuthor createAuthor(SongAuthorId songAuthorId) {
+        SongAuthor sa = new SongAuthor();
+
+        Song s = songDAO.findById(songAuthorId.getSongId()).get();
+        Author a = authorDAO.findById(songAuthorId.getAuthorId()).get();
+
+        sa.setAuthor(a);
+        sa.setSong(s);
+        sa.setId(songAuthorId);
+        return SongAuthorDao.save(sa);
+
+    }
 
 }

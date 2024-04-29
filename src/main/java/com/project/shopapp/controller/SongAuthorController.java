@@ -29,15 +29,15 @@ import com.project.shopapp.repository.SongAuthorDAO;
 @RequestMapping("${api.prefix}")
 public class SongAuthorController {
 
-	@Autowired
+    @Autowired
     SongAuthorDAO SongAuthorService;
-	
-	private final com.project.shopapp.Service.SongAuthorService saService;
 
-	@Autowired
-	public SongAuthorController(com.project.shopapp.Service.SongAuthorService saService) {
-		this.saService = saService;
-	}
+    private final com.project.shopapp.Service.SongAuthorService saService;
+
+    @Autowired
+    public SongAuthorController(com.project.shopapp.Service.SongAuthorService saService) {
+        this.saService = saService;
+    }
 
 
     @GetMapping("SongAuthor/getall")
@@ -52,11 +52,11 @@ public class SongAuthorController {
     // }
     @PostMapping("SongAuthor/create")
     public SongAuthor createSongAuthor(@RequestBody SongAuthorId SongAuthorId) {
-    	System.out.println("author: ------------------->" + SongAuthorId.getAuthorId());
-		System.out.println("Song: ------------------->" + SongAuthorId.getSongId());
+        System.out.println("author: ------------------->" + SongAuthorId.getAuthorId());
+        System.out.println("Song: ------------------->" + SongAuthorId.getSongId());
         return saService.createAuthor(SongAuthorId);
     }
-    
+
     @PutMapping("SongAuthor/update")
     public SongAuthor updateSongAuthor(@RequestBody SongAuthor SongAuthorId) {
         return SongAuthorService.save(SongAuthorId);
@@ -64,18 +64,22 @@ public class SongAuthorController {
 
     @DeleteMapping("SongAuthor/delete-by-author/{id}")
     public void deleteByAuthor(@PathVariable("id") Long SongAuthorId) {
-    	List<SongAuthor> ss=SongAuthorService.findByAuthorId(SongAuthorId);
+        List<SongAuthor> ss = SongAuthorService.findByAuthorId(SongAuthorId);
         SongAuthorService.deleteAll(ss);
     }
-    
+
     @DeleteMapping("SongAuthor/delete-by-song/{id}")
     public void deleteBySong(@PathVariable("id") Long SongAuthorId) {
-        SongAuthorService.deleteBySongId(SongAuthorId);
+        saService.deleteBySongId(SongAuthorId);
     }
+//    @DeleteMapping("SongAuthor/delete-by-song/{id}")
+//    public void deleteBySong(@PathVariable("id") Long SongAuthorId) {
+//        SongAuthorService.deleteBySongId(SongAuthorId);
+//    }
 
     @GetMapping("SongAuthor/get-by-song/{id}")
     public List<SongAuthor> getBySongAuthor(@PathVariable("id") Long SongAuthorId) {
-    	List<SongAuthor> ss=SongAuthorService.findBySongId(SongAuthorId);
+        List<SongAuthor> ss = SongAuthorService.findBySongId(SongAuthorId);
         return ss;
     }
 
