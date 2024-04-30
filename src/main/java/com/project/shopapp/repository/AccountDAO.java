@@ -61,23 +61,17 @@ public interface AccountDAO extends JpaRepository<Account, Long> {
     @Query("SELECT a FROM Account a WHERE FUNCTION('YEAR', a.createdDate) = :year")
     List<Account> countAccountByYearOfCreateDate(@Param("year") Integer year);
 
-    @Query(value = "EXEC count_users_and_creation_dates :p_day, :p_month, :p_year", nativeQuery = true)
+//    @Query(value = "EXEC count_users_and_creation_dates :p_day, :p_month, :p_year", nativeQuery = true)
+    @Procedure(name = "count_users_and_creation_dates")
     List<Account> getUserByOptionDate(@Param("p_day") Integer day, @Param("p_month") Integer month,
             @Param("p_year") Integer year);
 
     // @Query("SELECT new CountAccountByMonthDTO(COUNT(a) as count,
-    // MONTH(a.createdDate) as month) from Account a where YEAR(a.createdDate) =
-    // :year group by MONTH(a.createdDate) order by MONTH(a.createdDate) asc")
-    // List<CountAccountByMonthDTO> getCountAccountByYear(Integer year);
-
-    // @Query("Select new ReportAccountByYear(COUNT(a), MONTH(a.createdDate)) from
-    // Account a where YEAR(a.createdDate) = :year group by MONTH(a.createdDate)
-    // order by MONTH(a.createdDate) asc ")
-    // List<ReportAccountByYear> getCountAccountByYear(Integer year);
 
     @Query("Select new ReportAccountByYear(COUNT(a), MONTH(a.createdDate)) from Account a group by MONTH(a.createdDate)")
     List<ReportAccountByYear> getMonthOfCreateDate();
 
-    @Query(value = "EXEC get_user_by_year_order_by_month_of_create_date :p_year", nativeQuery = true)
+//    @Query(value = "EXEC get_user_by_year_order_by_month_of_create_date :p_year", nativeQuery = true)
+    @Procedure(name = "get_user_by_year_order_by_month_of_create_date")
     List<Object[]> getCountAccountByYear(@Param("p_year") Integer year);
 }

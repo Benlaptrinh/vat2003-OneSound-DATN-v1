@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,8 +58,9 @@ public class SongGenreServiceImlp implements SongGenreService {
     }
 
     @Override
-    public void deleteBySongId(Long SongId) {
-        SongGenreDao.deleteBySongId(SongId);
+    @Transactional
+    public void deleteBySongId(Long songId) {
+        SongGenreDao.deleteBySongId(songId);
     }
 
     @Override

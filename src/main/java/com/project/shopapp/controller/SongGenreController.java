@@ -2,6 +2,9 @@ package com.project.shopapp.controller;
 
 import java.util.List;
 
+import com.project.shopapp.Service.SongAuthorService;
+import com.project.shopapp.Service.SongGenreService;
+import com.project.shopapp.Service.SongSingerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,11 +39,12 @@ public class SongGenreController {
 	@Autowired
 	SongGenreDAO dao;
 
+
 	private final com.project.shopapp.Service.SongGenreService SongGenreService;
 
 	@Autowired
-	public SongGenreController(com.project.shopapp.Service.SongGenreService GenreAlbumService) {
-		this.SongGenreService = GenreAlbumService;
+	public SongGenreController(com.project.shopapp.Service.SongGenreService SingerAlbumService) {
+		this.SongGenreService = SingerAlbumService;
 	}
 
 	@GetMapping("SongGenre/getall")
@@ -85,8 +89,8 @@ public class SongGenreController {
 	}
 
 	@DeleteMapping("SongGenre/delete-by-song/{id}")
-	public void deleteBySong(@PathVariable("id") Long SongGenreId) {
-		SongGenreService.deleteBySongId(SongGenreId);
+	public void deleteBySong(@PathVariable("id") Long SongSingerId) {
+		SongGenreService.deleteBySongId(SongSingerId);
 	}
 
 	// Xóa Genre album theo album id
