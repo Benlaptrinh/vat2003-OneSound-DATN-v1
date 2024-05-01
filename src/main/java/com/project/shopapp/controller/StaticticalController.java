@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Locale;
 
 import com.project.shopapp.repository.*;
+import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -99,7 +101,7 @@ public class StaticticalController {
 
     @GetMapping("/statictical/get-count-user-by-create-date/{date1}/{date2}")
     public List<CountAccountDTO> getAllAccountByBetweenCreatedDate(@PathVariable("date1") Long d1,
-            @PathVariable("date2") Long d2) throws ParseException {
+                                                                   @PathVariable("date2") Long d2) throws ParseException {
 
         Date date1 = new Date(d1);
         Date date2 = new Date(d2);
@@ -126,7 +128,7 @@ public class StaticticalController {
 
     @GetMapping("/statictical/get-user-by-option-date/{day}/{month}/{year}")
     public List<Account> getUserByOptionDate(@PathVariable("day") Integer day, @PathVariable("month") Integer month,
-            @PathVariable("year") Integer year) {
+                                             @PathVariable("year") Integer year) {
         System.out.println("-----------------------" + year);
         if (day != null && day == -1) {
             day = null;
@@ -145,9 +147,6 @@ public class StaticticalController {
         List<Object[]> reportList = new ArrayList<>();
         List<ReportAccountByYear> rpList = new ArrayList<>();
         reportList = accountDAO.getCountAccountByYear(year);
-        // for (ReportAccountByYear reportAccountByYear : reportList) {
-        // System.out.println(reportAccountByYear.getMonth());
-        // }
 
         for (Object[] obj : reportList) {
             Long count = Long.parseLong(String.valueOf(obj[0])); // Ép kiểu và chuyển đổi sang Long
@@ -176,7 +175,7 @@ public class StaticticalController {
 
     @GetMapping("/statictical/listens/between/{formDate}/{toDate}")
     public List<ListeningStats> getListensBetWeenDateLis(@PathVariable("formDate") Long formDate,
-            @PathVariable("toDate") Long toDate) {
+                                                         @PathVariable("toDate") Long toDate) {
         Date date1 = new Date(formDate);
         Date date2 = new Date(toDate);
 
@@ -194,6 +193,7 @@ public class StaticticalController {
         }
         return top10Listens;
     }
+
     @GetMapping("/statictical/get-song")
     public List<Integer> getSong() {
         return songDAO.staticSong();

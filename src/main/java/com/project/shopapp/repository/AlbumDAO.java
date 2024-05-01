@@ -14,13 +14,13 @@ public interface AlbumDAO extends JpaRepository<Album, Long> {
 
     Page<Album> findByTitleContainingIgnoreCase(String title, Pageable pageable);
 
-    @Query("SELECT a FROM Album a WHERE LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%'))")
+    @Query("SELECT a FROM Album a WHERE LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%')) order by a.id desc")
     Page<Album> searchByTitle(String title, Pageable pageable);
 
-    @Query("SELECT a FROM Album a WHERE LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%'))")
+    @Query("SELECT a FROM Album a WHERE LOWER(a.title) LIKE LOWER(CONCAT('%', :title, '%')) order by a.id desc")
     List<Album> searchByTitle(String title);
 
-    @Query("SELECT a FROM Album a WHERE a.active = true")
+    @Query("SELECT a FROM Album a WHERE a.active = true order by a.id desc")
     List<Album> findAllActiveAlbums();
 
     @Query("SELECT a FROM Album a WHERE a.active = false")

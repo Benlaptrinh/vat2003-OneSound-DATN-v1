@@ -21,4 +21,7 @@ public interface PlaylistDAO extends JpaRepository<Playlist, Long> {
 
     @Procedure(name = "DeletePlaylistAndSongsalong")
     void deletePlaylistAndSongsalong(@Param("playlistId") Long playlistId);
+
+    @Query("SELECT p FROM Playlist p JOIN p.user_id u WHERE p.name = :name AND u.id = :userId")
+    Optional<Playlist> findByNameAndUserId(String name, Long userId);
 }

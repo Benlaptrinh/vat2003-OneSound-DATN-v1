@@ -320,17 +320,81 @@ public class AccountServiceImlp implements AccountService {
     public String sendEmailFedd(String senderEmail, String recipientEmail, FeedRequest user) {
         try {
             String emailContent = user.getContent();
+            String htmlContent = "<!DOCTYPE html>\r\n" + //
+                    "<html lang=\"en\">\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "<head>\r\n" + //
+                    "\r\n" + //
+                    "  <meta charset=\"UTF-8\">\r\n" + //
+                    "\r\n" + //
+                    "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n" + //
+                    "  <title>Email Notification</title>\r\n" + //
+                    "  <style>\r\n" + //
+                    "    body {\r\n" + //
+                    "      font-family: Arial, sans-serif;\r\n" + //
+                    "      margin: 10px;\r\n" + //
+                    "      padding: 0;\r\n" + //
+                    "      background-color: #f5f5f5;\r\n" + //
+                    "    }\r\n" + //
+                    "\r\n" + //
+                    "    .container {\r\n" + //
+                    "      max-width: 600px;\r\n" + //
+                    "      margin: 20px auto;\r\n" + //
+                    "      background-color: #ffffff;\r\n" + //
+                    "      padding: 20px;\r\n" + //
+                    "      border-radius: 10px;\r\n" + //
+                    "      border: 1px solid black;\r\n" + //
+
+                    "      box-shadow: 0 0 10px rgba(12, 143, 199, 0.1);\r\n" + //
+                    "    }\r\n" + //
+                    "\r\n" + //
+                    "    h1 {\r\n" + //
+                    "      color: #333333;\r\n" + //
+                    "      text-align: center;\r\n" + //
+                    "      margin-bottom: 30px;\r\n" + //
+                    "    }\r\n" + //
+                    "\r\n" + //
+                    "    p {\r\n" + //
+                    "      color: #666666;\r\n" + //
+                    "      font-size: 16px;\r\n" + //
+                    "      line-height: 1.5;\r\n" + //
+                    "    }\r\n" + //
+                    "\r\n" + //
+                    "    .contact-info {\r\n" + //
+                    "      text-align: center;\r\n" + //
+                    "      color: #999999;\r\n" + //
+                    "      font-size: 14px;\r\n" + //
+                    "    }\r\n" + //
+                    "  </style>\r\n" + //
+                    "\r\n" + //
+                    "</head>\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "<body>\r\n" + //
+                    "  <div class=\"container\">\r\n" + //
+                    "    <h1>Email Notification</h1>\r\n" + //
+                    "    <p>Hello, " + user.getEmail() + " </p>\r\n" + //
+                    "    <p>This is a notification regarding: " + user.getReason() + ".</p>\r\n" + //
+                    "    <p>Here is the content: <b> " + user.getContent() + " </b></p>\r\n" + //
+                    "\r\n" + //
+                    "    <div class=\"contact-info\">\r\n" + //
+                    "      <p>Contact: 0999999999</p>\r\n" + //
+                    "    </div>\r\n" + //
+                    "  </div>\r\n" + //
+                    "</body>\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "</html>;";
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 
-            helper.setFrom(senderEmail); // Set sender's email
-            helper.setTo(recipientEmail); // Set fixed recipient's email
-
-            String subject = "Feedback from '" + senderEmail + "' - '" + user.getReason() + "'";
-            helper.setSubject(subject);
-//            helper.setSubject(user.getReason());
-            helper.setText(emailContent, true);
+            helper.setFrom(senderEmail);
+            helper.setTo(recipientEmail);
+            String sub = "FeedBack from " + senderEmail + " - " + user.getReason();
+            helper.setSubject(sub);
+            helper.setText(htmlContent, true);
 
             javaMailSender.send(message);
             return "success";

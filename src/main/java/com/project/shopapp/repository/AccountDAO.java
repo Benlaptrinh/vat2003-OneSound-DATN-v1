@@ -20,12 +20,14 @@ import com.project.shopapp.entity.Role;
 
 public interface AccountDAO extends JpaRepository<Account, Long> {
     Optional<Account> findByEmail(String email);
+
     List<Account> findByAccountRole(Role accountRole);
-    
+
     boolean existsByEmail(String email);
 
     @Query("SELECT a FROM Account a WHERE LOWER(a.fullname) LIKE LOWER(CONCAT('%', :fullname, '%'))")
     Page<Account> findByFullnamePage(String fullname, Pageable pageable);
+
     @Query("SELECT COUNT(id) FROM Account id")
     long getTotalUsers();
 
@@ -64,7 +66,7 @@ public interface AccountDAO extends JpaRepository<Account, Long> {
     @Query(value = "EXEC count_users_and_creation_dates :p_day, :p_month, :p_year", nativeQuery = true)
 //    @Procedure(name = "count_users_and_creation_dates")
     List<Account> getUserByOptionDate(@Param("p_day") Integer day, @Param("p_month") Integer month,
-            @Param("p_year") Integer year);
+                                      @Param("p_year") Integer year);
 
     // @Query("SELECT new CountAccountByMonthDTO(COUNT(a) as count,
 
@@ -75,6 +77,7 @@ public interface AccountDAO extends JpaRepository<Account, Long> {
 //    @Procedure(name = "get_user_by_year_order_by_month_of_create_date")
 //    List<Object[]> getCountAccountByYear(@Param("p_year") Integer year);
 
-    @Query(value = "EXEC get_user_by_year_order_by_month_of_create_date :p_year", nativeQuery = true)
+    //    @Query(value = "EXEC get_user_by_year_order_by_month_of_create_date :p_year", nativeQuery = true)
+    @Procedure(name = "get_user_by_year_order_by_month_of_create_date")
     List<Object[]> getCountAccountByYear(@Param("p_year") Integer year);
 }

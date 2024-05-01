@@ -23,4 +23,6 @@ public interface PlaylistService {
 
     List<Playlist> findByUser_id(Long userId);
 
+    Optional<Playlist> findByNameAnUser(String name, Long id);
+
 }

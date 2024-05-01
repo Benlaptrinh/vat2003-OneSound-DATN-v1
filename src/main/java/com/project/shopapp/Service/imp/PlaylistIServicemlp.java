@@ -35,7 +35,11 @@ public class PlaylistIServicemlp implements PlaylistService {
 
         return dao.save(playlist);
     }
+    @Override
+    public Optional<Playlist> findByNameAnUser(String name, Long id) {
+        return dao.findByNameAndUserId(name, id);
 
+    }
     @Override
     public Playlist updatePlaylist(Long id, Playlist playlist) {
         Optional<Playlist> existingPlaylistOptional = dao.findById(id);
