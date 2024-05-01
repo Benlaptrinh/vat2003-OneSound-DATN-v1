@@ -63,4 +63,17 @@ public class HistoryController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
         }
     }
+
+    // deleteByUserIdAndSongId
+
+    @DeleteMapping("/listen/delete/one/{id}")
+    public ResponseEntity<?> deleteOneRecord(@PathVariable("id") Long id) {
+        try {
+            listenDAO.deleteByUserIdAndSongId(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            String errorMessage = "Đã xảy ra lỗi khi xóa lịch sử nghe nhạc của người dùng có ID: " + id;
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorMessage);
+        }
+    }
 }

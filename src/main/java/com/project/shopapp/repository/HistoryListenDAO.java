@@ -20,7 +20,7 @@ import jakarta.transaction.Transactional;
 public interface HistoryListenDAO extends JpaRepository<HistoryListen, Long> {
     @Query("SELECT ls FROM HistoryListen ls WHERE ls.song.id = :songId AND ls.userId = :userId AND ls.listenTime = :listenTime")
     Optional<HistoryListen> findBySongIdAndUserId(@Param("songId") Long songId, @Param("userId") Long userId,
-            @Param("listenTime") Date listenTime);
+                                                  @Param("listenTime") Date listenTime);
 
     @Query("SELECT ls FROM HistoryListen ls WHERE ls.userId = :userId order by ls.listenTime desc")
     List<HistoryListen> finfByUserId(@Param("userId") Long userId);
@@ -32,5 +32,10 @@ public interface HistoryListenDAO extends JpaRepository<HistoryListen, Long> {
 
     @Transactional
     void deleteAllByUserId(Long userId);
+
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM HistoryListen hl WHERE hl.id = :id")
+    void deleteByUserIdAndSongId(@Param("id") Long id);
 
 }

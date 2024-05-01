@@ -54,4 +54,9 @@ public class HistoryListenServeiceImlp implements HistoryListenServeice {
         listenDAO.deleteAllByUserId(userId);
     }
 
+    @Override
+    public void deleteByUserIdAndSongId(Long id) {
+        listenDAO.deleteByUserIdAndSongId(id);
+    }
+
 }
