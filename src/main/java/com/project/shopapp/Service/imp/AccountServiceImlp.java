@@ -236,6 +236,7 @@ public class AccountServiceImlp implements AccountService {
         // String encodedPassword = passwordEncoder.encode(password);
         // existingAccount.setPassword(encodedPassword);
         existingAccount.setFullname(account.getFullname());
+        existingAccount.setBirthday(account.getBirthday());
         existingAccount.setEmail(newEmail);
         existingAccount.setAddress(account.getAddress());
         existingAccount.setAvatar_url(account.getAvatar_url());

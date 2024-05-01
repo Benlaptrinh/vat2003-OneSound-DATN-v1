@@ -302,6 +302,9 @@ public class WebSecurityConfig {
                             .requestMatchers(GET,
                                     String.format("%s/users/email/**", apiPrefix))
                             .permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/favoriteAlbum/**", apiPrefix))
+                            .permitAll()
                             .requestMatchers(POST,
                                     String.format("%s/users/**", apiPrefix))
                             .permitAll()
@@ -314,6 +317,18 @@ public class WebSecurityConfig {
                             .permitAll()
                             .requestMatchers(DELETE,
                                     String.format("%s/listen/**", apiPrefix))
+                            .permitAll()
+
+
+
+                            .requestMatchers(POST,
+                                    String.format("%s/statictical/**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(GET,
+                                    String.format("%s/statictical/**", apiPrefix))
+                            .permitAll()
+                            .requestMatchers(DELETE,
+                                    String.format("%s/statictical/**", apiPrefix))
                             .permitAll()
 
                             .anyRequest().authenticated();

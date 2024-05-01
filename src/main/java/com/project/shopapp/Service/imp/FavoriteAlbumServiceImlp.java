@@ -43,7 +43,8 @@ public class FavoriteAlbumServiceImlp implements FavoriteAlbumService {
     @Override
     public FavoriteAlbum getFavoriteAlbumByUserAndAlbum(Long accountId, Long albumId) {
         FavoriteAlbumId FavoriteAlbumId = new FavoriteAlbumId(accountId, albumId);
-        return dao.findById(FavoriteAlbumId).orElse(null);
+        return dao.findByUserIdAndAlbumId(accountId, albumId);
+//        return dao.findById(FavoriteAlbumId).orElse(null);
     }
 
     @Override

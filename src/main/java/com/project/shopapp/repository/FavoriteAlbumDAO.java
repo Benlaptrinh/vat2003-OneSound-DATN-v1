@@ -9,4 +9,6 @@ import com.project.shopapp.entity.FavoriteAlbum;
 
 public interface FavoriteAlbumDAO extends JpaRepository<FavoriteAlbum, FavoriteAlbumId> {
     List<FavoriteAlbum> findByUserId(Long userId);
+
+    FavoriteAlbum findByUserIdAndAlbumId(Long userId, Long albumId);
 }

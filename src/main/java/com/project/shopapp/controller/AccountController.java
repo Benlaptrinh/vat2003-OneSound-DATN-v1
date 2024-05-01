@@ -275,7 +275,6 @@ public class AccountController {
         Account accountToDelete = accountService.getAccountById(id);
         accountService.deleteAccount(accountToDelete.getId());
         return ResponseEntity.ok().build(); // Trả về 200 OK
-
     }
 
     @GetMapping("/{id}")
