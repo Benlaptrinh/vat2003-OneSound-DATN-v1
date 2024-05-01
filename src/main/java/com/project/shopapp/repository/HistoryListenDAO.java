@@ -33,4 +33,9 @@ public interface HistoryListenDAO extends JpaRepository<HistoryListen, Long> {
     @Transactional
     void deleteAllByUserId(Long userId);
 
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM HistoryListen hl WHERE hl.id = :id")
+    void deleteByUserIdAndSongId(@Param("id") Long id);
+
 }
