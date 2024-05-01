@@ -6,12 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="2572b773-f8d1-48be-ae0f-c85eb9c4476a" name="Changes" comment="merge PhuongGenre">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/5150e4cf-1c7e-49da-84d1-b3e702e57171.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5150e4cf-1c7e-49da-84d1-b3e702e57171.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5bfa46ba-ea3e-4b0c-8f59-ed4045f67504.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5bfa46ba-ea3e-4b0c-8f59-ed4045f67504.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/5bfa46ba-ea3e-4b0c-8f59-ed4045f67504.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/9e87ae90-50ea-4004-8eb9-c09e026a5390.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/9e87ae90-50ea-4004-8eb9-c09e026a5390.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/AccountDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/project/shopapp/repository/AccountDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/AccountDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/project/shopapp/repository/AccountDAO.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
