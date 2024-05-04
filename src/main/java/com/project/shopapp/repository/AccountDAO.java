@@ -78,6 +78,7 @@ public interface AccountDAO extends JpaRepository<Account, Long> {
 //    List<Object[]> getCountAccountByYear(@Param("p_year") Integer year);
 
     //    @Query(value = "EXEC get_user_by_year_order_by_month_of_create_date :p_year", nativeQuery = true)
-    @Procedure(name = "get_user_by_year_order_by_month_of_create_date")
+    @Procedure(procedureName = "get_user_by_year_order_by_month_of_create_date")
+//    List<Object[]> GetUserByYearOrderByMonthOfCreateDate(@Param("p_year") Integer year);
     List<Object[]> getCountAccountByYear(@Param("p_year") Integer year);
 }

@@ -146,8 +146,9 @@ public class StaticticalController {
     public List<ReportAccountByYear> getMethodName(@PathVariable("year") Integer year) {
         List<Object[]> reportList = new ArrayList<>();
         List<ReportAccountByYear> rpList = new ArrayList<>();
+//        reportList = accountDAO.GetUserByYearOrderByMonthOfCreateDate(year);
         reportList = accountDAO.getCountAccountByYear(year);
-
+        System.out.println("asas" + reportList);
         for (Object[] obj : reportList) {
             Long count = Long.parseLong(String.valueOf(obj[0])); // Ép kiểu và chuyển đổi sang Long
             Integer month = (Integer) obj[1];
