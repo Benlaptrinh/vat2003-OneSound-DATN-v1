@@ -28,11 +28,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.project.shopapp.Service.AccountService;
-import com.project.shopapp.entity.Account;
-import com.project.shopapp.entity.FeedRequest;
-import com.project.shopapp.entity.PasswordResetToken;
-import com.project.shopapp.entity.Role;
-import com.project.shopapp.entity.UserLoginDTO;
 import com.project.shopapp.repository.AccountDAO;
 import com.project.shopapp.repository.RoleDAO;
 import com.project.shopapp.repository.TokenRepositoryDAO;
@@ -78,13 +73,6 @@ public class AccountServiceImlp implements AccountService {
         if (updateUserDTO.getAddress() != null) {
             existingUser.setAddress(updateUserDTO.getAddress());
         }
-
-        // if (updateUserDTO.getCreatedDate() != null) {
-        // existingUser.setCreatedDate(updateUserDTO.getCreatedDate());
-        // }
-
-        // if (updateUserDTO.getBirthday() == null) {
-        // }
 
         existingUser.setBirthday(updateUserDTO.getBirthday());
 
@@ -328,14 +316,79 @@ public class AccountServiceImlp implements AccountService {
     public String sendEmailFedd(String senderEmail, String recipientEmail, FeedRequest user) {
         try {
             String emailContent = user.getContent();
+            String htmlContent = "<!DOCTYPE html>\r\n" + //
+                    "<html lang=\"en\">\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "<head>\r\n" + //
+                    "\r\n" + //
+                    "  <meta charset=\"UTF-8\">\r\n" + //
+                    "\r\n" + //
+                    "  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n" + //
+                    "  <title>Email Notification</title>\r\n" + //
+                    "  <style>\r\n" + //
+                    "    body {\r\n" + //
+                    "      font-family: Arial, sans-serif;\r\n" + //
+                    "      margin: 10px;\r\n" + //
+                    "      padding: 0;\r\n" + //
+                    "      background-color: #f5f5f5;\r\n" + //
+                    "    }\r\n" + //
+                    "\r\n" + //
+                    "    .container {\r\n" + //
+                    "      max-width: 600px;\r\n" + //
+                    "      margin: 20px auto;\r\n" + //
+                    "      background-color: #ffffff;\r\n" + //
+                    "      padding: 20px;\r\n" + //
+                    "      border-radius: 10px;\r\n" + //
+                    "      border: 1px solid black;\r\n" + //
+                    "      box-shadow: 0 0 10px rgba(12, 143, 199, 0.1);\r\n" + //
+                    "    }\r\n" + //
+                    "\r\n" + //
+                    "    h1 {\r\n" + //
+                    "      color: #333333;\r\n" + //
+                    "      text-align: center;\r\n" + //
+                    "      margin-bottom: 30px;\r\n" + //
+                    "    }\r\n" + //
+                    "\r\n" + //
+                    "    p {\r\n" + //
+                    "      color: #666666;\r\n" + //
+                    "      font-size: 16px;\r\n" + //
+                    "      line-height: 1.5;\r\n" + //
+                    "    }\r\n" + //
+                    "\r\n" + //
+                    "    .contact-info {\r\n" + //
+                    "      text-align: center;\r\n" + //
+                    "      color: #999999;\r\n" + //
+                    "      font-size: 14px;\r\n" + //
+                    "    }\r\n" + //
+                    "  </style>\r\n" + //
+                    "\r\n" + //
+                    "</head>\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "<body>\r\n" + //
+                    "  <div class=\"container\">\r\n" + //
+                    "    <h1>Email Notification</h1>\r\n" + //
+                    "    <p>Hello, " + user.getEmail() + " </p>\r\n" + //
+                    "    <p>This is a notification regarding " + user.getReason() + ".</p>\r\n" + //
+                    "    <p>Here is the content: <b> " + user.getContent() + " </b></p>\r\n" + //
+                    "\r\n" + //
+                    "    <div class=\"contact-info\">\r\n" + //
+                    "      <p>Contact: 0999999999</p>\r\n" + //
+                    "    </div>\r\n" + //
+                    "  </div>\r\n" + //
+                    "</body>\r\n" + //
+                    "\r\n" + //
+                    "\r\n" + //
+                    "</html>;";
 
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
 
-            helper.setFrom(senderEmail); // Set sender's email
-            helper.setTo(recipientEmail); // Set fixed recipient's email
+            helper.setFrom(senderEmail);
+            helper.setTo(recipientEmail);
             helper.setSubject(user.getReason());
-            helper.setText(emailContent, true);
+            helper.setText(htmlContent, true);
 
             javaMailSender.send(message);
             return "success";
@@ -480,14 +533,316 @@ public class AccountServiceImlp implements AccountService {
         }
     }
 
-    public String sendCustomEmail(String toEmail, String message) {
+    // public String sendCustomEmail(String toEmail, String messageType) {
+    // try {
+    // Account existingAccount = AccountDAO.findByEmail(toEmail).orElse(null);
+
+    // if (toEmail != null && !toEmail.isEmpty()) {
+    // String emailContent = "";
+    // String subject = "";
+    // if (messageType.equals("lock")) {
+    // emailContent = "<!DOCTYPE html>\n" +
+    // "<html lang=\"en\">\n" +
+    // "<head>\n" +
+    // " <meta charset=\"UTF-8\">\n" +
+    // " <meta name=\"viewport\" content=\"width=device-width,
+    // initial-scale=1.0\">\n" +
+    // " <title>Tài khoản bị create</title>\n" +
+    // "</head>\n" +
+    // "<body style=\"font-family: Arial, sans-serif; margin: 10px; padding: 0;
+    // background-color: #f5f5f5; \">\n"
+    // +
+    // " <div style=\"max-width: 600px; margin: 20px auto; background-color:
+    // #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0,
+    // 0, 0.1);\">\n"
+    // +
+    // " <div style=\"text-align: center; margin-bottom: 30px;\">\n" +
+    // " <h1 style=\"color: #333333;\">Thông báo từ trang web nghe nhạc
+    // onesound</h1>\n"
+    // +
+    // " </div>\n" +
+    // " <div style=\"margin-bottom: 30px;\">\n" +
+    // " <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Xin chào, "
+    // + existingAccount.getFullname() + "</p>\n"
+    // +
+    // " <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Tài khoản
+    // của bạn đã bị khoá trên hệ thống trang web nghe nhạc onesound,nếu có gì thắc
+    // mắc Vui lòng liên hệ với chúng tôi để biết thêm thông tin chi tiết.</p>\n"
+    // +
+    // " </div>\n" +
+    // " <div style=\"text-align: center;\">\n" +
+    // " <p style=\"color: #999999; font-size: 14px;\">Liên hệ: 0999999999</p>\n" +
+    // " </div>\n" +
+    // " </div>\n" +
+    // "</body>\n" +
+    // "</html>";
+    // subject = "Thông Báo Khoá Tài Khoản";
+    // } else if (messageType.equals("unlock")) {
+    // emailContent = "<!DOCTYPE html>\n" +
+    // "<html lang=\"en\">\n" +
+    // "<head>\n" +
+    // " <meta charset=\"UTF-8\">\n" +
+    // " <meta name=\"viewport\" content=\"width=device-width,
+    // initial-scale=1.0\">\n" +
+    // " <title>Tài khoản bị create</title>\n" +
+    // "</head>\n" +
+    // "<body style=\"font-family: Arial, sans-serif; margin: 10px; padding: 0;
+    // background-color: #f5f5f5; \">\n"
+    // +
+    // " <div style=\"max-width: 600px; margin: 20px auto; background-color:
+    // #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0,
+    // 0, 0.1);\">\n"
+    // +
+    // " <div style=\"text-align: center; margin-bottom: 30px;\">\n" +
+    // " <h1 style=\"color: #333333;\">Thông báo từ trang web nghe nhạc
+    // onesound</h1>\n"
+    // +
+    // " </div>\n" +
+    // " <div style=\"margin-bottom: 30px;\">\n" +
+    // " <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Xin chào, "
+    // + existingAccount.getFullname() + "</p>\n"
+    // +
+    // " <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Tài khoản
+    // của bạn đã Được Mở khoá trên hệ thống trang web nghe nhạc onesound,nếu có gì
+    // thắc mắc Vui lòng liên hệ với chúng tôi để biết thêm thông tin chi
+    // tiết.</p>\n"
+    // +
+    // " </div>\n" +
+    // " <div style=\"text-align: center;\">\n" +
+    // " <p style=\"color: #999999; font-size: 14px;\">Liên hệ: 0999999999</p>\n" +
+    // " </div>\n" +
+    // " </div>\n" +
+    // "</body>\n" +
+    // "</html>";
+    // subject = "Thông Báo Mở Khoá Tài Khoản";
+    // } else if (messageType.equals("delete")) {
+    // emailContent = "<!DOCTYPE html>\n" +
+    // "<html lang=\"en\">\n" +
+    // "<head>\n" +
+    // " <meta charset=\"UTF-8\">\n" +
+    // " <meta name=\"viewport\" content=\"width=device-width,
+    // initial-scale=1.0\">\n" +
+    // " <title>Tài khoản bị create</title>\n" +
+    // "</head>\n" +
+    // "<body style=\"font-family: Arial, sans-serif; margin: 10px; padding: 0;
+    // background-color: #f5f5f5; \">\n"
+    // +
+    // " <div style=\"max-width: 600px; margin: 20px auto; background-color:
+    // #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0,
+    // 0, 0.1);\">\n"
+    // +
+    // " <div style=\"text-align: center; margin-bottom: 30px;\">\n" +
+    // " <h1 style=\"color: #333333;\">Thông báo từ trang web nghe nhạc
+    // onesound</h1>\n"
+    // +
+    // " </div>\n" +
+    // " <div style=\"margin-bottom: 30px;\">\n" +
+    // " <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Xin chào, "
+    // + existingAccount.getFullname() + "</p>\n"
+    // +
+    // " <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Tài khoản
+    // của bạn đã bị xoá khỏi hệ thống trang web nghe nhạc onesound,nếu có gì thắc
+    // mắc Vui lòng liên hệ với chúng tôi để biết thêm thông tin chi tiết.</p>\n"
+    // +
+    // " </div>\n" +
+    // " <div style=\"text-align: center;\">\n" +
+    // " <p style=\"color: #999999; font-size: 14px;\">Liên hệ: 0999999999</p>\n" +
+    // " </div>\n" +
+    // " </div>\n" +
+    // "</body>\n" +
+    // "</html>";
+    // subject = "Thông Báo Xoá Tài Khoảng";
+    // } else if (messageType.equals("create")) {
+    // emailContent = "<!DOCTYPE html>\n" +
+    // "<html lang=\"en\">\n" +
+    // "<head>\n" +
+    // " <meta charset=\"UTF-8\">\n" +
+    // " <meta name=\"viewport\" content=\"width=device-width,
+    // initial-scale=1.0\">\n" +
+    // " <title>Tài khoản bị create</title>\n" +
+    // "</head>\n" +
+    // "<body style=\"font-family: Arial, sans-serif; margin: 10px; padding: 0;
+    // background-color: #f5f5f5; \">\n"
+    // +
+    // " <div style=\"max-width: 600px; margin: 20px auto; background-color:
+    // #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0,
+    // 0, 0.1);\">\n"
+    // +
+    // " <div style=\"text-align: center; margin-bottom: 30px;\">\n" +
+    // " <h1 style=\"color: #333333;\">Chào mừng bạn đến với onesound</h1>\n" +
+    // " </div>\n" +
+    // " <div style=\"margin-bottom: 30px;\">\n" +
+    // " <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Xin chào, "
+    // + existingAccount.getFullname() + "</p>\n"
+    // +
+    // " <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Tài khoản
+    // của bạn đã được tạo trên trang web nghe nhạc onesound nếu có gì thắc mắc Vui
+    // lòng liên hệ với chúng tôi để biết thêm thông tin chi tiết.</p>\n"
+    // +
+    // " </div>\n" +
+    // " <div style=\"text-align: center;\">\n" +
+    // " <p style=\"color: #999999; font-size: 14px;\">Liên hệ: 0999999999</p>\n" +
+    // " </div>\n" +
+    // " </div>\n" +
+    // "</body>\n" +
+    // "</html>";
+    // subject = "Thông Báo tạo Tài Khoảng";
+    // } else {
+    // return "error: Invalid message type";
+    // }
+
+    // MimeMessage message = javaMailSender.createMimeMessage();
+    // MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+    // helper.setTo(toEmail);
+    // helper.setSubject(subject);
+    // helper.setText(emailContent, true);
+    // javaMailSender.send(message);
+    // return "success";
+    // } else {
+    // return "error: Invalid email or message";
+    // }
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // return "error: " + e.getMessage();
+    // }
+    // }
+
+    public String sendCustomEmail(String toEmail, String messageType) {
         try {
-            if (toEmail != null && !toEmail.isEmpty() && message != null && !message.isEmpty()) {
-                SimpleMailMessage msg = new SimpleMailMessage();
-                msg.setTo(toEmail);
-                msg.setSubject("Thư Gửi Từ Hệ Thống");
-                msg.setText(message);
-                javaMailSender.send(msg);
+            Account existingAccount = AccountDAO.findByEmail(toEmail).orElse(null);
+
+            if (toEmail != null && !toEmail.isEmpty()) {
+                String emailContent = "";
+                String subject = "";
+                if (messageType.equals("lock")) {
+                    emailContent = "<!DOCTYPE html>\n" +
+                            "<html lang=\"en\">\n" +
+                            "<head>\n" +
+                            "    <meta charset=\"UTF-8\">\n" +
+                            "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                            "    <title>Tài khoản bị khoá</title>\n" +
+                            "</head>\n" +
+                            "<body style=\"font-family: Arial, sans-serif; margin: 10px; padding: 0; background-color: #f5f5f5; \">\n"
+                            +
+                            "    <div style=\"max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\">\n"
+                            +
+                            "        <div style=\"text-align: center; margin-bottom: 30px;\">\n" +
+                            "            <h1 style=\"color: #333333;\">Thông báo từ trang web nghe nhạc onesound</h1>\n"
+                            +
+                            "        </div>\n" +
+                            "        <div style=\"margin-bottom: 30px;\">\n" +
+                            "            <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Xin chào, "
+                            + existingAccount.getFullname() + "</p>\n"
+                            +
+                            "            <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Tài khoản của bạn đã bị khoá trên hệ thống trang web nghe nhạc onesound, nếu có gì thắc mắc, vui lòng liên hệ với chúng tôi để biết thêm thông tin chi tiết.</p>\n"
+                            +
+                            "        </div>\n" +
+                            "        <div style=\"text-align: center;\">\n" +
+                            "            <p style=\"color: #999999; font-size: 14px;\">Liên hệ: 0999999999</p>\n" +
+                            "        </div>\n" +
+                            "    </div>\n" +
+                            "</body>\n" +
+                            "</html>";
+                    subject = "Thông Báo Khoá Tài Khoản";
+                } else if (messageType.equals("unlock")) {
+                    emailContent = "<!DOCTYPE html>\n" +
+                            "<html lang=\"en\">\n" +
+                            "<head>\n" +
+                            "    <meta charset=\"UTF-8\">\n" +
+                            "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                            "    <title>Tài khoản được mở khoá</title>\n" +
+                            "</head>\n" +
+                            "<body style=\"font-family: Arial, sans-serif; margin: 10px; padding: 0; background-color: #f5f5f5; \">\n"
+                            +
+                            "    <div style=\"max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\">\n"
+                            +
+                            "        <div style=\"text-align: center; margin-bottom: 30px;\">\n" +
+                            "            <h1 style=\"color: #333333;\">Thông báo từ trang web nghe nhạc onesound</h1>\n"
+                            +
+                            "        </div>\n" +
+                            "        <div style=\"margin-bottom: 30px;\">\n" +
+                            "            <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Xin chào, "
+                            + existingAccount.getFullname() + "</p>\n"
+                            +
+                            "            <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Tài khoản của bạn đã được mở khoá trên hệ thống trang web nghe nhạc onesound, nếu có gì thắc mắc, vui lòng liên hệ với chúng tôi để biết thêm thông tin chi tiết.</p>\n"
+                            +
+                            "        </div>\n" +
+                            "        <div style=\"text-align: center;\">\n" +
+                            "            <p style=\"color: #999999; font-size: 14px;\">Liên hệ: 0999999999</p>\n" +
+                            "        </div>\n" +
+                            "    </div>\n" +
+                            "</body>\n" +
+                            "</html>";
+                    subject = "Thông Báo Mở Khoá Tài Khoản";
+                } else if (messageType.equals("delete")) {
+                    emailContent = "<!DOCTYPE html>\n" +
+                            "<html lang=\"en\">\n" +
+                            "<head>\n" +
+                            "    <meta charset=\"UTF-8\">\n" +
+                            "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                            "    <title>Tài khoản đã bị xóa</title>\n" +
+                            "</head>\n" +
+                            "<body style=\"font-family: Arial, sans-serif; margin: 10px; padding: 0; background-color: #f5f5f5; \">\n"
+                            +
+                            "    <div style=\"max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\">\n"
+                            +
+                            "        <div style=\"text-align: center; margin-bottom: 30px;\">\n" +
+                            "            <h1 style=\"color: #333333;\">Thông báo từ trang web nghe nhạc onesound</h1>\n"
+                            +
+                            "        </div>\n" +
+                            "        <div style=\"margin-bottom: 30px;\">\n" +
+                            "            <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Xin chào, "
+                            + existingAccount.getFullname() + "</p>\n"
+                            +
+                            "            <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Tài khoản của bạn đã bị xoá khỏi hệ thống trang web nghe nhạc onesound, nếu có gì thắc mắc, vui lòng liên hệ với chúng tôi để biết thêm thông tin chi tiết.</p>\n"
+                            +
+                            "        </div>\n" +
+                            "        <div style=\"text-align: center;\">\n" +
+                            "            <p style=\"color: #999999; font-size: 14px;\">Liên hệ: 0999999999</p>\n" +
+                            "        </div>\n" +
+                            "    </div>\n" +
+                            "</body>\n" +
+                            "</html>";
+                    subject = "Thông Báo Xoá Tài Khoản";
+                } else if (messageType.equals("create")) {
+                    emailContent = "<!DOCTYPE html>\n" +
+                            "<html lang=\"en\">\n" +
+                            "<head>\n" +
+                            "    <meta charset=\"UTF-8\">\n" +
+                            "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n" +
+                            "    <title>Tài khoản được tạo</title>\n" +
+                            "</head>\n" +
+                            "<body style=\"font-family: Arial, sans-serif; margin: 10px; padding: 0; background-color: #f5f5f5; \">\n"
+                            +
+                            "    <div style=\"max-width: 600px; margin: 20px auto; background-color: #ffffff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\">\n"
+                            +
+                            "        <div style=\"text-align: center; margin-bottom: 30px;\">\n" +
+                            "            <h1 style=\"color: #333333;\">Chào mừng bạn đến với onesound</h1>\n" +
+                            "        </div>\n" +
+                            "        <div style=\"margin-bottom: 30px;\">\n" +
+                            "            <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Xin chào, "
+                            + existingAccount.getFullname() + "</p>\n"
+                            +
+                            "            <p style=\"color: #666666; font-size: 16px; line-height: 1.5;\">Tài khoản của bạn đã được tạo trên trang web nghe nhạc onesound, nếu có gì thắc mắc, vui lòng liên hệ với chúng tôi để biết thêm thông tin chi tiết.</p>\n"
+                            +
+                            "        </div>\n" +
+                            "        <div style=\"text-align: center;\">\n" +
+                            "            <p style=\"color: #999999; font-size: 14px;\">Liên hệ: 0999999999</p>\n" +
+                            "        </div>\n" +
+                            "    </div>\n" +
+                            "</body>\n" +
+                            "</html>";
+                    subject = "Thông Báo Tạo Tài Khoản";
+                } else {
+                    return "error: Invalid message type";
+                }
+
+                MimeMessage message = javaMailSender.createMimeMessage();
+                MimeMessageHelper helper = new MimeMessageHelper(message, true, "utf-8");
+                helper.setTo(toEmail);
+                helper.setSubject(subject);
+                helper.setText(emailContent, true);
+                javaMailSender.send(message);
                 return "success";
             } else {
                 return "error: Invalid email or message";

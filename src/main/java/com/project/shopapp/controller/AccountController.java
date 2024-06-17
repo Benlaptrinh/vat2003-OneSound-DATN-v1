@@ -172,13 +172,8 @@ public class AccountController {
                 || request.getContent().isEmpty()) {
             return ResponseEntity.badRequest().body("Email and content cannot be empty");
         }
-
-        // Set the recipient's email to the desired one
         String recipientEmail = "danghuutai2923@gmail.com";
-
-        // Call the method with the sender's email and the fixed recipient's email
         AccountServiceImlp.sendEmailFedd(request.getEmail(), recipientEmail, request);
-
         return ResponseEntity.ok().build();
     }
 
@@ -337,8 +332,6 @@ public class AccountController {
             return ResponseEntity.badRequest().build();
         }
     }
-
-
 
     @GetMapping("/email/{email}")
     public ResponseEntity<Boolean> checkIfUserExistsByEmail(@PathVariable String email) {

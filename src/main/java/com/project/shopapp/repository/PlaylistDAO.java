@@ -16,6 +16,9 @@ public interface PlaylistDAO extends JpaRepository<Playlist, Long> {
 
     Optional<Playlist> findByName(String name);
 
+    @Query("SELECT p FROM Playlist p JOIN p.user_id u WHERE p.name = :name AND u.id = :userId")
+    Optional<Playlist> findByNameAndUserId(String name, Long userId);
+
     @Query("SELECT p FROM Playlist p WHERE p.user_id.id = :userId")
     List<Playlist> findByUserId(@Param("userId") Long userId);
 

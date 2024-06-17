@@ -107,18 +107,6 @@ public class Account implements UserDetails {
 	@OneToMany(mappedBy = "following")
 	List<FollowUser> following;
 
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "user")
-//	List<HistoryListen> historyListen;
-
-	// @Override
-	// public Collection<? extends GrantedAuthority> getAuthorities() {
-	// List<SimpleGrantedAuthority> roles = new ArrayList<>();
-	// roles.add(new SimpleGrantedAuthority("ROLE_" +
-	// getAccountRole().getName().toUpperCase()));
-	// return roles;
-	// }
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		List<SimpleGrantedAuthority> roles = new ArrayList<>();

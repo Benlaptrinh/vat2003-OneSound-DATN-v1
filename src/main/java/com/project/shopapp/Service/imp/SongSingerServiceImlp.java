@@ -18,6 +18,7 @@ import com.project.shopapp.repository.SongSingerDAO;
 import com.project.shopapp.repository.SingerDAO;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class SongSingerServiceImlp implements SongSingerService {
@@ -41,8 +42,6 @@ public class SongSingerServiceImlp implements SongSingerService {
         return SongSingerDao.findAll();
     }
 
-   
-
     @Override
     public void removeSongSinger(Long SongId) {
 
@@ -55,21 +54,22 @@ public class SongSingerServiceImlp implements SongSingerService {
     }
 
     @Override
-    public void deleteBySongId(Long SongId) {
-        SongSingerDao.deleteBySongId(SongId);
+    @Transactional
+    public void deleteBySongId(Long songId) {
+        SongSingerDao.deleteBySongId(songId);
     }
 
-	@Override
-	public SongSinger createSongSinger(SongSingerId songSingerId) {
-		SongSinger ss = new SongSinger();
-		
-		Song s = songdao.findById(songSingerId.getSongId()).get();
-		Singer singer = singerdao.findById(songSingerId.getSingerId()).get();
-		
-		ss.setId(songSingerId);
-		ss.setSinger(singer);
-		ss.setSong(s);
-		return SongSingerDao.save(ss);
-	}
+    @Override
+    public SongSinger createSongSinger(SongSingerId songSingerId) {
+        SongSinger ss = new SongSinger();
+
+        Song s = songdao.findById(songSingerId.getSongId()).get();
+        Singer singer = singerdao.findById(songSingerId.getSingerId()).get();
+
+        ss.setId(songSingerId);
+        ss.setSinger(singer);
+        ss.setSong(s);
+        return SongSingerDao.save(ss);
+    }
 
 }

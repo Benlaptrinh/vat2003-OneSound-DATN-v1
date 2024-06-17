@@ -40,9 +40,10 @@ public class PlaylistController {
         return PlaylistService.getAllPlaylist();
     }
 
-    @GetMapping("/Playlist/{name}")
-    public Optional<Playlist> getAllSingers1(@PathVariable String name) {
-        return PlaylistService.findByName(name);
+    @GetMapping("/Playlist/{name}/{id}")
+    public Optional<Playlist> getAllSingers1(@PathVariable String name,
+            @PathVariable Long id) {
+        return PlaylistService.findByNameAnUser(name, id);
     }
 
     @GetMapping("/Playlist/id/{id}")

@@ -10,6 +10,7 @@ com\project\shopapp\composite\PlaylistSongId.class
 com\project\shopapp\Service\AlbumService.class
 com\project\shopapp\entity\AuthProvider.class
 com\project\shopapp\repository\HistoryListenDAO.class
+com\project\shopapp\entity\PaypalPaymentMethod.class
 com\project\shopapp\entity\UserIdDTO.class
 com\project\shopapp\repository\FollowDAO.class
 com\project\shopapp\security\JwtTokenUtil.class
@@ -64,6 +65,7 @@ com\project\shopapp\Service\Songservice.class
 com\project\shopapp\dto\JWTLogin.class
 com\project\shopapp\entity\UserLoginDTO.class
 com\project\shopapp\dto\TokenDTO.class
+com\project\shopapp\entity\PaypalPaymentIntent.class
 com\project\shopapp\composite\FavoriteSongId.class
 com\project\shopapp\utils\localizationUtils.class
 com\project\shopapp\repository\AuthorDAO.class
@@ -126,6 +128,7 @@ com\project\shopapp\entity\CommentSong.class
 com\project\shopapp\dto\LoginResponse.class
 com\project\shopapp\composite\FavoriteSingerId.class
 com\project\shopapp\Service\imp\SongAuthorServiceImlp.class
+com\project\shopapp\utils\URLUtils.class
 com\project\shopapp\entity\FavoriteYoutube.class
 com\project\shopapp\Service\FavoriteAlbumService.class
 com\project\shopapp\Service\imp\SongGenreServiceImlp.class

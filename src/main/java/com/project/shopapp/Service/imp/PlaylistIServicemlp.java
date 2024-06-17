@@ -65,4 +65,10 @@ public class PlaylistIServicemlp implements PlaylistService {
         return dao.findById(id);
     }
 
+    @Override
+    public Optional<Playlist> findByNameAnUser(String name, Long id) {
+        return dao.findByNameAndUserId(name, id);
+
+    }
+
 }

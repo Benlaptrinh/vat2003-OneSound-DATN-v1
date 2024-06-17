@@ -1,27 +1,32 @@
-version: "3"
+version: "3.8"
+
 services:
-  springboot-app:
-    image: springboot-app
-    build: .
-    ports:
-      - 8080:8080
+
+  mysql:
+    image: mysql:latest
+    restart: "no"
     environment:
-      MSSQL_HOST: sqlserver
-      MSSQL_USER: sa
-      MSSQL_PASSWORD: voanhtai111
-      MSSQL_DATABASE: OneSound090424
-      MSSQL_PORT: 1433
-  sqlserver:
-    container_name: sqlserver
-    image: mcr.microsoft.com/mssql/server:2019-latest
+      MYSQL_DATABASE: onesound
+      MYSQL_ROOT_PASSWORD: 123456789
+      MYSQL_USER: root1 # thêm user mới
+      MYSQL_PASSWORD: 123456789
     volumes:
-#      - /home/user/Desktop/db:/var/opt/mssql/data
-      - ./data:/var/opt/mssql/data
-      - ./log:/var/opt/mssql/log
-      - ./secrets:/var/opt/mssql/secrets
+      - mysql-data:/var/lib/mysql
     ports:
-      - 1433:1433
+      - 3307:3306
+
+  spring-boot-app:
+    image: onesoundimageviet # thay thế bằng tên image của bạn
+    restart: "no"
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080 # thay thế bằng port của ứng dụng
     environment:
-      SA_PASSWORD: voanhtai111
-      ACCEPT_EULA: "Y"
-      MSSQL_PID: Developer
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/onesound
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123456789
+      # Thêm các biến môi trường khác cho ứng dụng Spring Boot nếu cần
+
+volumes:
+  mysql-data:
